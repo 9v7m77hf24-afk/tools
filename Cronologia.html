@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}</style>
+<title>Cronologia</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#12141c;
+  --surface:#191c26;
+  --surface-2:#20242f;
+  --surface-3:#282c39;
+  --border:#2a2e3b;
+  --text:#ecedf2;
+  --text-muted:#8d92a6;
+  --text-faint:#5b5f72;
+  --spine:#3a3f4d;
+  --danger:#e8756a;
+
+  --c-church:#a78bfa;
+  --c-bio:#4fc3d9;
+  --c-clima:#7ed17e;
+  --c-cultura:#e8b25c;
+  --c-politics:#94a3b8;
+  --c-economia:#e0678a;
+  --c-portugal:#c0524a;
+  --c-none:#6b7280;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height:100vh;
+  overscroll-behavior-y:none;
+}
+
+.app{
+  max-width:720px;
+  margin:0 auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+@media (min-width: 700px){
+  .app{ max-width:1100px; }
+  .modal{ max-width:640px; }
+  .search-wrap{ padding-left:60px; padding-right:60px; }
+  .chip-rail{ padding-left:60px; padding-right:60px; }
+  .list-wrap{ padding-left:60px; padding-right:60px; }
+  .tools{ padding-left:60px; padding-right:60px; }
+}
+
+/* SEARCH / CONTROLS */
+
+.top-fixed{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+}
+.search-wrap{
+  padding: calc(14px + var(--safe-top)) 20px 10px 20px;
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+}
+.search-box:focus-within{ border-color:var(--text-muted); }
+.search-box svg{ flex-shrink:0; opacity:.55; }
+.search-box input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-size:15.5px;
+  font-family:'Inter', sans-serif;
+}
+.search-box input::placeholder{ color:var(--text-faint); }
+.clear-btn{
+  background:none; border:none; color:var(--text-faint);
+  font-size:18px; cursor:pointer; padding:0 2px; line-height:1;
+  display:none;
+}
+
+/* CHIPS */
+.chip-rail{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:0 20px 12px 20px;
+  scrollbar-width:none;
+}
+.chip-rail::-webkit-scrollbar{ display:none; }
+.chip{
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 12px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text-muted);
+  font-family:'Inter', sans-serif;
+  font-size:12.5px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:opacity .15s ease;
+}
+.chip .dot{
+  width:8px; height:8px; border-radius:50%;
+  background:var(--chip-color, var(--text-faint));
+  flex-shrink:0;
+}
+.chip.off{ opacity:.35; }
+.chip.active-style{
+  border-color:var(--chip-color, var(--border));
+  color:var(--text);
+}
+
+/* LIST */
+.list-wrap{
+  flex:1;
+  padding: 8px 20px calc(100px + var(--safe-bottom)) 20px;
+  position:relative;
+}
+.era-divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:12px 0;
+  padding:10px 14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  cursor:pointer;
+  transition:margin .15s ease;
+  user-select:none;
+}
+.era-divider .era-name{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--text);
+  flex:1;
+}
+.era-divider .era-count{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px;
+  color:var(--text-faint);
+}
+.era-divider .chevron{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text-muted);
+  transition:transform .2s ease;
+  flex-shrink:0;
+}
+.era-divider.collapsed .chevron{ transform:rotate(-90deg); }
+.era-divider .note-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:none;
+  border:none;
+  padding:4px;
+  color:var(--text-faint);
+  cursor:pointer;
+  flex-shrink:0;
+}
+.era-divider .note-btn.has-comment{ color:var(--text); }
+.era-divider .note-btn.has-comment svg{ fill:var(--text-faint); }
+.era-comment-box{
+  margin:-8px 0 12px 0;
+  padding:12px 14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-top:none;
+  border-radius:0 0 12px 12px;
+}
+.era-comment-box textarea{
+  width:100%;
+  min-height:60px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px 10px;
+  color:var(--text);
+  font-size:13px;
+  font-family:'Inter', sans-serif;
+  resize:vertical;
+  outline:none;
+}
+.era-comment-box textarea:focus{ border-color:var(--text-muted); }
+
+.table-header{
+  display:grid;
+  grid-template-columns: 40px 96px 1fr;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+  border-top:1px solid var(--border);
+}
+.table-header div{
+  padding:8px 8px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  color:var(--text-faint);
+  font-weight:600;
+}
+.table-header div:nth-child(2){ text-align:right; }
+
+.timeline{ width:100%; }
+.entry{
+  display:grid;
+  grid-template-columns: 40px 96px 1fr;
+  align-items:stretch;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+}
+.entry:active{ background:var(--surface); }
+.cell-cat{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:8px 2px;
+}
+.cell-cat .cat-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.cell-cat .cat-dot.none{
+  background:none;
+  border:1.5px dashed var(--text-faint);
+}
+.cell-ano{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11.5px;
+  color:var(--text-muted);
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-end;
+  text-align:right;
+  padding:8px 8px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cell-ano sup{
+  font-size:0.85em;
+  position:relative;
+  top:-0.5em;
+  margin-left:0.5px;
+}
+.cell-main{
+  padding:8px 10px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:2px;
+  min-width:0;
+}
+.evento{
+  font-size:14px;
+  font-weight:600;
+  color:var(--text);
+  line-height:1.32;
+  white-space:pre-line;
+}
+.descricao{
+  font-size:12px;
+  color:var(--text-muted);
+  line-height:1.35;
+  white-space:pre-line;
+}
+.empty-state{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--text-faint);
+}
+.empty-state p{ font-family:'Fraunces', serif; font-size:16px; margin-top:10px;}
+
+/* RECENT PANEL */
+.recent-panel{
+  margin:0 20px 14px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px 16px;
+}
+@media (min-width: 700px){ .recent-panel{ margin-left:60px; margin-right:60px; } }
+.recent-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  gap:10px;
+}
+.recent-header .rh-title{
+  font-family:'Fraunces', serif;
+  font-size:14px;
+  color:var(--text);
+  font-weight:600;
+}
+.recent-n-control{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10.5px;
+  color:var(--text-faint);
+  white-space:nowrap;
+}
+.recent-n-control input{
+  width:40px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text);
+  padding:4px 4px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  text-align:center;
+}
+.recent-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+  cursor:pointer;
+}
+.recent-item:last-child{ border-bottom:none; }
+.recent-item .rw{ font-weight:600; color:var(--text); }
+.recent-item .ra{ font-family:'IBM Plex Mono', monospace; color:var(--text-faint); font-size:11.5px; flex-shrink:0; }
+.recent-item .ra sup{ font-size:0.85em; position:relative; top:-0.5em; }
+
+/* FAB */
+.fab-stack{
+  position:fixed;
+  bottom:calc(24px + var(--safe-bottom));
+  right:24px;
+  display:flex;
+  flex-direction:column-reverse;
+  align-items:center;
+  gap:12px;
+  z-index:25;
+}
+.fab{
+  width:56px; height:56px;
+  border-radius:50%;
+  background:#e8b25c;
+  color:#12141c;
+  border:none;
+  font-size:26px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.4);
+  cursor:pointer;
+  transition:transform .15s ease;
+}
+.fab:active{ transform:scale(0.92); }
+.fab-mini{
+  width:42px; height:42px;
+  border-radius:50%;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--text);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.fab-mini:active{ background:var(--surface-3); transform:scale(0.9); }
+
+/* FOOTER TOOLS */
+.tools{
+  max-width:720px;
+  margin:0 auto;
+  padding:16px 20px calc(24px + var(--safe-bottom)) 20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  border-top:1px solid var(--border);
+  width:100%;
+}
+.tool-btn{
+  flex:1;
+  min-width:100px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--text-muted);
+  font-family:'Inter', sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+  padding:10px 8px;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:center;
+}
+.tool-btn:active{ background:var(--surface-3); }
+input[type=file]{ display:none; }
+.sync-dot{
+  display:inline-block;
+  width:7px; height:7px;
+  border-radius:50%;
+  background:var(--text-faint);
+  margin-left:4px;
+  vertical-align:middle;
+}
+.sync-dot.ok{ background:#3fb950; }
+.sync-dot.busy{ background:#d4a72c; }
+.sync-dot.err{ background:#e5534b; }
+.field small{
+  display:block;
+  margin-top:6px;
+  color:var(--text-faint);
+  font-size:11px;
+  line-height:1.4;
+}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed; inset:0;
+  background:rgba(8,9,13,.65);
+  backdrop-filter:blur(3px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+}
+.modal-overlay.open{ display:flex; }
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px 20px 0 0;
+  width:100%;
+  max-width:720px;
+  padding:22px 20px calc(22px + var(--safe-bottom)) 20px;
+  max-height:88vh;
+  overflow-y:auto;
+  animation:slideUp .25s ease;
+}
+@keyframes slideUp{ from{ transform:translateY(30px); opacity:0;} to{ transform:translateY(0); opacity:1;} }
+.modal h2{
+  font-family:'Fraunces', serif;
+  font-size:19px;
+  margin:0 0 16px 0;
+}
+.field{ margin-bottom:14px; }
+.field label{
+  display:block;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  color:var(--text-faint);
+  margin-bottom:6px;
+}
+.field input, .field select, .field textarea{
+  width:100%;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px 12px;
+  color:var(--text);
+  font-size:15.5px;
+  font-family:'Inter', sans-serif;
+  outline:none;
+}
+.field textarea{ min-height:70px; resize:vertical; }
+.field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--text-muted); }
+.field-row{ display:flex; gap:10px; }
+.field-row .field{ flex:1; }
+.cat-multi-picker{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.cat-multi-picker .pick-chip{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 12px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text-muted);
+  font-family:'Inter', sans-serif;
+  font-size:12.5px;
+  font-weight:600;
+  cursor:pointer;
+}
+.cat-multi-picker .pick-chip .dot{
+  width:8px; height:8px; border-radius:50%;
+  background:var(--chip-color, var(--text-faint));
+  flex-shrink:0;
+}
+.cat-multi-picker .pick-chip.selected{
+  border-color:var(--chip-color, var(--border));
+  color:var(--text);
+  background:color-mix(in srgb, var(--chip-color, var(--text-muted)) 16%, var(--surface-2));
+}
+.new-cat-row{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+.new-cat-row input{
+  flex:1;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:9px 11px;
+  color:var(--text);
+  font-size:14px;
+  font-family:'Inter', sans-serif;
+  outline:none;
+}
+.new-cat-row .btn{
+  flex:0 0 auto;
+  padding:9px 16px;
+  font-size:13px;
+}
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+.btn{
+  flex:1;
+  padding:13px;
+  border-radius:12px;
+  border:none;
+  font-family:'Inter', sans-serif;
+  font-weight:600;
+  font-size:14.5px;
+  cursor:pointer;
+}
+.btn-primary{ background:#e8b25c; color:#12141c; }
+.btn-secondary{ background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+.btn-danger{ background:none; color:var(--danger); border:1px solid color-mix(in srgb, var(--danger) 40%, transparent); }
+.toast{
+  position:fixed;
+  bottom:calc(24px + var(--safe-bottom));
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--surface-3);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px 18px;
+  border-radius:30px;
+  font-size:13px;
+  z-index:200;
+  opacity:0;
+  transition:all .3s ease;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="top-fixed">
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Procurar evento, ano, categoria…" autocapitalize="off" autocorrect="off" spellcheck="false">
+        <button class="clear-btn" id="clearSearch">✕</button>
+      </div>
+    </div>
+
+    <div class="chip-rail" id="chipRail"></div>
+  </div>
+
+  <div class="recent-panel" id="recentPanel" style="display:none;">
+    <div class="recent-header">
+      <span class="rh-title">Últimos adicionados</span>
+      <div class="recent-n-control">
+        <span>mostrar</span>
+        <input type="number" id="recentN" min="1" max="50" value="5">
+      </div>
+    </div>
+    <div class="recent-list" id="recentList"></div>
+  </div>
+
+  <main class="list-wrap" id="listWrap"></main>
+
+  <div class="fab-stack">
+    <button class="fab" id="fabAdd" aria-label="Adicionar evento">+</button>
+    <button class="fab-mini" id="fabBottom" aria-label="Ir para o fim">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <button class="fab-mini" id="fabTop" aria-label="Ir para o início">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+  </div>
+
+  <div class="tools">
+    <button class="tool-btn" id="exportBtn">Exportar</button>
+    <button class="tool-btn" id="importBtn">Importar</button>
+    <button class="tool-btn" id="syncBtn">Sincronizar <span id="syncDot" class="sync-dot"></span></button>
+    <button class="tool-btn" id="syncSettingsBtn">GitHub ⚙</button>
+  </div>
+  <input type="file" id="importFile" accept="application/json">
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">Novo evento</h2>
+    <div class="field">
+      <label>Ano</label>
+      <input type="text" id="fieldAno" placeholder="ex: 1492, 7000 a.C., Séc. XIII" autocapitalize="off" autocorrect="off">
+    </div>
+    <div class="field">
+      <label>Categorias (toca para selecionar, podes escolher várias)</label>
+      <div class="cat-multi-picker" id="catMultiPicker"></div>
+      <div class="new-cat-row">
+        <input type="text" id="fieldNewCat" placeholder="Nova categoria…">
+        <button type="button" id="addNewCatBtn" class="btn btn-secondary">Adicionar</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Evento (*texto* para itálico)</label>
+      <textarea id="fieldEvento" autocapitalize="off" spellcheck="true"></textarea>
+    </div>
+    <div class="field">
+      <label>Descrição (opcional, *texto* para itálico)</label>
+      <textarea id="fieldDescricao" autocapitalize="off" spellcheck="true"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+      <button class="btn btn-primary" id="saveBtn">Guardar</button>
+    </div>
+    <div class="modal-actions" id="deleteRow" style="display:none;">
+      <button class="btn btn-danger" id="deleteBtn">Eliminar este evento</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="syncModalOverlay">
+  <div class="modal">
+    <h2>Sincronização GitHub</h2>
+    <div class="field">
+      <label>Repositório (owner/repo)</label>
+      <input type="text" id="ghRepo" placeholder="ex: dianaXX/cronologia-data" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Branch</label>
+      <input type="text" id="ghBranch" placeholder="main" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Caminho do ficheiro</label>
+      <input type="text" id="ghPath" placeholder="cronologia-data.json" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Personal Access Token</label>
+      <input type="password" id="ghToken" placeholder="github_pat_..." autocapitalize="off" autocorrect="off" spellcheck="false">
+      <small>Guardado apenas neste dispositivo (localStorage), nunca enviado a não ser para o GitHub. Usa um token com scope "repo", limitado se possível a este repositório.</small>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="syncSettingsCancel">Cancelar</button>
+      <button class="btn btn-primary" id="syncSettingsSave">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script id="seed-data" type="application/json">[]</script>
+<script>
+(function(){
+  "use strict";
+
+  const SEED = JSON.parse(document.getElementById('seed-data').textContent);
+  const STORAGE_KEY = 'timeline_data_v1';
+  const RECENT_KEY_LS = 'timeline_recent_n';
+
+  // --- GitHub sync config (stored locally on this device only) ---
+  let ghRepo   = localStorage.getItem('cronologia_gh_repo')   || '';
+  let ghBranch = localStorage.getItem('cronologia_gh_branch') || 'main';
+  let ghPath   = localStorage.getItem('cronologia_gh_path')   || 'cronologia-data.json';
+  let ghToken  = localStorage.getItem('cronologia_gh_token')  || '';
+  let ghSha    = null; // sha of the last-known remote file version, needed to push updates
+
+  const CATEGORY_ORDER = ['Church','Bio','Clima','Cultura','Politics','Economia','Portugal'];
+  const CATEGORY_COLOR_VAR = {
+    'Church':'--c-church','Bio':'--c-bio','Clima':'--c-clima','Cultura':'--c-cultura',
+    'Politics':'--c-politics','Economia':'--c-economia','Portugal':'--c-portugal'
+  };
+  const FALLBACK_PALETTE = ['#d98953','#8da3ff','#5fd9c4','#f2a0c4','#b0c96f'];
+
+  function catColorVar(cat){
+    if(CATEGORY_COLOR_VAR[cat]) return `var(${CATEGORY_COLOR_VAR[cat]})`;
+    if(!cat) return 'var(--c-none)';
+    // stable fallback color for custom categories, hashed by name
+    let hash = 0;
+    for(let i=0;i<cat.length;i++) hash = (hash*31 + cat.charCodeAt(i)) >>> 0;
+    return FALLBACK_PALETTE[hash % FALLBACK_PALETTE.length];
+  }
+
+  // Migrates entries from the old single "categoria" string field to the new
+  // "categorias" array field, so older imports/backups keep working seamlessly.
+  function migrateCategorias(entryList){
+    entryList.forEach(e=>{
+      if(!Array.isArray(e.categorias)){
+        e.categorias = e.categoria ? [e.categoria] : [];
+      }
+      delete e.categoria;
+    });
+    return entryList;
+  }
+
+  let entries = null;
+  let searchTerm = '';
+  let activeCategories = null; // null = all active
+  let editingId = null;
+  let recentN = 5;
+  let collapsedEras = loadCollapsedEras();
+  let eraComments = loadEraComments();
+  let openCommentEra = null;
+
+  function stripDiacritics(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function normalize(s){ return stripDiacritics(s).toLowerCase(); }
+
+  const roman = {I:1,V:5,X:10,L:50,C:100,D:500,M:1000};
+  function romanToInt(str){
+    let total = 0, prev = 0;
+    for(let i=str.length-1;i>=0;i--){
+      const val = roman[str[i].toUpperCase()] || 0;
+      if(val < prev) total -= val; else { total += val; prev = val; }
+    }
+    return total;
+  }
+
+  function parseSortYear(raw, prevYear){
+    const s = (raw||'').trim();
+    if(!s) return prevYear;
+    const sClean = s.replace(/~/g,'').trim();
+    let m;
+    m = sClean.match(/^([\d.]+)x10\^(\d+)$/);
+    if(m) return -(parseFloat(m[1]) * Math.pow(10, parseInt(m[2],10)));
+    m = sClean.match(/^(\d{1,3}(?:\.\d{3})+)\s*$/);
+    if(m) return -parseInt(m[1].replace(/\./g,''),10);
+    m = sClean.match(/^S[ée]c\.?\s*([IVXLCDM]+)\s*(a\.?C\.?)?$/i);
+    if(m){
+      const mid = (romanToInt(m[1])-1)*100+50;
+      return m[2] ? -mid : mid;
+    }
+    m = sClean.match(/^(\d+)\s*[\/-]/);
+    if(m){
+      const first = parseInt(m[1],10);
+      return /a\.?c/i.test(sClean) ? -first : first;
+    }
+    m = sClean.match(/^(\d+)\s*a\.?C\.?$/i);
+    if(m) return -parseInt(m[1],10);
+    m = sClean.match(/^(\d+)\s*$/);
+    if(m) return parseInt(m[1],10);
+    return prevYear;
+  }
+
+  // The main era scheme, as numeric sortYear boundaries. This is what makes
+  // era classification self-healing: rather than relying on whichever entry
+  // happens to currently carry the era label, every add/edit/import fully
+  // recomputes which entry should anchor each era, based on real date ranges.
+  const ERA_BOUNDARIES = [
+    ['Paleolítico',            -3300000, -10000],
+    ['Neolítico',                -10000,  -3300],
+    ['Antiguidade Inicial',       -3300,   -800],
+    ['Antiguidade Clássica',       -800,    250],
+    ['Antiguidade Tardia',          250,    476],
+    ['Idade Média',                 476,   1453],
+    ['Idade Moderna',              1453,   1789],
+    ['Idade Contemporânea',        1789,   Infinity],
+  ];
+  const ERA_BOUNDARY_NAMES = new Set(ERA_BOUNDARIES.map(b => b[0]));
+
+  // Specific deep-time (pre-Paleolítico) events that get their own labels,
+  // since they predate the boundary scheme above and aren't handled by it.
+  const DEEP_TIME_ERA_BY_EVENT = {
+    'Big Bang': 'Era Cósmica',
+    'Organismos': 'Pré-Câmbrico',
+    'Extinção dos dinossauros': 'Cenozoico',
+  };
+  const DEEP_TIME_ERA_NAMES = new Set(Object.values(DEEP_TIME_ERA_BY_EVENT));
+
+  function eraForSortYear(sy){
+    for(const [name, start, end] of ERA_BOUNDARIES){
+      if(sy >= start && sy < end) return name;
+    }
+    return null;
+  }
+
+  // Recomputes which single entry anchors each era's divider, from scratch,
+  // across the full (sorted) dataset. Safe to call after any add, edit,
+  // delete, or import — it only ever touches era labels that belong to this
+  // known scheme, leaving any custom/manual era text on other entries alone.
+  function reanchorEras(){
+    const sorted = entries.slice().sort((a,b) => a.sortYear - b.sortYear);
+    // clear only the labels this function owns
+    sorted.forEach(e=>{
+      if(ERA_BOUNDARY_NAMES.has(e.era) || DEEP_TIME_ERA_NAMES.has(e.era)) e.era = '';
+    });
+    let lastEra = null;
+    sorted.forEach(e=>{
+      const deepTime = DEEP_TIME_ERA_BY_EVENT[e.evento];
+      const era = deepTime || eraForSortYear(e.sortYear);
+      if(era && era !== lastEra){
+        e.era = era;
+        lastEra = era;
+      } else if(era){
+        lastEra = era;
+      }
+    });
+  }
+
+  function loadData(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) return migrateCategorias(JSON.parse(raw));
+    }catch(e){}
+    return migrateCategorias(JSON.parse(JSON.stringify(SEED)));
+  }
+  function persist(suppressPush){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+    catch(e){ showToast('Não foi possível guardar'); }
+    if(!suppressPush) schedulePush();
+  }
+
+  // --- GitHub sync ---
+  function ghConfigured(){ return !!(ghRepo && ghToken); }
+  function ghUrl(){ return 'https://api.github.com/repos/' + ghRepo + '/contents/' + ghPath.replace(/^\/+/, ''); }
+  function ghHeaders(){
+    return {
+      'Authorization': 'token ' + ghToken,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    };
+  }
+  function b64EncodeUnicode(str){
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary);
+  }
+  function b64DecodeUnicode(b64){
+    const binary = atob(b64.replace(/\n/g, ''));
+    const bytes = new Uint8Array(binary.length);
+    for(let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+  function setSyncStatus(state){
+    const dot = document.getElementById('syncDot');
+    if(dot) dot.className = 'sync-dot ' + (state || '');
+  }
+
+  async function ghGetFile(){
+    const url = ghUrl() + (ghBranch ? '?ref=' + encodeURIComponent(ghBranch) : '');
+    const res = await fetch(url, { headers: ghHeaders() });
+    if(res.status === 404) return null; // file doesn't exist yet — first push will create it
+    if(!res.ok) throw new Error('GitHub GET failed: ' + res.status);
+    const json = await res.json();
+    ghSha = json.sha;
+    return JSON.parse(b64DecodeUnicode(json.content));
+  }
+
+  // Mirrors the existing import handler: accepts either the newer
+  // {entries, eraComments} payload or a bare array, and fully replaces
+  // local data — same "whole file" semantics as manual import/export.
+  function mergeRemoteIntoLocal(remote){
+    let importedEntries, importedComments;
+    if(Array.isArray(remote)){
+      importedEntries = remote;
+      importedComments = {};
+    } else if(remote && Array.isArray(remote.entries)){
+      importedEntries = remote.entries;
+      importedComments = remote.eraComments || {};
+    } else {
+      return;
+    }
+    entries = migrateCategorias(importedEntries);
+    eraComments = importedComments;
+    activeCategories = null;
+    openCommentEra = null;
+    reanchorEras();
+    persist(true); // suppress auto-push — we just pulled, nothing new to send yet
+    saveEraComments();
+    renderAll();
+  }
+
+  async function pullMerge(){
+    const remote = await ghGetFile();
+    if(remote) mergeRemoteIntoLocal(remote);
+  }
+
+  async function doPush(isRetry){
+    const payload = { entries, eraComments };
+    const jsonStr = JSON.stringify(payload, null, 2);
+    const body = {
+      message: 'Cronologia sync ' + new Date().toISOString(),
+      content: b64EncodeUnicode(jsonStr),
+      branch: ghBranch
+    };
+    if(ghSha) body.sha = ghSha;
+    const res = await fetch(ghUrl(), { method:'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
+    if(res.status === 409 && !isRetry){
+      // Remote changed since our last known sha — pull the latest, merge, and retry once
+      await pullMerge();
+      return doPush(true);
+    }
+    if(!res.ok) throw new Error('GitHub PUT failed: ' + res.status);
+    const json = await res.json();
+    ghSha = json.content.sha;
+  }
+
+  async function syncPush(){
+    if(!ghConfigured()) return;
+    setSyncStatus('busy');
+    try{ await doPush(); setSyncStatus('ok'); }
+    catch(err){ setSyncStatus('err'); }
+  }
+
+  let pushTimer = null;
+  function schedulePush(){
+    if(!ghConfigured()) return;
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(syncPush, 1500);
+  }
+
+  async function fullSync(){
+    if(!ghConfigured()){ showToast('Configura o GitHub primeiro (botão ⚙)'); return; }
+    setSyncStatus('busy');
+    try{
+      await pullMerge();
+      await doPush();
+      setSyncStatus('ok');
+      showToast('Sincronizado com o GitHub');
+    }catch(err){
+      setSyncStatus('err');
+      showToast('Falha ao sincronizar');
+    }
+  }
+  function loadRecentN(){
+    try{
+      const raw = localStorage.getItem(RECENT_KEY_LS);
+      if(raw){ const v = parseInt(raw,10); if(!isNaN(v) && v>=1 && v<=50) return v; }
+    }catch(e){}
+    return 5;
+  }
+  function saveRecentN(v){ try{ localStorage.setItem(RECENT_KEY_LS, String(v)); }catch(e){} }
+
+  function loadCollapsedEras(){
+    try{
+      const raw = localStorage.getItem('timeline_collapsed_eras');
+      if(raw) return new Set(JSON.parse(raw));
+    }catch(e){}
+    return new Set();
+  }
+  function saveCollapsedEras(){
+    try{ localStorage.setItem('timeline_collapsed_eras', JSON.stringify(Array.from(collapsedEras))); }catch(e){}
+  }
+
+  function loadEraComments(){
+    try{
+      const raw = localStorage.getItem('timeline_era_comments');
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return {};
+  }
+  function saveEraComments(){
+    try{ localStorage.setItem('timeline_era_comments', JSON.stringify(eraComments)); }catch(e){}
+  }
+
+  function insertSorted(entry){
+    let idx = entries.findIndex(e => e.sortYear > entry.sortYear);
+    if(idx === -1) entries.push(entry); else entries.splice(idx, 0, entry);
+  }
+
+  function getKnownCategories(){
+    const set = new Set(CATEGORY_ORDER);
+    entries.forEach(e => { (e.categorias||[]).forEach(c => { if(c) set.add(c); }); });
+    return Array.from(set);
+  }
+
+  function renderChips(){
+    const rail = document.getElementById('chipRail');
+    rail.innerHTML = '';
+    const cats = getKnownCategories();
+    const hasUncat = entries.some(e => !(e.categorias||[]).length);
+    const all = hasUncat ? [...cats, ''] : cats;
+    if(activeCategories === null){
+      activeCategories = new Set(all);
+    }
+    all.forEach(cat=>{
+      const chip = document.createElement('button');
+      const color = catColorVar(cat);
+      chip.className = 'chip active-style' + (activeCategories.has(cat) ? '' : ' off');
+      chip.style.setProperty('--chip-color', color);
+      chip.innerHTML = `<span class="dot"></span><span>${cat ? cat : 'Sem categoria'}</span>`;
+      chip.addEventListener('click', ()=>{
+        if(activeCategories.has(cat)) activeCategories.delete(cat); else activeCategories.add(cat);
+        renderChips();
+        renderList();
+      });
+      rail.appendChild(chip);
+    });
+  }
+
+  function matchesFilter(e){
+    const cats = (e.categorias && e.categorias.length) ? e.categorias : [''];
+    // OR logic: an entry matches if ANY of its categories is currently active
+    if(activeCategories && !cats.some(c => activeCategories.has(c))) return false;
+    const term = normalize(searchTerm.trim());
+    if(!term) return true;
+    return normalize(e.ano).includes(term) ||
+           normalize(e.evento).includes(term) ||
+           normalize(e.descricao).includes(term) ||
+           cats.some(c => normalize(c).includes(term)) ||
+           normalize(e.era||'').includes(term);
+  }
+
+  function renderRecent(){
+    const panel = document.getElementById('recentPanel');
+    const listEl = document.getElementById('recentList');
+    const recents = entries
+      .filter(e => e.ts && e.ts > 0)
+      .slice()
+      .sort((a,b) => b.ts - a.ts)
+      .slice(0, recentN);
+    if(recents.length === 0){ panel.style.display = 'none'; return; }
+    panel.style.display = 'block';
+    listEl.innerHTML = '';
+    recents.forEach(e=>{
+      const row = document.createElement('div');
+      row.className = 'recent-item';
+      row.innerHTML = `<span class="rw">${escapeHtml(e.evento)}</span><span class="ra">${formatAnoDisplay(e.ano) || escapeHtml(e.ano||'')}</span>`;
+      row.addEventListener('click', ()=> openEdit(e.id));
+      listEl.appendChild(row);
+    });
+  }
+
+  function escapeHtml(s){
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : s;
+    return d.innerHTML;
+  }
+
+  // Escapes the text first (so no HTML/script injection is possible), then
+  // converts simple markdown-style *text* into <em>text</em> for italics.
+  // Line breaks are handled separately via CSS white-space:pre-line.
+  function formatRichText(s){
+    const escaped = escapeHtml(s);
+    return escaped.replace(/\*([^\n*]+)\*/g, '<em>$1</em>');
+  }
+
+  // Converts old-style "13.5x10^9" notation into proper math notation with a
+  // real (readable-sized) superscript exponent, e.g. 13.5×10⁹ → 13.5×10 raised.
+  // Returns null when the value doesn't match, so the caller falls back to
+  // plain escaped text for normal dates.
+  function formatAnoDisplay(raw){
+    if(!raw) return null;
+    const m = raw.trim().match(/^([\d.]+)\s*x\s*10\^(-?\d+)$/i);
+    if(!m) return null;
+    return `${escapeHtml(m[1])}×10<sup>${escapeHtml(m[2])}</sup>`;
+  }
+
+  function renderEntryNode(e){
+    const el = document.createElement('div');
+    el.className = 'entry';
+    const cats = (e.categorias && e.categorias.length) ? e.categorias : [];
+    const dotsHtml = cats.length
+      ? cats.map(c => `<span class="cat-dot" style="background:${catColorVar(c)}" title="${escapeHtml(c)}"></span>`).join('')
+      : `<span class="cat-dot none"></span>`;
+    el.innerHTML = `
+      <div class="cell-cat">${dotsHtml}</div>
+      <div class="cell-ano">${formatAnoDisplay(e.ano) || escapeHtml(e.ano || '—')}</div>
+      <div class="cell-main">
+        <div class="evento">${formatRichText(e.evento)}</div>
+        ${e.descricao ? `<div class="descricao">${formatRichText(e.descricao)}</div>` : ''}
+      </div>
+    `;
+    el.addEventListener('click', ()=> openEdit(e.id));
+    return el;
+  }
+
+  function tableHeader(){
+    const header = document.createElement('div');
+    header.className = 'table-header';
+    header.innerHTML = '<div></div><div>Ano</div><div>Evento</div>';
+    return header;
+  }
+
+  function renderList(){
+    const wrap = document.getElementById('listWrap');
+    wrap.innerHTML = '';
+    const filtered = entries.filter(matchesFilter);
+
+    if(filtered.length === 0){
+      wrap.innerHTML = '<div class="empty-state"><p>Nenhum evento encontrado.</p></div>';
+      return;
+    }
+
+    const timeline = document.createElement('div');
+    timeline.className = 'timeline';
+    wrap.appendChild(tableHeader());
+
+    // precompute how many entries fall between each era divider and the next one
+    const groupCounts = {};
+    let curGroupEra = null;
+    filtered.forEach(e=>{
+      if(e.era && e.era !== curGroupEra){ curGroupEra = e.era; groupCounts[curGroupEra] = 0; }
+      if(curGroupEra !== null) groupCounts[curGroupEra] = (groupCounts[curGroupEra]||0) + 1;
+    });
+
+    let lastEra = null;
+    let skipUntilNextDivider = false;
+    filtered.forEach(e=>{
+      if(e.era && e.era !== lastEra){
+        lastEra = e.era;
+        skipUntilNextDivider = collapsedEras.has(e.era);
+        const eraName = e.era;
+        const hasComment = !!(eraComments[eraName] && eraComments[eraName].trim());
+        const div = document.createElement('div');
+        div.className = 'era-divider' + (skipUntilNextDivider ? ' collapsed' : '');
+        div.innerHTML = `
+          <span class="era-name">${escapeHtml(eraName)}</span>
+          <span class="era-count">${groupCounts[eraName]||0} eventos</span>
+          <button type="button" class="note-btn${hasComment ? ' has-comment' : ''}" aria-label="Nota da era">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </button>
+          <span class="chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        `;
+        div.addEventListener('click', ()=>{
+          if(collapsedEras.has(eraName)) collapsedEras.delete(eraName); else collapsedEras.add(eraName);
+          saveCollapsedEras();
+          renderList();
+        });
+        div.querySelector('.note-btn').addEventListener('click', (ev)=>{
+          ev.stopPropagation();
+          openCommentEra = (openCommentEra === eraName) ? null : eraName;
+          renderList();
+        });
+        timeline.appendChild(div);
+
+        if(openCommentEra === eraName){
+          const box = document.createElement('div');
+          box.className = 'era-comment-box';
+          box.addEventListener('click', ev => ev.stopPropagation());
+          const ta = document.createElement('textarea');
+          ta.placeholder = 'Nota sobre ' + eraName + '…';
+          ta.value = eraComments[eraName] || '';
+          ta.addEventListener('input', ()=>{
+            eraComments[eraName] = ta.value;
+            saveEraComments();
+          });
+          box.appendChild(ta);
+          timeline.appendChild(box);
+        }
+      }
+      if(!skipUntilNextDivider){
+        timeline.appendChild(renderEntryNode(e));
+      }
+    });
+    wrap.appendChild(timeline);
+  }
+
+  function renderAll(){
+    renderChips();
+    renderRecent();
+    renderList();
+  }
+
+  // Search
+  const searchInput = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearSearch');
+  searchInput.addEventListener('input', ()=>{
+    searchTerm = searchInput.value;
+    clearBtn.style.display = searchTerm ? 'block' : 'none';
+    renderList();
+  });
+  clearBtn.addEventListener('click', ()=>{
+    searchTerm = '';
+    searchInput.value = '';
+    clearBtn.style.display = 'none';
+    renderList();
+    searchInput.focus();
+  });
+
+  // Modal
+  const overlay = document.getElementById('modalOverlay');
+  const fieldAno = document.getElementById('fieldAno');
+  const catMultiPicker = document.getElementById('catMultiPicker');
+  const fieldNewCat = document.getElementById('fieldNewCat');
+  const addNewCatBtn = document.getElementById('addNewCatBtn');
+  const fieldEvento = document.getElementById('fieldEvento');
+  const fieldDescricao = document.getElementById('fieldDescricao');
+  const modalTitle = document.getElementById('modalTitle');
+  const deleteRow = document.getElementById('deleteRow');
+
+  let selectedCats = new Set();
+
+  function renderCatPicker(){
+    const known = getKnownCategories();
+    catMultiPicker.innerHTML = '';
+    known.forEach(cat=>{
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'pick-chip' + (selectedCats.has(cat) ? ' selected' : '');
+      chip.style.setProperty('--chip-color', catColorVar(cat));
+      chip.innerHTML = `<span class="dot"></span><span>${escapeHtml(cat)}</span>`;
+      chip.addEventListener('click', ()=>{
+        if(selectedCats.has(cat)) selectedCats.delete(cat); else selectedCats.add(cat);
+        renderCatPicker();
+      });
+      catMultiPicker.appendChild(chip);
+    });
+  }
+
+  addNewCatBtn.addEventListener('click', ()=>{
+    const name = fieldNewCat.value.trim();
+    if(!name) return;
+    selectedCats.add(name);
+    fieldNewCat.value = '';
+    renderCatPicker();
+  });
+  fieldNewCat.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ e.preventDefault(); addNewCatBtn.click(); }
+  });
+
+  function openAdd(){
+    editingId = null;
+    modalTitle.textContent = 'Novo evento';
+    fieldAno.value = '';
+    selectedCats = new Set();
+    renderCatPicker();
+    fieldNewCat.value = '';
+    fieldEvento.value = '';
+    fieldDescricao.value = '';
+    deleteRow.style.display = 'none';
+    overlay.classList.add('open');
+    setTimeout(()=>fieldAno.focus(), 50);
+  }
+
+  function openEdit(id){
+    const entry = entries.find(e=>e.id === id);
+    if(!entry) return;
+    editingId = id;
+    modalTitle.textContent = 'Editar evento';
+    fieldAno.value = entry.ano;
+    selectedCats = new Set(entry.categorias || []);
+    renderCatPicker();
+    fieldNewCat.value = '';
+    fieldEvento.value = entry.evento;
+    fieldDescricao.value = entry.descricao || '';
+    deleteRow.style.display = 'flex';
+    overlay.classList.add('open');
+  }
+
+  function closeModal(){ overlay.classList.remove('open'); }
+
+  document.getElementById('fabAdd').addEventListener('click', openAdd);
+  document.getElementById('cancelBtn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+
+  document.getElementById('fabTop').addEventListener('click', ()=>{
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+  document.getElementById('fabBottom').addEventListener('click', ()=>{
+    const height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    window.scrollTo({ top:height, behavior:'smooth' });
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', ()=>{
+    const ano = fieldAno.value.trim();
+    const categorias = Array.from(selectedCats);
+    const evento = fieldEvento.value.trim();
+    const descricao = fieldDescricao.value.trim();
+    if(!evento){
+      showToast('Preenche pelo menos o evento');
+      return;
+    }
+    if(editingId){
+      const entry = entries.find(e=>e.id === editingId);
+      const anoChanged = entry.ano !== ano;
+      entry.ano = ano; entry.categorias = categorias; entry.evento = evento; entry.descricao = descricao;
+      if(anoChanged){
+        // only reposition when the year actually changed, so unrelated edits
+        // (e.g. fixing a typo in the description) never shuffle entry order
+        entries = entries.filter(e => e.id !== editingId);
+        entry.sortYear = parseSortYear(ano, entry.sortYear);
+        insertSorted(entry);
+      }
+      showToast('Evento atualizado');
+    } else {
+      const id = 'tl-new-' + Date.now();
+      const prevYear = entries.length ? entries[entries.length-1].sortYear : 0;
+      const sortYear = parseSortYear(ano, prevYear);
+      const entry = { id, era:'', categorias, ano, sortYear, evento, descricao, ts: Date.now() };
+      insertSorted(entry);
+      showToast('Evento adicionado');
+    }
+    activeCategories = null; // refresh category set (in case a new one was added)
+    reanchorEras();
+    persist();
+    closeModal();
+    renderAll();
+  });
+
+  document.getElementById('deleteBtn').addEventListener('click', ()=>{
+    if(!editingId) return;
+    entries = entries.filter(e => e.id !== editingId);
+    reanchorEras();
+    persist();
+    closeModal();
+    renderAll();
+    showToast('Evento eliminado');
+  });
+
+  // Recent-count control
+  const recentNInput = document.getElementById('recentN');
+  recentNInput.addEventListener('change', ()=>{
+    let v = parseInt(recentNInput.value, 10);
+    if(isNaN(v) || v < 1) v = 1;
+    if(v > 50) v = 50;
+    recentNInput.value = v;
+    recentN = v;
+    saveRecentN(v);
+    renderRecent();
+  });
+
+  // Export / Import / Reset
+  document.getElementById('exportBtn').addEventListener('click', async ()=>{
+    const payload = { entries, eraComments };
+    const jsonStr = JSON.stringify(payload, null, 2);
+    const blob = new Blob([jsonStr], {type:'application/json'});
+    const fileName = 'timeline-backup.json';
+    let file = null;
+    try{ file = new File([blob], fileName, {type:'application/json'}); }catch(e){}
+    if(file && navigator.canShare && navigator.canShare({files:[file]})){
+      try{
+        await navigator.share({files:[file]});
+        showToast('Ficheiro partilhado');
+        return;
+      }catch(err){
+        if(err && err.name === 'AbortError') return;
+      }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = fileName;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Ficheiro exportado');
+  });
+
+  document.getElementById('importBtn').addEventListener('click', ()=>{
+    document.getElementById('importFile').click();
+  });
+  document.getElementById('importFile').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt)=>{
+      try{
+        const imported = JSON.parse(evt.target.result);
+        // supports both the newer {entries, eraComments} format and older
+        // backups that were just a bare array of entries
+        let importedEntries, importedComments;
+        if(Array.isArray(imported)){
+          importedEntries = imported;
+          importedComments = {};
+        } else if(imported && Array.isArray(imported.entries)){
+          importedEntries = imported.entries;
+          importedComments = imported.eraComments || {};
+        } else {
+          throw new Error('formato inválido');
+        }
+        entries = migrateCategorias(importedEntries);
+        eraComments = importedComments;
+        activeCategories = null;
+        openCommentEra = null;
+        reanchorEras();
+        persist();
+        saveEraComments();
+        renderAll();
+        showToast('Dados importados com sucesso');
+      }catch(err){
+        showToast('Ficheiro inválido');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  // GitHub sync — button + settings modal
+  document.getElementById('syncBtn').addEventListener('click', ()=>{
+    if(!ghConfigured()){
+      showToast('Configura o GitHub primeiro (botão ⚙)');
+      openSyncSettings();
+      return;
+    }
+    fullSync();
+  });
+  function openSyncSettings(){
+    document.getElementById('ghRepo').value = ghRepo;
+    document.getElementById('ghBranch').value = ghBranch;
+    document.getElementById('ghPath').value = ghPath;
+    document.getElementById('ghToken').value = ghToken;
+    document.getElementById('syncModalOverlay').classList.add('open');
+  }
+  document.getElementById('syncSettingsBtn').addEventListener('click', openSyncSettings);
+  document.getElementById('syncSettingsCancel').addEventListener('click', ()=>{
+    document.getElementById('syncModalOverlay').classList.remove('open');
+  });
+  document.getElementById('syncModalOverlay').addEventListener('click', (e)=>{
+    if(e.target.id === 'syncModalOverlay') document.getElementById('syncModalOverlay').classList.remove('open');
+  });
+  document.getElementById('syncSettingsSave').addEventListener('click', async ()=>{
+    ghRepo   = document.getElementById('ghRepo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'');
+    ghBranch = document.getElementById('ghBranch').value.trim() || 'main';
+    ghPath   = document.getElementById('ghPath').value.trim() || 'cronologia-data.json';
+    ghToken  = document.getElementById('ghToken').value.trim();
+    localStorage.setItem('cronologia_gh_repo', ghRepo);
+    localStorage.setItem('cronologia_gh_branch', ghBranch);
+    localStorage.setItem('cronologia_gh_path', ghPath);
+    localStorage.setItem('cronologia_gh_token', ghToken);
+    ghSha = null; // config changed — force a fresh lookup instead of trusting a stale sha
+    document.getElementById('syncModalOverlay').classList.remove('open');
+    showToast('Definições guardadas');
+    if(ghConfigured()) fullSync();
+  });
+
+  // Toast
+  let toastTimer = null;
+  function showToast(msg){
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> el.classList.remove('show'), 2200);
+  }
+
+  // Init
+  entries = loadData();
+  reanchorEras();
+  persist(true); // initial resave from load — not a real edit, don't push yet
+  recentN = loadRecentN();
+  recentNInput.value = recentN;
+  renderAll();
+
+  if(ghConfigured()){
+    setSyncStatus('busy');
+    pullMerge().then(()=> setSyncStatus('ok')).catch(()=> setSyncStatus('err'));
+  }
+
+})();
+</script>
+</body>
+</html>

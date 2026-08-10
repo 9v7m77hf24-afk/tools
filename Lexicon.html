@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dicionário</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#12141c;
+  --surface:#191c26;
+  --surface-2:#20242f;
+  --surface-3:#282c39;
+  --border:#2a2e3b;
+  --text:#ecedf2;
+  --text-muted:#8d92a6;
+  --text-faint:#5b5f72;
+  --accent-fr:#8da3ff;
+  --accent-en:#5fd9c4;
+  --accent-la:#e8b25c;
+  --accent-pt:#6fcf7d;
+  --accent-gr:#d98953;
+  --danger:#e8756a;
+  --accent:#8da3ff;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height:100vh;
+  overscroll-behavior-y:none;
+}
+body.lang-eng{ --accent:var(--accent-en); }
+body.lang-fr{ --accent:var(--accent-fr); }
+body.lang-lat{ --accent:var(--accent-la); }
+body.lang-pt{ --accent:var(--accent-pt); }
+body.lang-gr{ --accent:var(--accent-gr); }
+
+.app{
+  max-width:720px;
+  margin:0 auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+header.top{
+  padding: calc(18px + var(--safe-top)) 20px 0 20px;
+  background:linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  position:sticky;
+  top:0;
+  z-index:30;
+  border-bottom:1px solid var(--border);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+.stamp{
+  width:52px; height:52px;
+  border:1.5px dashed var(--accent);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transform:rotate(-8deg);
+  transition:transform .35s ease, border-color .3s ease;
+  flex-shrink:0;
+}
+.stamp span{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0.5px;
+  color:var(--accent);
+  transform:rotate(8deg);
+}
+.brand-text h1{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:26px;
+  margin:0;
+  letter-spacing:-0.3px;
+  line-height:1.1;
+}
+.brand-text p{
+  margin:2px 0 0 0;
+  font-size:12.5px;
+  color:var(--text-muted);
+  font-family:'IBM Plex Mono', monospace;
+  letter-spacing:0.3px;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  gap:4px;
+  margin-top:14px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{ display:none; }
+.tab{
+  flex:0 0 auto;
+  min-width:78px;
+  text-align:center;
+  padding:10px 10px 12px 10px;
+  background:none;
+  border:none;
+  color:var(--text-muted);
+  font-family:'Inter', sans-serif;
+  font-weight:600;
+  font-size:12.5px;
+  cursor:pointer;
+  position:relative;
+  border-bottom:2px solid transparent;
+  transition:color .2s ease;
+  white-space:nowrap;
+}
+.tab .count{
+  display:block;
+  font-family:'IBM Plex Mono', monospace;
+  font-weight:400;
+  font-size:10.5px;
+  color:var(--text-faint);
+  margin-top:2px;
+  letter-spacing:0.3px;
+}
+.tab.active{
+  color:var(--text);
+  border-bottom-color:var(--accent);
+}
+.tab.active .count{ color:var(--accent); }
+
+/* SEARCH */
+.search-wrap{
+  padding:14px 20px 12px 20px;
+  background:var(--bg);
+  position:sticky;
+  top:calc(139px + var(--safe-top));
+  z-index:20;
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  transition:border-color .2s ease;
+}
+.search-box:focus-within{
+  border-color:var(--accent);
+}
+.search-box svg{ flex-shrink:0; opacity:.55; }
+.search-box input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-size:15.5px;
+  font-family:'Inter', sans-serif;
+}
+.search-box input::placeholder{ color:var(--text-faint); }
+.clear-btn{
+  background:none; border:none; color:var(--text-faint);
+  font-size:18px; cursor:pointer; padding:0 2px; line-height:1;
+  display:none;
+}
+
+/* ALPHABET RAIL */
+.alpha-rail{
+  display:flex;
+  gap:2px;
+  overflow-x:auto;
+  padding:0 20px 10px 20px;
+  scrollbar-width:none;
+}
+.alpha-rail::-webkit-scrollbar{ display:none; }
+.alpha-btn{
+  flex-shrink:0;
+  min-width:26px;
+  height:26px;
+  border-radius:7px;
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text-muted);
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11.5px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.alpha-btn.disabled{ opacity:.25; pointer-events:none; }
+.alpha-btn:active{ background:var(--accent); color:var(--bg); }
+
+/* RECENT PANEL */
+.recent-panel{
+  margin:0 20px 14px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px 16px;
+}
+.recent-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  gap:10px;
+}
+.recent-header .rh-title{
+  font-family:'Fraunces', serif;
+  font-size:14px;
+  color:var(--accent);
+  font-weight:600;
+}
+.recent-n-control{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10.5px;
+  color:var(--text-faint);
+  white-space:nowrap;
+}
+.recent-n-control input{
+  width:40px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text);
+  padding:4px 4px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  text-align:center;
+}
+.recent-list .recent-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13.5px;
+  cursor:pointer;
+}
+.recent-list .recent-item:last-child{ border-bottom:none; }
+.recent-item .rw{ font-weight:600; color:var(--text); }
+.recent-item .rt{ color:var(--text-muted); text-align:right; flex-shrink:0; max-width:55%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* LIST */
+.list-wrap{
+  flex:1;
+  padding: 4px 20px calc(100px + var(--safe-bottom)) 20px;
+}
+.letter-header{
+  font-family:'Fraunces', serif;
+  font-size:15px;
+  font-weight:600;
+  color:var(--accent);
+  padding:18px 2px 6px 2px;
+  position:sticky;
+  top:calc(207px + var(--safe-top));
+  scroll-margin-top:calc(207px + var(--safe-top));
+  background:var(--bg);
+  z-index:10;
+}
+.entry{
+  padding:11px 2px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.entry:active{ background:var(--surface); }
+.entry-main{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:8px;
+}
+.entry-sub{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:3px;
+}
+.word{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+}
+.tag{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px;
+  color:var(--accent);
+  background:color-mix(in srgb, var(--accent) 14%, transparent);
+  padding:2px 7px;
+  border-radius:20px;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.tag.ref-tag{
+  color:var(--text-faint);
+  background:var(--surface-3);
+}
+.translation{
+  font-size:14px;
+  color:var(--text-muted);
+  line-height:1.35;
+}
+.empty-state{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--text-faint);
+}
+.empty-state p{ font-family:'Fraunces', serif; font-size:16px; margin-top:10px;}
+
+/* FAB */
+.fab-stack{
+  position:fixed;
+  bottom:calc(24px + var(--safe-bottom));
+  right:24px;
+  display:flex;
+  flex-direction:column-reverse;
+  align-items:center;
+  gap:12px;
+  z-index:25;
+}
+.fab{
+  width:56px; height:56px;
+  border-radius:50%;
+  background:var(--accent);
+  color:var(--bg);
+  border:none;
+  font-size:26px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.4);
+  cursor:pointer;
+  transition:transform .15s ease;
+}
+.fab:active{ transform:scale(0.92); }
+.fab-mini{
+  width:42px; height:42px;
+  border-radius:50%;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--text);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.fab-mini:active{ background:var(--surface-3); transform:scale(0.9); }
+
+/* FOOTER TOOLS */
+.tools{
+  max-width:720px;
+  margin:0 auto;
+  padding:16px 20px calc(24px + var(--safe-bottom)) 20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  border-top:1px solid var(--border);
+}
+.tool-btn{
+  flex:1;
+  min-width:100px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--text-muted);
+  font-family:'Inter', sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+  padding:10px 8px;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:center;
+}
+.tool-btn:active{ background:var(--surface-3); }
+input[type=file]{ display:none; }
+.sync-dot{
+  display:inline-block;
+  width:7px; height:7px;
+  border-radius:50%;
+  background:var(--text-faint);
+  margin-left:4px;
+  vertical-align:middle;
+}
+.sync-dot.ok{ background:#3fb950; }
+.sync-dot.busy{ background:#d4a72c; }
+.sync-dot.err{ background:var(--danger); }
+.field small{
+  display:block;
+  margin-top:6px;
+  color:var(--text-faint);
+  font-size:11px;
+  line-height:1.4;
+}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed; inset:0;
+  background:rgba(8,9,13,.65);
+  backdrop-filter:blur(3px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+}
+.modal-overlay.open{ display:flex; }
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px 20px 0 0;
+  width:100%;
+  max-width:720px;
+  padding:22px 20px calc(22px + var(--safe-bottom)) 20px;
+  max-height:88vh;
+  overflow-y:auto;
+  animation:slideUp .25s ease;
+}
+@keyframes slideUp{ from{ transform:translateY(30px); opacity:0;} to{ transform:translateY(0); opacity:1;} }
+.modal h2{
+  font-family:'Fraunces', serif;
+  font-size:19px;
+  margin:0 0 16px 0;
+}
+.field{ margin-bottom:14px; }
+.field-row{ display:flex; gap:10px; }
+.field-row .field{ flex:1; }
+.field label{
+  display:block;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  color:var(--text-faint);
+  margin-bottom:6px;
+}
+.field input, .field select, .field textarea{
+  width:100%;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px 12px;
+  color:var(--text);
+  font-size:15.5px;
+  font-family:'Inter', sans-serif;
+  outline:none;
+}
+.field textarea{ resize:vertical; min-height:44px; line-height:1.4; }
+.field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--accent); }
+.field input.duplicate{ border-color:var(--danger); }
+.new-cat-input{ margin-top:8px; display:none; }
+.new-cat-input.show{ display:block; }
+.dup-hint{
+  font-size:12.5px;
+  color:var(--danger);
+  margin-top:7px;
+  display:none;
+  line-height:1.4;
+}
+.dup-hint.show{ display:block; }
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+.btn{
+  flex:1;
+  padding:13px;
+  border-radius:12px;
+  border:none;
+  font-family:'Inter', sans-serif;
+  font-weight:600;
+  font-size:14.5px;
+  cursor:pointer;
+}
+.btn-primary{ background:var(--accent); color:var(--bg); }
+.btn-secondary{ background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+.btn-danger{ background:none; color:var(--danger); border:1px solid color-mix(in srgb, var(--danger) 40%, transparent); }
+.toast{
+  position:fixed;
+  bottom:calc(24px + var(--safe-bottom));
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--surface-3);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px 18px;
+  border-radius:30px;
+  font-size:13px;
+  z-index:200;
+  opacity:0;
+  transition:all .3s ease;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body class="lang-fr">
+<div class="app">
+
+  <header class="top">
+    <div class="brand">
+      <div class="stamp"><span id="stampLabel">FR</span></div>
+      <div class="brand-text">
+        <h1>Lexicon</h1>
+        <p>FR · EN · LA · PT · GR</p>
+      </div>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab" data-lang="fr">Français<span class="count" id="count-fr"></span></button>
+      <button class="tab" data-lang="eng">English<span class="count" id="count-eng"></span></button>
+      <button class="tab" data-lang="lat">Latim<span class="count" id="count-lat"></span></button>
+      <button class="tab" data-lang="pt">Português<span class="count" id="count-pt"></span></button>
+      <button class="tab" data-lang="gr">Grego<span class="count" id="count-gr"></span></button>
+    </div>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Procurar palavra ou tradução…" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button class="clear-btn" id="clearSearch">✕</button>
+    </div>
+  </div>
+
+  <div class="alpha-rail" id="alphaRail"></div>
+
+  <div class="recent-panel" id="recentPanel" style="display:none;">
+    <div class="recent-header">
+      <span class="rh-title">Últimos adicionados</span>
+      <div class="recent-n-control">
+        <span>mostrar</span>
+        <input type="number" id="recentN" min="1" max="50" value="5">
+      </div>
+    </div>
+    <div class="recent-list" id="recentList"></div>
+  </div>
+
+  <main class="list-wrap" id="listWrap"></main>
+
+  <div class="fab-stack">
+    <button class="fab" id="fabAdd" aria-label="Adicionar palavra">+</button>
+    <button class="fab-mini" id="fabBottom" aria-label="Ir para o fim">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <button class="fab-mini" id="fabTop" aria-label="Ir para o início">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+  </div>
+
+  <div class="tools">
+    <button class="tool-btn" id="exportBtn">Exportar</button>
+    <button class="tool-btn" id="importBtn">Importar</button>
+    <button class="tool-btn" id="syncBtn">Sincronizar <span id="syncDot" class="sync-dot"></span></button>
+    <button class="tool-btn" id="syncSettingsBtn">GitHub ⚙</button>
+  </div>
+  <input type="file" id="importFile" accept="application/json">
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">Nova palavra</h2>
+    <div class="field">
+      <label id="labelWord">Palavra</label>
+      <input type="text" id="fieldWord" autocapitalize="off" autocorrect="off">
+      <div class="dup-hint" id="dupHint"></div>
+    </div>
+    <div class="field">
+      <label id="labelTrans">Tradução (Português)</label>
+      <textarea id="fieldTrans" autocapitalize="off" autocorrect="off" rows="3"></textarea>
+    </div>
+    <div class="field">
+      <label>Categoria (opcional)</label>
+      <select id="fieldCat"></select>
+      <input type="text" id="fieldNewCat" class="new-cat-input" placeholder="Nome da nova categoria">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Código do livro</label>
+        <input type="text" id="fieldRefCode" placeholder="ex: A1" autocapitalize="off" autocorrect="off">
+      </div>
+      <div class="field">
+        <label>Página</label>
+        <input type="text" id="fieldRefPage" placeholder="ex: 42" autocapitalize="off" autocorrect="off">
+      </div>
+    </div>
+    <div class="field">
+      <label>Referência (gerada automaticamente, editável)</label>
+      <input type="text" id="fieldRef" placeholder="ex: [A1] p.42" autocapitalize="off" autocorrect="off">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+      <button class="btn btn-primary" id="saveBtn">Guardar</button>
+    </div>
+    <div class="modal-actions" id="deleteRow" style="display:none;">
+      <button class="btn btn-danger" id="deleteBtn">Eliminar esta entrada</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="syncModalOverlay">
+  <div class="modal">
+    <h2>Sincronização GitHub</h2>
+    <div class="field">
+      <label>Repositório (owner/repo)</label>
+      <input type="text" id="ghRepo" placeholder="ex: dianaXX/lexicon-data" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Branch</label>
+      <input type="text" id="ghBranch" placeholder="main" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Caminho do ficheiro</label>
+      <input type="text" id="ghPath" placeholder="lexicon-data.json" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Personal Access Token</label>
+      <input type="password" id="ghToken" placeholder="ghp_..." autocapitalize="off" autocorrect="off" spellcheck="false">
+      <small>Guardado apenas neste dispositivo (localStorage), nunca enviado a não ser para o GitHub. Usa um token com scope "repo", limitado se possível a este repositório.</small>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="syncSettingsCancel">Cancelar</button>
+      <button class="btn btn-primary" id="syncSettingsSave">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script id="seed-data" type="application/json">{"eng": [], "lat": [], "fr": [], "pt": [], "gr": []}</script>
+<script>
+(function(){
+  "use strict";
+
+  const SEED = JSON.parse(document.getElementById('seed-data').textContent);
+  const LANG_META = {
+    fr:  { label:'Français',  stamp:'FR', transLabel:'Tradução (Português)', wordRequired:true, transRequired:true },
+    eng: { label:'English',   stamp:'EN', transLabel:'Tradução (Português)', wordRequired:true, transRequired:true },
+    lat: { label:'Latina',    stamp:'LA', transLabel:'Tradução (Português)', wordRequired:true, transRequired:true },
+    pt:  { label:'Português', stamp:'PT', transLabel:'Definição, sinónimo ou nota (opcional)', wordRequired:true, transRequired:false },
+    gr:  { label:'Grego', stamp:'GR', transLabel:'Tradução (Português)', wordRequired:true, transRequired:true }
+  };
+  const STORAGE_KEY = 'lexicon_data_v1';
+
+  // --- GitHub sync config (stored locally on this device only) ---
+  let ghRepo   = localStorage.getItem('lexicon_gh_repo')   || '';
+  let ghBranch = localStorage.getItem('lexicon_gh_branch') || 'main';
+  let ghPath   = localStorage.getItem('lexicon_gh_path')   || 'lexicon-data.json';
+  let ghToken  = localStorage.getItem('lexicon_gh_token')  || '';
+  let ghSha    = null; // sha of the last-known remote file version, needed to push updates
+
+  let data = loadData();
+  let currentLang = 'fr';
+  let searchTerm = '';
+  let editingId = null; // null = add mode
+
+  // Ensures every entry, regardless of source (fresh save, older backup missing
+  // newer fields, etc.), always has the full expected field set. This is what
+  // guarantees exports always come out in a consistent, complete format.
+  function normalizeData(d){
+    Object.keys(d).forEach(lang=>{
+      if(!Array.isArray(d[lang])) { d[lang] = []; return; }
+      d[lang].forEach(e=>{
+        if(typeof e.ref !== 'string') e.ref = '';
+        if(typeof e.c !== 'string') e.c = '';
+        if(typeof e.t !== 'string') e.t = '';
+      });
+    });
+    return d;
+  }
+
+  function loadData(){
+    let loaded = null;
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) loaded = JSON.parse(raw);
+    }catch(e){}
+    if(!loaded) loaded = JSON.parse(JSON.stringify(SEED));
+    // forward-compatibility: add any language keys introduced after the user's last save
+    Object.keys(SEED).forEach(key=>{
+      if(!Array.isArray(loaded[key])) loaded[key] = [];
+    });
+    return normalizeData(loaded);
+  }
+
+  function persist(suppressPush){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    catch(e){ showToast('Não foi possível guardar (armazenamento indisponível)'); }
+    if(!suppressPush) schedulePush();
+  }
+
+  // --- GitHub sync ---
+  function ghConfigured(){ return !!(ghRepo && ghToken); }
+  function ghUrl(){ return 'https://api.github.com/repos/' + ghRepo + '/contents/' + ghPath.replace(/^\/+/, ''); }
+  function ghHeaders(){
+    return {
+      'Authorization': 'token ' + ghToken,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    };
+  }
+  function b64EncodeUnicode(str){
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary);
+  }
+  function b64DecodeUnicode(b64){
+    const binary = atob(b64.replace(/\n/g, ''));
+    const bytes = new Uint8Array(binary.length);
+    for(let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+  function setSyncStatus(state){
+    const dot = document.getElementById('syncDot');
+    if(dot) dot.className = 'sync-dot ' + (state || '');
+  }
+
+  let lastSyncError = '';
+
+  async function ghResponseError(res){
+    try{
+      const j = await res.json();
+      return j.message || ('HTTP ' + res.status);
+    }catch(e){
+      return 'HTTP ' + res.status;
+    }
+  }
+
+  async function ghGetFile(){
+    const url = ghUrl() + (ghBranch ? '?ref=' + encodeURIComponent(ghBranch) : '');
+    const res = await fetch(url, { headers: ghHeaders() });
+    if(res.status === 404) return null; // file doesn't exist yet — first push will create it
+    if(!res.ok) throw new Error(await ghResponseError(res));
+    const json = await res.json();
+    ghSha = json.sha;
+    return JSON.parse(b64DecodeUnicode(json.content));
+  }
+
+  // Same merge rule as manual import: existing entries keep their timestamp,
+  // entries new to the incoming data get stamped as "recent". This keeps
+  // pull/import behaviour consistent throughout the app.
+  function mergeRemoteIntoLocal(remote){
+    if(!remote || !remote.fr || !remote.eng || !remote.lat) return;
+    Object.keys(SEED).forEach(key=>{
+      if(!Array.isArray(remote[key])) remote[key] = [];
+    });
+    const previousIds = new Set();
+    Object.keys(data).forEach(lang=> (data[lang]||[]).forEach(en => previousIds.add(en.id)));
+    let tsCounter = Date.now();
+    Object.keys(remote).forEach(lang=>{
+      remote[lang].forEach(en=>{
+        if(!previousIds.has(en.id) && !en.ts){ en.ts = tsCounter++; }
+      });
+    });
+    data = normalizeData(remote);
+    persist(true); // suppress auto-push — we just pulled, nothing new to send yet
+    renderAll();
+  }
+
+  async function pullMerge(){
+    const remote = await ghGetFile();
+    if(remote) mergeRemoteIntoLocal(remote);
+  }
+
+  async function doPush(isRetry){
+    const jsonStr = JSON.stringify(data, null, 2);
+    const body = {
+      message: 'Lexicon sync ' + new Date().toISOString(),
+      content: b64EncodeUnicode(jsonStr),
+      branch: ghBranch
+    };
+    if(ghSha) body.sha = ghSha;
+    const res = await fetch(ghUrl(), { method:'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
+    if(res.status === 409 && !isRetry){
+      // Remote changed since our last known sha — pull the latest, merge, and retry once
+      await pullMerge();
+      return doPush(true);
+    }
+    if(!res.ok) throw new Error(await ghResponseError(res));
+    const json = await res.json();
+    ghSha = json.content.sha;
+  }
+
+  async function syncPush(){
+    if(!ghConfigured()) return;
+    setSyncStatus('busy');
+    try{ await doPush(); setSyncStatus('ok'); lastSyncError = ''; }
+    catch(err){ setSyncStatus('err'); lastSyncError = err.message || String(err); }
+  }
+
+  let pushTimer = null;
+  function schedulePush(){
+    if(!ghConfigured()) return;
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(syncPush, 1500);
+  }
+
+  async function fullSync(){
+    if(!ghConfigured()){ showToast('Configura o GitHub primeiro (botão ⚙)'); return; }
+    setSyncStatus('busy');
+    try{
+      await pullMerge();
+      await doPush();
+      setSyncStatus('ok');
+      lastSyncError = '';
+      showToast('Sincronizado com o GitHub');
+    }catch(err){
+      setSyncStatus('err');
+      lastSyncError = err.message || String(err);
+      showToast('Falha ao sincronizar: ' + lastSyncError);
+    }
+  }
+
+  function stripDiacritics(s){
+    return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  }
+  function normalize(s){ return stripDiacritics(s).toLowerCase(); }
+
+  function sortLang(lang){
+    data[lang].sort((a,b)=>{
+      const ka = normalize(a.w).replace(/^[^a-z0-9]+/,'');
+      const kb = normalize(b.w).replace(/^[^a-z0-9]+/,'');
+      return ka.localeCompare(kb);
+    });
+  }
+
+  function firstLetter(word){
+    const n = normalize(word).replace(/^[^a-z0-9]+/,'');
+    const c = n.charAt(0);
+    return /[a-z]/.test(c) ? c.toUpperCase() : '#';
+  }
+
+  function renderTabs(){
+    document.querySelectorAll('.tab').forEach(btn=>{
+      const lang = btn.dataset.lang;
+      btn.classList.toggle('active', lang === currentLang);
+      document.getElementById('count-'+lang).textContent = data[lang].length + ' verbetes';
+    });
+  }
+
+  function renderAlphaRail(){
+    const rail = document.getElementById('alphaRail');
+    const present = new Set(data[currentLang].map(e => firstLetter(e.w)));
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
+    rail.innerHTML = '';
+    letters.forEach(L=>{
+      const b = document.createElement('button');
+      b.className = 'alpha-btn' + (present.has(L) ? '' : ' disabled');
+      b.textContent = L;
+      b.addEventListener('click', ()=>{
+        const el = document.getElementById('letter-'+L);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      rail.appendChild(b);
+    });
+  }
+
+  function renderList(){
+    const wrap = document.getElementById('listWrap');
+    const term = normalize(searchTerm.trim());
+    let items = data[currentLang];
+    if(term){
+      items = items.filter(e =>
+        normalize(e.w).includes(term) ||
+        normalize(e.t).includes(term) ||
+        normalize(e.c||'').includes(term) ||
+        normalize(e.ref||'').includes(term)
+      );
+    }
+    wrap.innerHTML = '';
+
+    if(items.length === 0){
+      wrap.innerHTML = '<div class="empty-state"><p>Nenhum verbete encontrado.</p></div>';
+      return;
+    }
+
+    let lastLetter = null;
+    items.forEach(entry=>{
+      const L = firstLetter(entry.w);
+      if(L !== lastLetter){
+        lastLetter = L;
+        const h = document.createElement('div');
+        h.className = 'letter-header';
+        h.id = 'letter-' + L;
+        h.textContent = L;
+        wrap.appendChild(h);
+      }
+      const row = document.createElement('div');
+      row.className = 'entry';
+      row.dataset.id = entry.id;
+      const main = document.createElement('div');
+      main.className = 'entry-main';
+      const w = document.createElement('span');
+      w.className = 'word';
+      w.textContent = entry.w;
+      main.appendChild(w);
+      if(entry.c){
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = entry.c;
+        main.appendChild(tag);
+      }
+      row.appendChild(main);
+      if(entry.t || entry.ref){
+        const sub = document.createElement('div');
+        sub.className = 'entry-sub';
+        const t = document.createElement('div');
+        t.className = 'translation';
+        t.textContent = entry.t || '';
+        sub.appendChild(t);
+        if(entry.ref){
+          const refTag = document.createElement('span');
+          refTag.className = 'tag ref-tag';
+          refTag.textContent = entry.ref;
+          sub.appendChild(refTag);
+        }
+        row.appendChild(sub);
+      }
+      row.addEventListener('click', ()=> openEdit(entry.id));
+      wrap.appendChild(row);
+    });
+  }
+
+  function getRecentCount(){
+    let v = parseInt(localStorage.getItem('lexicon_recent_n') || '5', 10);
+    if(isNaN(v) || v < 1) v = 5;
+    if(v > 50) v = 50;
+    return v;
+  }
+  function setRecentCount(v){
+    try{ localStorage.setItem('lexicon_recent_n', String(v)); }catch(e){}
+  }
+
+  function renderRecent(){
+    const panel = document.getElementById('recentPanel');
+    const listEl = document.getElementById('recentList');
+    const n = getRecentCount();
+    const recents = data[currentLang]
+      .filter(e => e.ts && e.ts > 0)
+      .slice()
+      .sort((a,b) => b.ts - a.ts)
+      .slice(0, n);
+    if(recents.length === 0){
+      panel.style.display = 'none';
+      return;
+    }
+    panel.style.display = 'block';
+    listEl.innerHTML = '';
+    recents.forEach(e=>{
+      const row = document.createElement('div');
+      row.className = 'recent-item';
+      const w = document.createElement('span');
+      w.className = 'rw';
+      w.textContent = e.w;
+      const t = document.createElement('span');
+      t.className = 'rt';
+      t.textContent = e.t || '';
+      row.appendChild(w);
+      row.appendChild(t);
+      row.addEventListener('click', ()=> openEdit(e.id));
+      listEl.appendChild(row);
+    });
+  }
+
+  function renderAll(){
+    renderTabs();
+    renderAlphaRail();
+    renderRecent();
+    renderList();
+  }
+
+  // Tabs
+  document.getElementById('tabs').addEventListener('click', (e)=>{
+    const btn = e.target.closest('.tab');
+    if(!btn) return;
+    currentLang = btn.dataset.lang;
+    document.body.className = 'lang-' + currentLang;
+    document.getElementById('stampLabel').textContent = LANG_META[currentLang].stamp;
+    searchTerm = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('clearSearch').style.display = 'none';
+    window.scrollTo({ top:0, behavior:'instant' });
+    renderAll();
+  });
+
+  // Search
+  const searchInput = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearSearch');
+  searchInput.addEventListener('input', ()=>{
+    searchTerm = searchInput.value;
+    clearBtn.style.display = searchTerm ? 'block' : 'none';
+    renderList();
+  });
+  clearBtn.addEventListener('click', ()=>{
+    searchTerm = '';
+    searchInput.value = '';
+    clearBtn.style.display = 'none';
+    renderList();
+    searchInput.focus();
+  });
+
+  // Modal
+  const overlay = document.getElementById('modalOverlay');
+  const fieldWord = document.getElementById('fieldWord');
+  const fieldTrans = document.getElementById('fieldTrans');
+  const fieldCat = document.getElementById('fieldCat');
+  const fieldNewCat = document.getElementById('fieldNewCat');
+  const fieldRefCode = document.getElementById('fieldRefCode');
+  const fieldRefPage = document.getElementById('fieldRefPage');
+  const fieldRef = document.getElementById('fieldRef');
+  const modalTitle = document.getElementById('modalTitle');
+  const deleteRow = document.getElementById('deleteRow');
+
+  fieldCat.addEventListener('change', ()=>{
+    fieldNewCat.classList.toggle('show', fieldCat.value === '__new__');
+    if(fieldCat.value === '__new__') setTimeout(()=>fieldNewCat.focus(), 30);
+  });
+
+  function populateCatSelect(selected){
+    const known = Array.from(new Set(
+      Object.values(data).flat().map(e => (e.c||'').trim()).filter(Boolean)
+    )).sort((a,b)=> a.localeCompare(b));
+
+    fieldCat.innerHTML = '';
+    const blankOpt = document.createElement('option');
+    blankOpt.value = ''; blankOpt.textContent = '(sem categoria)';
+    fieldCat.appendChild(blankOpt);
+    known.forEach(cat=>{
+      const opt = document.createElement('option');
+      opt.value = cat; opt.textContent = cat;
+      fieldCat.appendChild(opt);
+    });
+    const newOpt = document.createElement('option');
+    newOpt.value = '__new__'; newOpt.textContent = '+ Nova categoria…';
+    fieldCat.appendChild(newOpt);
+
+    fieldNewCat.value = '';
+    fieldNewCat.classList.remove('show');
+    if(selected && known.includes(selected)){
+      fieldCat.value = selected;
+    } else if(selected){
+      fieldCat.value = '__new__';
+      fieldNewCat.value = selected;
+      fieldNewCat.classList.add('show');
+    } else {
+      fieldCat.value = '';
+    }
+  }
+  const labelWord = document.getElementById('labelWord');
+
+  function composeRef(){
+    const code = fieldRefCode.value.trim();
+    const page = fieldRefPage.value.trim();
+    if(code && page) fieldRef.value = `[${code}] p.${page}`;
+    else if(code) fieldRef.value = `[${code}]`;
+    else if(page) fieldRef.value = `p.${page}`;
+    else fieldRef.value = '';
+  }
+  fieldRefCode.addEventListener('input', composeRef);
+  fieldRefPage.addEventListener('input', composeRef);
+
+  // best-effort split of an existing "[CODE] p.PAGE" reference back into its two parts, for editing
+  function splitRef(ref){
+    if(!ref) return { code:'', page:'' };
+    const m = ref.match(/^\[(.*?)\]\s*p\.?\s*(.*)$/i);
+    if(m) return { code:m[1].trim(), page:m[2].trim() };
+    const m2 = ref.match(/^\[(.*?)\]\s*$/);
+    if(m2) return { code:m2[1].trim(), page:'' };
+    return { code:'', page:'' };
+  }
+
+  const dupHint = document.getElementById('dupHint');
+
+  function checkDuplicate(){
+    const w = fieldWord.value.trim();
+    if(!w){
+      dupHint.classList.remove('show');
+      fieldWord.classList.remove('duplicate');
+      return;
+    }
+    const match = data[currentLang].find(e => normalize(e.w) === normalize(w) && e.id !== editingId);
+    if(match){
+      dupHint.textContent = 'Esta palavra já existe → "' + match.w + '" = ' + match.t + (match.c ? ' (' + match.c + ')' : '');
+      dupHint.classList.add('show');
+      fieldWord.classList.add('duplicate');
+    } else {
+      dupHint.classList.remove('show');
+      fieldWord.classList.remove('duplicate');
+    }
+  }
+  fieldWord.addEventListener('input', checkDuplicate);
+
+  function openAdd(){
+    editingId = null;
+    modalTitle.textContent = 'Nova palavra — ' + LANG_META[currentLang].label;
+    labelWord.textContent = 'Palavra (' + LANG_META[currentLang].label + ')';
+    document.getElementById('labelTrans').textContent = LANG_META[currentLang].transLabel;
+    fieldWord.value = '';
+    fieldTrans.value = '';
+    populateCatSelect(null);
+    fieldRefCode.value = '';
+    fieldRefPage.value = '';
+    fieldRef.value = '';
+    deleteRow.style.display = 'none';
+    checkDuplicate();
+    overlay.classList.add('open');
+    setTimeout(()=>fieldWord.focus(), 50);
+  }
+
+  function openEdit(id){
+    const entry = data[currentLang].find(e=>e.id === id);
+    if(!entry) return;
+    editingId = id;
+    modalTitle.textContent = 'Editar verbete';
+    labelWord.textContent = 'Palavra (' + LANG_META[currentLang].label + ')';
+    document.getElementById('labelTrans').textContent = LANG_META[currentLang].transLabel;
+    fieldWord.value = entry.w;
+    fieldTrans.value = entry.t;
+    populateCatSelect(entry.c || '');
+    const split = splitRef(entry.ref);
+    fieldRefCode.value = split.code;
+    fieldRefPage.value = split.page;
+    fieldRef.value = entry.ref || '';
+    deleteRow.style.display = 'flex';
+    checkDuplicate();
+    overlay.classList.add('open');
+  }
+
+  function closeModal(){
+    overlay.classList.remove('open');
+  }
+
+  document.getElementById('fabAdd').addEventListener('click', openAdd);
+
+  document.getElementById('fabTop').addEventListener('click', ()=>{
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+  document.getElementById('fabBottom').addEventListener('click', ()=>{
+    const height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    window.scrollTo({ top:height, behavior:'smooth' });
+  });
+  document.getElementById('cancelBtn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+
+  document.getElementById('saveBtn').addEventListener('click', ()=>{
+    const w = fieldWord.value.trim();
+    const t = fieldTrans.value.trim();
+    let c = fieldCat.value;
+    if(c === '__new__') c = fieldNewCat.value.trim();
+    const ref = fieldRef.value.trim();
+    const meta = LANG_META[currentLang];
+    if((meta.wordRequired && !w) || (meta.transRequired && !t)){
+      showToast(meta.transRequired ? 'Preenche a palavra e a tradução' : 'Preenche a palavra');
+      return;
+    }
+    if(editingId){
+      const entry = data[currentLang].find(e=>e.id === editingId);
+      entry.w = w; entry.t = t; entry.c = c; entry.ref = ref;
+      showToast('Verbete atualizado');
+    } else {
+      const newId = currentLang + '-new-' + Date.now();
+      data[currentLang].push({ w, t, c, ref, id: newId, ts: Date.now() });
+      showToast('Verbete adicionado');
+    }
+    sortLang(currentLang);
+    persist();
+    closeModal();
+    renderAll();
+  });
+
+  document.getElementById('deleteBtn').addEventListener('click', ()=>{
+    if(!editingId) return;
+    data[currentLang] = data[currentLang].filter(e=>e.id !== editingId);
+    persist();
+    closeModal();
+    renderAll();
+    showToast('Verbete eliminado');
+  });
+
+  // Tools
+  document.getElementById('exportBtn').addEventListener('click', async ()=>{
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], {type:'application/json'});
+    const fileName = 'lexicon-backup.json';
+
+    // Preferred path on iOS/iPadOS: native Share Sheet with a real file,
+    // so the person can pick "Save to Files" (iCloud Drive) directly.
+    let file = null;
+    try{ file = new File([blob], fileName, {type:'application/json'}); }catch(e){ /* File constructor unsupported */ }
+
+    if(file && navigator.canShare && navigator.canShare({files:[file]})){
+      try{
+        await navigator.share({files:[file]});
+        showToast('Ficheiro partilhado');
+        return;
+      }catch(err){
+        if(err && err.name === 'AbortError'){
+          // person cancelled the share sheet on purpose — do nothing
+          return;
+        }
+        // otherwise fall through to the classic download fallback below
+      }
+    }
+
+    // Fallback for browsers without file-sharing support (e.g. desktop)
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Ficheiro exportado');
+  });
+
+  document.getElementById('importBtn').addEventListener('click', ()=>{
+    document.getElementById('importFile').click();
+  });
+  document.getElementById('importFile').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt)=>{
+      try{
+        const imported = JSON.parse(evt.target.result);
+        if(!imported.fr || !imported.eng || !imported.lat) throw new Error('formato inválido');
+        Object.keys(SEED).forEach(key=>{
+          if(!Array.isArray(imported[key])) imported[key] = [];
+        });
+
+        // Entries that already existed before this import keep whatever
+        // timestamp (or lack of one) they had. Only entries genuinely new to
+        // this import — and that don't already carry a timestamp — get one
+        // now, so they correctly show up in "Últimos adicionados" instead of
+        // silently being excluded from it.
+        const previousIds = new Set();
+        Object.keys(data).forEach(lang=>{
+          (data[lang]||[]).forEach(en => previousIds.add(en.id));
+        });
+        let stamped = 0;
+        let tsCounter = Date.now();
+        Object.keys(imported).forEach(lang=>{
+          imported[lang].forEach(en=>{
+            if(!previousIds.has(en.id) && !en.ts){
+              en.ts = tsCounter++;
+              stamped++;
+            }
+          });
+        });
+
+        data = normalizeData(imported);
+        persist();
+        renderAll();
+        showToast(stamped > 0 ? `Importado — ${stamped} novo(s) marcado(s) como recente(s)` : 'Dados importados com sucesso');
+      }catch(err){
+        showToast('Ficheiro inválido');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  // GitHub sync — button + settings modal
+  document.getElementById('syncBtn').addEventListener('click', ()=>{
+    if(!ghConfigured()){
+      showToast('Configura o GitHub primeiro (botão ⚙)');
+      openSyncSettings();
+      return;
+    }
+    if(lastSyncError){ showToast('Último erro: ' + lastSyncError); }
+    fullSync();
+  });
+  function openSyncSettings(){
+    document.getElementById('ghRepo').value = ghRepo;
+    document.getElementById('ghBranch').value = ghBranch;
+    document.getElementById('ghPath').value = ghPath;
+    document.getElementById('ghToken').value = ghToken;
+    document.getElementById('syncModalOverlay').classList.add('open');
+  }
+  document.getElementById('syncSettingsBtn').addEventListener('click', openSyncSettings);
+  document.getElementById('syncSettingsCancel').addEventListener('click', ()=>{
+    document.getElementById('syncModalOverlay').classList.remove('open');
+  });
+  document.getElementById('syncModalOverlay').addEventListener('click', (e)=>{
+    if(e.target.id === 'syncModalOverlay') document.getElementById('syncModalOverlay').classList.remove('open');
+  });
+  document.getElementById('syncSettingsSave').addEventListener('click', async ()=>{
+    ghRepo   = document.getElementById('ghRepo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'');
+    ghBranch = document.getElementById('ghBranch').value.trim() || 'main';
+    ghPath   = document.getElementById('ghPath').value.trim() || 'lexicon-data.json';
+    ghToken  = document.getElementById('ghToken').value.trim();
+    localStorage.setItem('lexicon_gh_repo', ghRepo);
+    localStorage.setItem('lexicon_gh_branch', ghBranch);
+    localStorage.setItem('lexicon_gh_path', ghPath);
+    localStorage.setItem('lexicon_gh_token', ghToken);
+    ghSha = null; // config changed — force a fresh lookup instead of trusting a stale sha
+    document.getElementById('syncModalOverlay').classList.remove('open');
+    showToast('Definições guardadas');
+    if(ghConfigured()) fullSync();
+  });
+
+
+  // Toast
+  let toastTimer = null;
+  function showToast(msg){
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> el.classList.remove('show'), 2200);
+  }
+
+  // Recent-count control
+  const recentNInput = document.getElementById('recentN');
+  recentNInput.value = getRecentCount();
+  recentNInput.addEventListener('change', ()=>{
+    let v = parseInt(recentNInput.value, 10);
+    if(isNaN(v) || v < 1) v = 1;
+    if(v > 50) v = 50;
+    recentNInput.value = v;
+    setRecentCount(v);
+    renderRecent();
+  });
+
+  // Init
+  document.body.className = 'lang-' + currentLang;
+  document.getElementById('stampLabel').textContent = LANG_META[currentLang].stamp;
+  ['fr','eng','lat','pt','gr'].forEach(sortLang);
+  renderAll();
+
+  if(ghConfigured()){
+    setSyncStatus('busy');
+    pullMerge().then(()=>{ setSyncStatus('ok'); lastSyncError=''; }).catch(err=>{ setSyncStatus('err'); lastSyncError = err.message || String(err); });
+  }
+
+})();
+</script>
+</body>
+</html>
