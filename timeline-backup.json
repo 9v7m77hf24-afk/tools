@@ -1,0 +1,2887 @@
+{
+  "entries": [
+    {
+      "era": "Era Cósmica",
+      "ano": "13.5x10^9",
+      "sortYear": -13500000000,
+      "evento": "Big Bang",
+      "descricao": "",
+      "id": "tl-0",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "",
+      "sortYear": -13500000000,
+      "evento": "Átomos",
+      "descricao": "Início da Química",
+      "id": "tl-1",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "id": "tl-new-1785230822228",
+      "era": "",
+      "ano": "4.6x10^9",
+      "sortYear": -4600000000,
+      "evento": "Formação da Terra",
+      "descricao": "",
+      "ts": 1785230822229,
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "Pré-Câmbrico",
+      "ano": "3.8x10^9",
+      "sortYear": -3800000000,
+      "evento": "Organismos",
+      "descricao": "Início da Biologia e da Vida na Terra",
+      "id": "tl-2",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "Cenozoico",
+      "ano": "66x10^6",
+      "sortYear": -66000000,
+      "evento": "Extinção dos dinossauros",
+      "descricao": "Início do Período Cenozóico/Paleogene",
+      "id": "tl-3",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "6x10^6",
+      "sortYear": -6000000,
+      "evento": "Homínidios (Australopitecos)",
+      "descricao": "Período Neogene/Miocénico",
+      "id": "tl-4",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "Paleolítico",
+      "ano": "2.5x10^6",
+      "sortYear": -2500000,
+      "evento": "Hominídios modernos na África Oriental",
+      "descricao": "Início do Período Neogene/Pleistocene",
+      "id": "tl-5",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "2x10^6",
+      "sortYear": -2000000,
+      "evento": "Migração dos Hominídios para o Norte de África, Europa (Neandertal), Ásia (Homo Erectus)",
+      "descricao": "",
+      "id": "tl-6",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "id": "tl-new-1785173416313",
+      "era": "",
+      "ano": "1.8x10^6",
+      "sortYear": -1800000,
+      "evento": "Homo Erectus starts using fire to cook",
+      "descricao": "",
+      "ts": 1785173416314,
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "800.000",
+      "sortYear": -800000,
+      "evento": "Fogo",
+      "descricao": "",
+      "id": "tl-7",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "400.000",
+      "sortYear": -400000,
+      "evento": "Caça de grande porte",
+      "descricao": "",
+      "id": "tl-8",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "150.000",
+      "sortYear": -150000,
+      "evento": "Homo Sapiens na África Oriental",
+      "descricao": "",
+      "id": "tl-9",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "100.000",
+      "sortYear": -100000,
+      "evento": "Início da última Idade do Gelo",
+      "descricao": "",
+      "id": "tl-10",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "70.000",
+      "sortYear": -70000,
+      "evento": "Homo Sapiens migra para Eurásia \nExtinção Denisova",
+      "descricao": "Revolução cognitiva",
+      "id": "tl-11",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "30.000",
+      "sortYear": -30000,
+      "evento": "Extinção Neandertal",
+      "descricao": "",
+      "id": "tl-12",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "12.000",
+      "sortYear": -12000,
+      "evento": "Extinção dos humanos anões Cultura natufiana/sedentarismo",
+      "descricao": "Revolução agrícola",
+      "id": "tl-13",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "Neolítico",
+      "ano": "9.500",
+      "sortYear": -9500,
+      "evento": "Fim da Idade do Gelo",
+      "descricao": "",
+      "id": "tl-14",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "7.000 a.C.",
+      "sortYear": -7000,
+      "evento": "Agricultura no Egipto",
+      "descricao": "",
+      "id": "tl-15",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "id": "tl-new-1785417857682",
+      "era": "",
+      "categorias": [
+        "Clima"
+      ],
+      "ano": "5.000 a.C.",
+      "sortYear": -5000,
+      "evento": "Início da Idade do Cobre",
+      "descricao": "Chalcolithic",
+      "ts": 1785417857683
+    },
+    {
+      "era": "",
+      "ano": "3.500 a.C.",
+      "sortYear": -3500,
+      "evento": "Unificação do Baixo e Alto Egipto",
+      "descricao": "",
+      "id": "tl-16",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785417900279",
+      "era": "Antiguidade Inicial",
+      "categorias": [
+        "Clima"
+      ],
+      "ano": "3.300 a.C.",
+      "sortYear": -3300,
+      "evento": "Fim da Idade do Cobre\nInício da Idade do Bronze",
+      "descricao": "",
+      "ts": 1785417900279
+    },
+    {
+      "era": "",
+      "ano": "1.600 a.C.",
+      "sortYear": -1600,
+      "evento": "Dinastia Shang na China",
+      "descricao": "",
+      "id": "tl-17",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785417983288",
+      "era": "",
+      "categorias": [
+        "Clima"
+      ],
+      "ano": "1.200 a.C.",
+      "sortYear": -1200,
+      "evento": "Fim da Idade do Bronze\nInício da Idade do Ferro",
+      "descricao": "",
+      "ts": 1785417983288
+    },
+    {
+      "id": "tl-new-1785418009721",
+      "era": "Antiguidade Clássica",
+      "categorias": [
+        "Clima"
+      ],
+      "ano": "500 a.C.",
+      "sortYear": -500,
+      "evento": "Fim da Idade do Ferro",
+      "descricao": "",
+      "ts": 1785418009721
+    },
+    {
+      "id": "tl-new-1785175797760",
+      "era": "",
+      "ano": "Séc. V a.C.",
+      "sortYear": -450,
+      "evento": "Princípios da dedução matemática estabelecidos",
+      "descricao": "",
+      "ts": 1785175797760,
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "id": "tl-new-1785176423628",
+      "era": "",
+      "ano": "325 a.C.",
+      "sortYear": -325,
+      "evento": "Nascimento de Euclides",
+      "descricao": "",
+      "ts": 1785176423628,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "id": "tl-new-1785177119666",
+      "era": "",
+      "ano": "287 a.C.",
+      "sortYear": -287,
+      "evento": "Nascimento de Arquimedes",
+      "descricao": "",
+      "ts": 1785177119667,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "id": "tl-new-1785176441246",
+      "era": "",
+      "ano": "265 a.C.",
+      "sortYear": -265,
+      "evento": "Morte de Euclides",
+      "descricao": "",
+      "ts": 1785176441246,
+      "categorias": [
+        "Bio",
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc III a.C.",
+      "sortYear": -250,
+      "evento": "Invenção dos numerais com base 10 na India",
+      "descricao": "",
+      "id": "tl-23",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "221 a.C.",
+      "sortYear": -221,
+      "evento": "Fim dos Reinos Combatentes na China\nInício da dinastia Qin",
+      "descricao": "Exército de Terracota em Xianyang",
+      "id": "tl-18",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785230995261",
+      "era": "",
+      "ano": "221 a.C.",
+      "sortYear": -221,
+      "evento": "Introdução da moeda redonda com buraco quadrado na China",
+      "descricao": "",
+      "ts": 1785230995262,
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "216 a.C.",
+      "sortYear": -216,
+      "evento": "Vitória de Aníbal em Canna",
+      "descricao": "",
+      "id": "tl-19",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785177132574",
+      "era": "",
+      "ano": "212 a.C.",
+      "sortYear": -212,
+      "evento": "Morte de Arquimedes",
+      "descricao": "",
+      "ts": 1785177132574,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "206 a.C.",
+      "sortYear": -206,
+      "evento": "Fim da dinastia Qin na China \nInício da dinastia Han",
+      "descricao": "",
+      "id": "tl-20",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc II a.C.",
+      "sortYear": -150,
+      "evento": "Invenção do papel na China",
+      "descricao": "",
+      "id": "tl-22",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "124 a.C.",
+      "sortYear": -124,
+      "evento": "Imperial Academy in China",
+      "descricao": "",
+      "id": "tl-21",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "31 a.C.",
+      "sortYear": -31,
+      "evento": "Batalha de Áccio\nConquista romana do Egipto Ptolomaico",
+      "descricao": "Derrota de Marco António e Cleópatra",
+      "id": "tl-24",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "9",
+      "sortYear": 9,
+      "evento": "Fim da dinastia Han na China",
+      "descricao": "",
+      "id": "tl-25",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "70",
+      "sortYear": 70,
+      "evento": "Destuição do Templo Expulsão dos Judeus de Jerusalém",
+      "descricao": "",
+      "id": "tl-26",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785177214849",
+      "era": "",
+      "ano": "85",
+      "sortYear": 85,
+      "evento": "Nascimento de Claudius Ptolomeu",
+      "descricao": "",
+      "ts": 1785177214850,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "129",
+      "sortYear": 129,
+      "evento": "Nascimento de Galeno Cidadão Romano",
+      "descricao": "Mapeou os 4 humores: sangue, fleuma, bílis negra, bilis amarela e o seu impacto na personalidade",
+      "id": "tl-27",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "id": "tl-new-1785177244668",
+      "era": "",
+      "ano": "165",
+      "sortYear": 165,
+      "evento": "Morte de Claudius Ptolomeu",
+      "descricao": "",
+      "ts": 1785177244668,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "id": "tl-new-1785352958284",
+      "era": "",
+      "categorias": [
+        "Bio",
+        "Science"
+      ],
+      "ano": "~210",
+      "sortYear": 210,
+      "evento": "Nascimento de Diofanto de Alexandria",
+      "descricao": "Pai da Álgebra, antes dos árabes\nUtilização de incógnita 'x', mas não criou um novo ramo da Matemática porque a aplicava a problemas geométricos como na tradição grega.",
+      "ts": 1785352958285
+    },
+    {
+      "era": "",
+      "ano": "~220",
+      "sortYear": 220,
+      "evento": "Colapso do Império Parta \nInício do Império Sassânida \nInício da Dinastia Sui na China",
+      "descricao": "",
+      "id": "tl-28",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "Antiguidade Tardia",
+      "ano": "273",
+      "sortYear": 273,
+      "evento": "Saque romano de Palmira da Rainha Zenobia",
+      "descricao": "",
+      "id": "tl-29",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "284",
+      "sortYear": 284,
+      "evento": "Diocleciano torna-se imperador romano",
+      "descricao": "Mudança do poder para as fronteiras \nDivisão do poder 4 Tetrarcas (2 Augustos + 2 Césares): Diocleciano em Nicomedia,  Milão, Trier e Antioquia",
+      "id": "tl-30",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc III/IV",
+      "sortYear": 284,
+      "evento": "Invenção do astrolábio em Alexandria\nÍndia usa ponto em lugar do zero",
+      "descricao": "",
+      "id": "tl-31",
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "id": "tl-new-1785352997198",
+      "era": "",
+      "categorias": [
+        "Science",
+        "Bio"
+      ],
+      "ano": "~294",
+      "sortYear": 294,
+      "evento": "Morte de Diofanto de Alexandria",
+      "descricao": "",
+      "ts": 1785352997199
+    },
+    {
+      "era": "",
+      "ano": "325",
+      "sortYear": 325,
+      "evento": "Concílio de Niceia por Constantino",
+      "descricao": "Cristo com barba, por oposição à tradição ariana",
+      "id": "tl-32",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "330",
+      "sortYear": 330,
+      "evento": "Construção de Constantinopla, Nova Roma",
+      "descricao": "Roma torna-se progressivamente irrelevante \nIgreja cria um novo propósito para a cidade de Roma inserido no contexto da nova religião romana \nDisputas de estatuto entre a Igreja do Oriente e do Ocidente",
+      "id": "tl-33",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "342",
+      "sortYear": 342,
+      "evento": "Nascimento de S. Jerónimo",
+      "descricao": "Historiador da Igreja",
+      "id": "tl-34",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "id": "tl-new-1785253599829",
+      "era": "",
+      "ano": "355",
+      "sortYear": 355,
+      "evento": "Morte de Eudoxos",
+      "descricao": "",
+      "ts": 1785253599829,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "380",
+      "sortYear": 380,
+      "evento": "Proibição do culto pagão e obrigatoriedade do culto cristão\nImperador Teodósio",
+      "descricao": "",
+      "id": "tl-35",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "id": "tl-new-1785253572028",
+      "era": "",
+      "ano": "408",
+      "sortYear": 408,
+      "evento": "Nascimento de Eudoxos",
+      "descricao": "Criação do conceito de \"maior\" e \"menor\" para expandir números irracionais\nÉpoca da grega matemática essencialmente geométrica",
+      "ts": 1785253572028,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "410",
+      "sortYear": 410,
+      "evento": "Alarico saqueia Roma",
+      "descricao": "",
+      "id": "tl-38",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785231169387",
+      "era": "",
+      "ano": "420",
+      "sortYear": 420,
+      "evento": "Morte de S. Jerónimo",
+      "descricao": "Historiador da Igreja",
+      "ts": 1785231169387,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc V",
+      "sortYear": 450,
+      "evento": "As Bodas de Mercúrio com Filologia’ de Martianus Capella \nCurriculum Medieval das 7 Artes liberais",
+      "descricao": "Modelo popularizado pelos Visigodos e Carlos Magno:\nTrivium (gramática + lógica que inclui a dialética + retórica) \nQuadrivium (aritmética + geometria + astronomia + música)",
+      "id": "tl-36",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc V",
+      "sortYear": 450,
+      "evento": "Declínio cultural e económico no Mediterrâeneo",
+      "descricao": "",
+      "id": "tl-37",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "Idade Média",
+      "ano": "476",
+      "sortYear": 476,
+      "evento": "Fim do Império Romano do Ocidente",
+      "descricao": "",
+      "id": "tl-39",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "480",
+      "sortYear": 480,
+      "evento": "Clovis unifica reinos francos\nInício da Dinastia Merovingia",
+      "descricao": "Dura 300 anos",
+      "id": "tl-40",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785177721051",
+      "era": "",
+      "ano": "480",
+      "sortYear": 480,
+      "evento": "Nascimento de Boécio",
+      "descricao": "",
+      "ts": 1785177721052,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "id": "tl-new-1785177740089",
+      "era": "",
+      "ano": "525",
+      "sortYear": 525,
+      "evento": "Morte de Boécio",
+      "descricao": "",
+      "ts": 1785177740089,
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "527",
+      "sortYear": 527,
+      "evento": "Nascimento de Justiniano",
+      "descricao": "Aboliu a instituição da republicana do consulado \nCodificou o código romano no Corpus Civilis \nRouba ovos da seda à China para produzir em Bizâncio",
+      "id": "tl-41",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "536",
+      "sortYear": 536,
+      "evento": "Início da pequena Idade do Gelo\nErupção em El Salvador",
+      "descricao": "",
+      "id": "tl-42",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "537",
+      "sortYear": 537,
+      "evento": "Construção da Hagia Sophia \nImperador Justiniano",
+      "descricao": "",
+      "id": "tl-43",
+      "categorias": [
+        "Church",
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "541",
+      "sortYear": 541,
+      "evento": "Peste bubónica no Delta do Nilo",
+      "descricao": "Yersinia Pestis",
+      "id": "tl-44",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "542",
+      "sortYear": 542,
+      "evento": "Peste em Constantinopla",
+      "descricao": "",
+      "id": "tl-45",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "545",
+      "sortYear": 545,
+      "evento": "Fim da pequena Idade do Gelo",
+      "descricao": "",
+      "id": "tl-46",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "581",
+      "sortYear": 581,
+      "evento": "Fim da Dinastia Sui na China",
+      "descricao": "",
+      "id": "tl-47",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785351936331",
+      "era": "",
+      "categorias": [
+        "Bio",
+        "Science"
+      ],
+      "ano": "598",
+      "sortYear": 598,
+      "evento": "Nascimento de Brahmagupta the Gujarat",
+      "descricao": "Coloca o zero no mesmo domínio conceptual que os outros números: sunya (espaço)\nHindus e Budistas associam o conceito de divino ao vazio (nirvana e ausência de apego), por oposição aos Cristão, Muçulmanos e Judeus que o associam ao infinito",
+      "ts": 1785351936332
+    },
+    {
+      "era": "",
+      "ano": "~600",
+      "sortYear": 600,
+      "evento": "Primeira Grande Divergência",
+      "descricao": "Economia chinesa supera economia romana e alimenta aumento do tráfego no Índico",
+      "id": "tl-49",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "610",
+      "sortYear": 610,
+      "evento": "Revelação de Maomé",
+      "descricao": "",
+      "id": "tl-50",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "618",
+      "sortYear": 618,
+      "evento": "Início da dinastia Tang (Zhengzhou)",
+      "descricao": "Soldados tornam-se profissionais pagos",
+      "id": "tl-51",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "619",
+      "sortYear": 619,
+      "evento": "Sassânidas conquistam Egipto a Bizâncio",
+      "descricao": "",
+      "id": "tl-52",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "622",
+      "sortYear": 622,
+      "evento": "Hérgira",
+      "descricao": "",
+      "id": "tl-53",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "",
+      "sortYear": 622,
+      "evento": "Maomé muda a direcção das orações de Jerusalém para Meca",
+      "descricao": "",
+      "id": "tl-54",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "628",
+      "sortYear": 628,
+      "evento": "Brahmagupta’s masterpiece",
+      "descricao": "Zero como número \nOperações com números negativos \nFórmula geral de resolução de equações quadráticas",
+      "id": "tl-55",
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "id": "tl-new-1785352452408",
+      "era": "",
+      "categorias": [
+        "Science"
+      ],
+      "ano": "628",
+      "sortYear": 628,
+      "evento": "Brahmagupta's masterpiece",
+      "descricao": "Brahmasphutasiddhanta: introdução do zero, manipulação dos números negativos e resolução de equações quadráticas",
+      "ts": 1785352452409
+    },
+    {
+      "era": "",
+      "ano": "629",
+      "sortYear": 629,
+      "evento": "Visigodos tomam a Península Ibérica aos Romanos",
+      "descricao": "",
+      "id": "tl-56",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "630",
+      "sortYear": 630,
+      "evento": "Maomé toma Meca",
+      "descricao": "",
+      "id": "tl-57",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "632",
+      "sortYear": 632,
+      "evento": "Morte de Maomé",
+      "descricao": "",
+      "id": "tl-58",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "637",
+      "sortYear": 637,
+      "evento": "Tomada de Jerusalém pelos Árabes a Bizâncio \nConstrução mesquita Al-Aqsa \nCalifa Umar",
+      "descricao": "Judeus têm permissão para voltar a Jerusalém desde a destruição do templo em 70",
+      "id": "tl-59",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "642",
+      "sortYear": 642,
+      "evento": "Árabes conquistam o Egipto \nFundação de Fustaf (Cairo)",
+      "descricao": "",
+      "id": "tl-60",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc VII",
+      "sortYear": 650,
+      "evento": "Conversão da Inglaterra ao cristianismo",
+      "descricao": "",
+      "id": "tl-48",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "656",
+      "sortYear": 656,
+      "evento": "Batalha do Camelo",
+      "descricao": "Entre Ali e Otomão",
+      "id": "tl-61",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "661",
+      "sortYear": 661,
+      "evento": "Início da Dinastia Omíada",
+      "descricao": "",
+      "id": "tl-62",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785351955764",
+      "era": "",
+      "categorias": [
+        "Bio",
+        "Science"
+      ],
+      "ano": "670",
+      "sortYear": 670,
+      "evento": "Morte de Brahmagupta the Gujarat",
+      "descricao": "",
+      "ts": 1785351955764
+    },
+    {
+      "era": "",
+      "ano": "691",
+      "sortYear": 691,
+      "evento": "Cúpula do Rochedo completada em Jerusalém Muawiyyah, 1ª Omíada",
+      "descricao": "",
+      "id": "tl-63",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "697",
+      "sortYear": 697,
+      "evento": "Árabes conquistam Cártago aos Romanos \nConstrução de Tunis",
+      "descricao": "",
+      "id": "tl-64",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "700",
+      "sortYear": 700,
+      "evento": "Glaciares dos Alpes atingem pico de gelo",
+      "descricao": "",
+      "id": "tl-69",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "~700",
+      "sortYear": 700,
+      "evento": "Árabe substitui grego no Levante",
+      "descricao": "Império Árabe substitui Pérsia no centro do mundo Nova Roma cercada",
+      "id": "tl-70",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "711",
+      "sortYear": 711,
+      "evento": "Conquista árabe da Península Ibérica aos Visigodos",
+      "descricao": "",
+      "id": "tl-71",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "732",
+      "sortYear": 732,
+      "evento": "Vitória de Carlos Martel em Poitiers contra os árabes",
+      "descricao": "Sarraceno’: termo inicialmente usado para descrever populações nómadas de árabes do deserto em Greco-latino, agora refere-se aos muçulmanos em geral em contraste com os cristãos europeus\n‘Europeus’ termo cunhado na corte de Charles Martel",
+      "id": "tl-72",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc VIII",
+      "sortYear": 750,
+      "evento": "Monges budistas inventam a impressão",
+      "descricao": "",
+      "id": "tl-65",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc VIII",
+      "sortYear": 750,
+      "evento": "Ponto mais baixo do tráfego comercial no Mediterrâneo",
+      "descricao": "",
+      "id": "tl-66",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc VIII",
+      "sortYear": 750,
+      "evento": "Início dos raides Vikings",
+      "descricao": "",
+      "id": "tl-67",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc VIII",
+      "sortYear": 750,
+      "evento": "Seljucidas vindos do Lago Baikal",
+      "descricao": "",
+      "id": "tl-68",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "750",
+      "sortYear": 750,
+      "evento": "Início da dinastia Abássida baseada em Bagdade",
+      "descricao": "Abássidas vindos de Coraçone Inicia tradição de escravos não árabes como soldados",
+      "id": "tl-73",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "751",
+      "sortYear": 751,
+      "evento": "Lombardos tomam Ravena, capital do Império Romano do Ocidente",
+      "descricao": "",
+      "id": "tl-74",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "754",
+      "sortYear": 754,
+      "evento": "Pepino, filho de Carlos Martel, coroado pelo Papa ‘Rei dos Francos’ \nFim dos Merovíngios \nInício da Dinastia Carolíngia",
+      "descricao": "",
+      "id": "tl-75",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "755",
+      "sortYear": 755,
+      "evento": "Príncipe Omíada Abd al-Rahman funda o Emirado Al-Andaluz Sede em Córdoba",
+      "descricao": "Incorpora mais tarde o Algarve (al-Gharb, terra do sol poente)",
+      "id": "tl-77",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "756",
+      "sortYear": 756,
+      "evento": "Criação dos Estados Papais",
+      "descricao": "Livres do Império Romano Pepino salva Roma e devolve-a ao Papado",
+      "id": "tl-76",
+      "categorias": [
+        "Church",
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "762",
+      "sortYear": 762,
+      "evento": "Fundação de Bagdad pelos Abássidas \nCalifa Al-Mansur",
+      "descricao": "Inspirada nas cidades Sassânidas",
+      "id": "tl-78",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "768",
+      "sortYear": 768,
+      "evento": "Carlos Magno, Pater Europa, torna-se Rei dos Francos",
+      "descricao": "Fundador da Europa Cristã: \nFrança, Alemanha Ocidental, Itália, Belgica, Luxemburgo, Países Baixos \n‘La Joyeuse’ no Louvre: espada mítica usada na coroação dos reis Franceses desde 1271 até 1804 (Bonaparte)",
+      "id": "tl-79",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "774",
+      "sortYear": 774,
+      "evento": "Morte de Al-Mansur",
+      "descricao": "Translation Movement: Promoveu tradução textos persas, sanscritos, gregos (cristãos do Levante) e siriaco para desenvolver conhecimento",
+      "id": "tl-80",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "~780",
+      "sortYear": 780,
+      "evento": "Nascimento de Muhammad Ibn Musa al-Khwarizmi",
+      "descricao": "Pai da Álgebra (al-Jabr W'al Muqabalah)\nComo resolver equações polinomiais usando numerais indianos\nReconhece a álgebra como um ramo autónomo da matemática\n'Algoritmo' derivado do seu nome",
+      "id": "tl-81",
+      "categorias": [
+        "Bio",
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "790",
+      "sortYear": 790,
+      "evento": "Fabrico de papel em Bagdad",
+      "descricao": "Proliferação da escrita",
+      "id": "tl-82",
+      "categorias": [
+        "Cultura",
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "800",
+      "sortYear": 800,
+      "evento": "Início do Óptimo Climático",
+      "descricao": "Aquecimento global Melhoria da agriculta Aumento de população",
+      "id": "tl-85",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "800",
+      "sortYear": 800,
+      "evento": "Carlos Magno coroado Imperador do Sacro Império Romano por Leão III, Rei dos Francos e dos Lombardos",
+      "descricao": "O trono de Roma era considerado vazio porque era ocupado por uma mulher, Irene, viúva do falecido imperador",
+      "id": "tl-86",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "809",
+      "sortYear": 809,
+      "evento": "Morte do califa al-Rashid (Rei Lear)",
+      "descricao": "Apogeu do Império árabe/Abássidas",
+      "id": "tl-87",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "832",
+      "sortYear": 832,
+      "evento": "Fundação da Casa da Sabedoria (Bayt al-Hikma) de Bagdad \nCalifa Al-Ma’mun",
+      "descricao": "Translation Movement: \nBaseado em modelos persas do sec.VI Sassânida de tradução de textos gregos e indianos \nIncorporação do conhecimento grego na língua árabe como hegemonia sobre o Império Romano de Constantinopla \nLiberdade da ortodoxia religiosa que pouco interessava aos califas \nLegado árabe não é a preservação dos textos gregos, mas o ímpeto que deram ao pensamento; interesse na investigação cientifica \nTrade and Translation linked the known world",
+      "id": "tl-88",
+      "categorias": [
+        "Cultura",
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc IX",
+      "sortYear": 850,
+      "evento": "Invenção da pólvora na China (al-Sin) \nCiência Árabe começa a chegar à Europa Ocidental",
+      "descricao": "Árabes conectam a geometria do Ocidente com a Álgebra do Oriente",
+      "id": "tl-83",
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc IX",
+      "sortYear": 850,
+      "evento": "‘Sclavus’ substitui ‘servos’",
+      "descricao": "Eslavos, habitantes da Europa central para os gregos",
+      "id": "tl-84",
+      "categorias": [
+        "Politics",
+        "Cultura"
+      ]
+    },
+    {
+      "id": "tl-new-1785352831006",
+      "era": "",
+      "categorias": [
+        "Bio",
+        "Science"
+      ],
+      "ano": "~850",
+      "sortYear": 850,
+      "evento": "Morte de al-Khwarizmi",
+      "descricao": "",
+      "ts": 1785352831007
+    },
+    {
+      "era": "",
+      "ano": "861",
+      "sortYear": 861,
+      "evento": "Morte do califa Abássida \nTransferência do poder para comandantes militares turcos",
+      "descricao": "",
+      "id": "tl-89",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "880",
+      "sortYear": 880,
+      "evento": "Vikings (proto-suecos) fundam Kiev Conhecidos como ‘Rus’",
+      "descricao": "",
+      "id": "tl-90",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "888",
+      "sortYear": 888,
+      "evento": "Fim da Dinastia Carolíngia",
+      "descricao": "",
+      "id": "tl-91",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "907",
+      "sortYear": 907,
+      "evento": "Fim da dinastia Tang na China",
+      "descricao": "",
+      "id": "tl-93",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "930",
+      "sortYear": 930,
+      "evento": "Ataque a Meca e remoção da Pedra Negra (carmatas)",
+      "descricao": "",
+      "id": "tl-94",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "940",
+      "sortYear": 940,
+      "evento": "Último califa Abássida al-Radi \nDivisão do califado em 3",
+      "descricao": "Bagdad, Córdoba, Cairo",
+      "id": "tl-95",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785417270011",
+      "era": "",
+      "categorias": [
+        "Church",
+        "Science",
+        "Bio"
+      ],
+      "ano": "946",
+      "sortYear": 946,
+      "evento": "Nascimento de Gerbert the Aurillac",
+      "descricao": "Reintroduziu o ábaco e a esfera armilar na Europa com números árabes\nPapa Silvestre II",
+      "ts": 1785417270011
+    },
+    {
+      "era": "",
+      "ano": "Séc X",
+      "sortYear": 950,
+      "evento": "Beowulf",
+      "descricao": "",
+      "id": "tl-92",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "id": "tl-new-1785352202028",
+      "era": "",
+      "categorias": [
+        "Science",
+        "Cultura"
+      ],
+      "ano": "Séc X",
+      "sortYear": 950,
+      "evento": "Árabes adoptam o zero indiano: sifr",
+      "descricao": "",
+      "ts": 1785352202029
+    },
+    {
+      "era": "",
+      "ano": "960",
+      "sortYear": 960,
+      "evento": "Início da dinastia Song do Norte na China",
+      "descricao": "Impressão papel moeda na região de Shichuan (Chengu): valor suportado pelas moedas de ferro mais pesadas \nIniciativa privada de mercadores ricos \nCriação de “bancos” para a troca de moedas por notas \nProjecto foi flop por falta de moeda, usada pelos “banqueiros” para comprar imobiliário \nÉpoca de Ouro da China",
+      "id": "tl-96",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "969",
+      "sortYear": 969,
+      "evento": "Califado Fatímada conquista o Egipto \nFundação do Cairo (al-Qahirah) Xiismo ismaelita",
+      "descricao": "Rivais dos Abássidas Controlo das rotas do Mar Vermelho",
+      "id": "tl-97",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "969",
+      "sortYear": 969,
+      "evento": "Regresso da rota do ouro trans-Sahara",
+      "descricao": "",
+      "id": "tl-98",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "975",
+      "sortYear": 975,
+      "evento": "Numerais árabes usados em Espanha\nChegada do xadrez à Peninsula",
+      "descricao": "",
+      "id": "tl-99",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "980",
+      "sortYear": 980,
+      "evento": "Vikings estabelecem colónia na Gronelândia",
+      "descricao": "",
+      "id": "tl-100",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "999",
+      "sortYear": 999,
+      "evento": "Gerbert d’Aurrilac nomeado 1º Papa francês",
+      "descricao": "",
+      "id": "tl-101",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "id": "tl-new-1785417286919",
+      "era": "",
+      "categorias": [
+        "Bio",
+        "Church",
+        "Science"
+      ],
+      "ano": "1003",
+      "sortYear": 1003,
+      "evento": "Morte de Gerbert the Aurillac",
+      "descricao": "",
+      "ts": 1785417286919
+    },
+    {
+      "era": "",
+      "ano": "1021",
+      "sortYear": 1021,
+      "evento": "Vestígios da presença Viking na América do Norte",
+      "descricao": "",
+      "id": "tl-102",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1024",
+      "sortYear": 1024,
+      "evento": "Papel moeda introduzido na província de Shichuan na China",
+      "descricao": "Papel moeda como iniciativa estatal Com guerra gera-se hiperinflacção com impressão descontrolada de moeda",
+      "id": "tl-103",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1040",
+      "sortYear": 1040,
+      "evento": "Invenção da Imprensa de tipos móveis na China",
+      "descricao": "Bi Sheng",
+      "id": "tl-104",
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1054",
+      "sortYear": 1054,
+      "evento": "Cisma Igreja do Oriente/Ocidente",
+      "descricao": "Excomunhão levantada em 1965",
+      "id": "tl-105",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1055",
+      "sortYear": 1055,
+      "evento": "Seljucidas tomam Bagdad",
+      "descricao": "",
+      "id": "tl-106",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1073",
+      "sortYear": 1073,
+      "evento": "Seljucidas tomam Jerusalem",
+      "descricao": "",
+      "id": "tl-107",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1078",
+      "sortYear": 1078,
+      "evento": "Seljucidas tomam Damasco",
+      "descricao": "",
+      "id": "tl-108",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1080",
+      "sortYear": 1080,
+      "evento": "Nascimento de Abelardo de Bath",
+      "descricao": "Traduções do árabe sobre filosofia, astronomia, alquimia e matemática \nProvavelmente o primeiro tradutor da aritmética de al-Khwarizmi, agora só preservado na sua versão latina do sec XII",
+      "id": "tl-109",
+      "categorias": [
+        "Bio",
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1085",
+      "sortYear": 1085,
+      "evento": "Afonso VI de Leão conquista Toledo",
+      "descricao": "",
+      "id": "tl-110",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1095",
+      "sortYear": 1095,
+      "evento": "Papa Urbano II proclama I Cruzada Concílio de Clermont",
+      "descricao": "Imperador romano Alexios I pede ajuda a Roma para combater os Seljucidas",
+      "id": "tl-111",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1096",
+      "sortYear": 1096,
+      "evento": "I Cruzada",
+      "descricao": "",
+      "id": "tl-112",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1098",
+      "sortYear": 1098,
+      "evento": "Conquista de Antioquia pelos cruzados",
+      "descricao": "",
+      "id": "tl-113",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1099",
+      "sortYear": 1099,
+      "evento": "Conquista de Jerusalém pelos cruzados",
+      "descricao": "Conquista do Oriente agudiza tensões entre igrejas do Oriente e do Ocidente Cristianismo era ainda uma aspiração global como mostram histórias como o Prestes João Comércio Ocidente/Oriente cresce: Pisa, Veneza, Génova Interconecção cultural, recuperação dos textos gregos/romanos Grego para a liturgia, latin para a história e árabe para a poesia",
+      "id": "tl-114",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1127",
+      "sortYear": 1127,
+      "evento": "Fim da dinastia Song do Norte na China \nInício da dinastia Song do Sul",
+      "descricao": "Produção de porcelana explode Saída moeda de bronze da China/crise",
+      "id": "tl-115",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1144",
+      "sortYear": 1144,
+      "evento": "Seljucidas tomam Edessa aos cruzados",
+      "descricao": "",
+      "id": "tl-116",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1146",
+      "sortYear": 1146,
+      "evento": "II Cruzada",
+      "descricao": "",
+      "id": "tl-117",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "id": "tl-new-1785417387332",
+      "era": "",
+      "categorias": [
+        "Science",
+        "Cultura"
+      ],
+      "ano": "Séc XII",
+      "sortYear": 1150,
+      "evento": "Traduções em Latim dos textos árabes chegam à Europa",
+      "descricao": "",
+      "ts": 1785417387333
+    },
+    {
+      "era": "",
+      "ano": "1160",
+      "sortYear": 1160,
+      "evento": "Nascimento de Temujin/Gengis Khan",
+      "descricao": "",
+      "id": "tl-118",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1171",
+      "sortYear": 1171,
+      "evento": "Expulsão dos Venezianos do Império Bizantino\nSaladino: Aiúbidas curdos derrotam califado Fatímada no Egipto",
+      "descricao": "",
+      "id": "tl-119",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1175",
+      "sortYear": 1175,
+      "evento": "Tradução latina do Almagesto",
+      "descricao": "Séc XII: Início do movimento de tradução do árabe para o latim",
+      "id": "tl-120",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1187",
+      "sortYear": 1187,
+      "evento": "Saladino conquista Jerusalem",
+      "descricao": "",
+      "id": "tl-121",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1189-92",
+      "sortYear": 1189,
+      "evento": "III Cruzada",
+      "descricao": "Filipe I França, Ricardo I, Barbarossa",
+      "id": "tl-122",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1195",
+      "sortYear": 1195,
+      "evento": "Nascimento de Frederick II",
+      "descricao": "Promoveu língua vernacular: poesia/soneto em francês, alemão, occitan",
+      "id": "tl-123",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1202-4",
+      "sortYear": 1202,
+      "evento": "IV Cruzada",
+      "descricao": "Saque de Constantinopla pelos cruzados",
+      "id": "tl-125",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1202",
+      "sortYear": 1202,
+      "evento": "Líber Abaci de Leonardo Fibonacci",
+      "descricao": "Livro do Cálculo, explicando a utilização da numeração indo-arábica",
+      "id": "tl-126",
+      "categorias": [
+        "Cultura",
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1209",
+      "sortYear": 1209,
+      "evento": "Fundação da Universidade de Cambridge",
+      "descricao": "Óptica, Ibn al-Haytham Algebra, al-Khwarzimi Elementos, Euclides Almagesto, Ptolomeu Canone da Medicina, Ibn Sina \nEscolástica para resolver dois argumentos contraditórios: lógica aristotélica",
+      "id": "tl-127",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1217",
+      "sortYear": 1217,
+      "evento": "V Cruzada",
+      "descricao": "",
+      "id": "tl-128",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1227",
+      "sortYear": 1227,
+      "evento": "Morte de Gengis Khan",
+      "descricao": "Império Mongol do Pacífico ao Mar Cáspio",
+      "id": "tl-129",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1228",
+      "sortYear": 1228,
+      "evento": "VI Cruzada",
+      "descricao": "Frederick II: Retorno diplomático de Jerusalém por 20 anos",
+      "id": "tl-130",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1231/4",
+      "sortYear": 1231,
+      "evento": "Conquista Mongól sobre a Dinastia Jin no norte da China",
+      "descricao": "",
+      "id": "tl-131",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1240",
+      "sortYear": 1240,
+      "evento": "Conquista Mongól de Kiev",
+      "descricao": "",
+      "id": "tl-132",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1240",
+      "sortYear": 1240,
+      "evento": "Criação da Inquisição em França contra a heresia cátara",
+      "descricao": "",
+      "id": "tl-133",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1241",
+      "sortYear": 1241,
+      "evento": "Mongóis chegam à Europa",
+      "descricao": "‘Ocidente’ torna-se simbólico do espaço cristão pelo qual vale a pena lutar até à morte de Genghis Khan",
+      "id": "tl-134",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1248",
+      "sortYear": 1248,
+      "evento": "Conquista de Córdoba por Castela",
+      "descricao": "",
+      "id": "tl-135",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1248",
+      "sortYear": 1248,
+      "evento": "VII Cruzada",
+      "descricao": "",
+      "id": "tl-136",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1249",
+      "sortYear": 1249,
+      "evento": "Conquista do Algarve",
+      "descricao": "",
+      "id": "tl-137",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "Séc. XIII",
+      "sortYear": 1250,
+      "evento": "Generalização do uso da bússola no Mediterrâneo\nPrimeiros mapas portolanos",
+      "descricao": "",
+      "id": "tl-124",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1250",
+      "sortYear": 1250,
+      "evento": "Mamelucos derrotam Aiubidas e conquistam Egipto e Siria",
+      "descricao": "",
+      "id": "tl-138",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1252",
+      "sortYear": 1252,
+      "evento": "Florim de ouro Primeira moeda estável na Europa",
+      "descricao": "",
+      "id": "tl-139",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1258",
+      "sortYear": 1258,
+      "evento": "Fim do Califado Abássida\nConquista Mongol de Bagdad, Damasco e Alepo",
+      "descricao": "",
+      "id": "tl-140",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1259",
+      "sortYear": 1259,
+      "evento": "Fractura do Império Mongol em 4 partes",
+      "descricao": "Mongolia, Chataray, Golden Hord, Pérsia e Mesopotâmia",
+      "id": "tl-141",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1260",
+      "sortYear": 1260,
+      "evento": "Conquista Mongól de Antioquia \nMamelucos acabam com a expansão Mongól",
+      "descricao": "Pax Mongolia",
+      "id": "tl-142",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1260",
+      "sortYear": 1260,
+      "evento": "Comércio mundial com centro no Índico\nPólvora, compasso, motores de cerco chegam à Europa",
+      "descricao": "Hangzhou maior cidade do mundo, Cairo maior cidade do Mediterrâneo, Grande Zimbabue \nVeneza e Génova estabelecem comércio com Mongóis no Mar Negro e nos portos muçulmanos",
+      "id": "tl-143",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1270",
+      "sortYear": 1270,
+      "evento": "VIII Cruzada (morte de Luis IX)",
+      "descricao": "",
+      "id": "tl-144",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1279",
+      "sortYear": 1279,
+      "evento": "Kubilai Khan derrota da Dinastia Song na China\nInício da dinastia Yuan\nNova capital Khanbaliq/Beijing",
+      "descricao": "Mongóis na China",
+      "id": "tl-145",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1280",
+      "sortYear": 1280,
+      "evento": "Nascimento de Osman",
+      "descricao": "",
+      "id": "tl-146",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1291",
+      "sortYear": 1291,
+      "evento": "Conquista de Acre pelos Mamelucos Fim dos ocidentais no Oriente",
+      "descricao": "",
+      "id": "tl-147",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1299",
+      "sortYear": 1299,
+      "evento": "Florença proíbe uso de numerais árabes",
+      "descricao": "Algarismos árabes mais fáceis para produzir falsificações",
+      "id": "tl-148",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1304",
+      "sortYear": 1304,
+      "evento": "Nascimento de Francesco Petrarca",
+      "descricao": "",
+      "id": "tl-149",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1309",
+      "sortYear": 1309,
+      "evento": "Papa em Avinhão",
+      "descricao": "",
+      "id": "tl-150",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1312",
+      "sortYear": 1312,
+      "evento": "Lancelotto Malocello chega a Lanzarote",
+      "descricao": "",
+      "id": "tl-151",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1312",
+      "sortYear": 1312,
+      "evento": "Início do reinado na Mansa Musa",
+      "descricao": "",
+      "id": "tl-152",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1325",
+      "sortYear": 1325,
+      "evento": "Ibn Batutta em Meca",
+      "descricao": "Mundo Muçulmano/Mongol 7 Great Kings: \nMarrocos, Egipto, Síria, Iraque, Turquistão, Índia Norte, China",
+      "id": "tl-153",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1337",
+      "sortYear": 1337,
+      "evento": "Morte de Mansa Musa do Mali",
+      "descricao": "",
+      "id": "tl-154",
+      "categorias": [
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1342",
+      "sortYear": 1342,
+      "evento": "Fim do Óptimo Climático na Europa",
+      "descricao": "Arrefecimento da Eurásia",
+      "id": "tl-155",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1346",
+      "sortYear": 1346,
+      "evento": "Expedição de Jaume Ferrer para procurar o Rio de Ouro (riqueza da Mansa Musa)",
+      "descricao": "",
+      "id": "tl-156",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1347",
+      "sortYear": 1347,
+      "evento": "Yersinia Pestis",
+      "descricao": "Vinda das montanhas Tian Shan (marmotas) chega à Europa pelo Mar de Azov e portos de Génova",
+      "id": "tl-157",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1348",
+      "sortYear": 1348,
+      "evento": "Peste em Veneza e Damasco (Ibn Batutta)",
+      "descricao": "Colapso do sistema de irrigação egípcio\nAçúcar agora vem da Sicília \nPerseguição de minorias religiosas na Europa \nProcurar esperança no passado/olhar nostálgico para um mundo mais interligado e próspero: Studia Humanitatis priveligia a Literatura e História (Roma) em deterimento do currículo medieval de Medicina, Ciência e Lei",
+      "id": "tl-158",
+      "categorias": [
+        "Clima"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1350",
+      "sortYear": 1350,
+      "evento": "Decameron de Giovanni Boccaccio",
+      "descricao": "Inspirado no Kalila wa-Dimma",
+      "id": "tl-159",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1368",
+      "sortYear": 1368,
+      "evento": "Queda da Dinastia Yuan (Mongóis)\nInício da Dinastia Ming \nChina fecha-se ao exterior",
+      "descricao": "Decline in innovation and scientific progress.",
+      "id": "tl-160",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1370",
+      "sortYear": 1370,
+      "evento": "Tamarelão lidera Kaganato de Chagatay Rei da Transoxiana",
+      "descricao": "",
+      "id": "tl-161",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1375",
+      "sortYear": 1375,
+      "evento": "Catalan Atlas",
+      "descricao": "Uso prático com a orientação Norte \nAdopção generalizada do Norte Magnético na navegação \nDistinção Nós/Eles - Europa/Asia&Africa onde o tempo parou para os Europeus \nInício do Mundo Atlântico: Ideologia de superioridade e distância, além da diferença",
+      "id": "tl-162",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1377",
+      "sortYear": 1377,
+      "evento": "Papa em Roma",
+      "descricao": "",
+      "id": "tl-163",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1385",
+      "sortYear": 1385,
+      "evento": "Batalha de Aljubarrota\nD. João I, Mestre de Avis, Rei de Portugal",
+      "descricao": "",
+      "id": "tl-164",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "~1400",
+      "sortYear": 1400,
+      "evento": "Café feito no Iémen a partir da planta arábica da Etiópia",
+      "descricao": "",
+      "id": "tl-165",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1401",
+      "sortYear": 1401,
+      "evento": "Tamarelão conquista Damasco e Alepo",
+      "descricao": "",
+      "id": "tl-166",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1405",
+      "sortYear": 1405,
+      "evento": "Morte de Tamarelão \nTurcos pressionam Europa\n Imperador chinês Yongle impulsiona construção náutica",
+      "descricao": "",
+      "id": "tl-167",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1415",
+      "sortYear": 1415,
+      "evento": "Conquista de Ceuta D. João I",
+      "descricao": "",
+      "id": "tl-168",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1417",
+      "sortYear": 1417,
+      "evento": "Fim do Cisma da Igreja Católica",
+      "descricao": "",
+      "id": "tl-169",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1419",
+      "sortYear": 1419,
+      "evento": "Povoamento da Madeira",
+      "descricao": "",
+      "id": "tl-170",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1430",
+      "sortYear": 1430,
+      "evento": "Turcos capturam Tessalónica",
+      "descricao": "",
+      "id": "tl-171",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1434",
+      "sortYear": 1434,
+      "evento": "Travessia do Cabo Bojador por Gil Eanes",
+      "descricao": "",
+      "id": "tl-172",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1437",
+      "sortYear": 1437,
+      "evento": "Expedição do Infante D. Henrique a Tânger",
+      "descricao": "Culmina na captura e morte do infante D. Fernando",
+      "id": "tl-173",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1439",
+      "sortYear": 1439,
+      "evento": "Invenção da impressão por tipos móveis por Gutenberg\nBanco Medici muda contabilidade do sitema romano para árabe/decimal",
+      "descricao": "",
+      "id": "tl-174",
+      "categorias": [
+        "Economia",
+        "Science",
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1440",
+      "sortYear": 1440,
+      "evento": "Fim da colónia Viking na Gronelândia",
+      "descricao": "Arrefecimento climático da Eurásia",
+      "id": "tl-175",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1440",
+      "sortYear": 1440,
+      "evento": "Chegada a Cabo Verde \nChegada ao Senegal",
+      "descricao": "",
+      "id": "tl-176",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1441",
+      "sortYear": 1441,
+      "evento": "Rapto de escravos em África",
+      "descricao": "",
+      "id": "tl-177",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1444",
+      "sortYear": 1444,
+      "evento": "Primeiro mercado de escravos na Europa em Lagos",
+      "descricao": "",
+      "id": "tl-178",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1450",
+      "sortYear": 1450,
+      "evento": "Mapa de Fra Mauro",
+      "descricao": "",
+      "id": "tl-179",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "era": "Idade Moderna",
+      "ano": "1453",
+      "sortYear": 1453,
+      "evento": "Queda de Constantinopla: Sultão Mehmed II",
+      "descricao": "200,000 soldados União cristã na Europa com a queda do centro Ortodoxo",
+      "id": "tl-180",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1455",
+      "sortYear": 1455,
+      "evento": "Bíblia de Gutenberg",
+      "descricao": "",
+      "id": "tl-181",
+      "categorias": [
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1458",
+      "sortYear": 1458,
+      "evento": "Queda de Atenas: Sultão Mehmed II",
+      "descricao": "",
+      "id": "tl-182",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1458/1464",
+      "sortYear": 1458,
+      "evento": "Papa Pio II adepto de termo ‘Europeu’ em detrimento de ‘Cristandade’",
+      "descricao": "",
+      "id": "tl-185",
+      "categorias": [
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1460",
+      "sortYear": 1460,
+      "evento": "Madeira torna-se produtor de açúcar\nMorte do Infante D. Henrique",
+      "descricao": "",
+      "id": "tl-183",
+      "categorias": [
+        "Portugal",
+        "Bio"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1461",
+      "sortYear": 1461,
+      "evento": "Queda de Trebizond: última região Cristã na Ásia",
+      "descricao": "Cristianismo relegado à Europa, cujo conceito é reforçado e aliado á religião",
+      "id": "tl-184",
+      "categorias": [
+        "Politics",
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1470",
+      "sortYear": 1470,
+      "evento": "Primeiro mapa postulano português.",
+      "descricao": "",
+      "id": "tl-186",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1473",
+      "sortYear": 1473,
+      "evento": "Travessia do Equador",
+      "descricao": "",
+      "id": "tl-187",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1479",
+      "sortYear": 1479,
+      "evento": "União de Castela e Aragão Cedência das Canárias a Espanha Extermínio dos Guanches",
+      "descricao": "",
+      "id": "tl-188",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1482",
+      "sortYear": 1482,
+      "evento": "Construção do Castelo de S. Jorge da Mina/Elmina no Gana Extracção de ouro",
+      "descricao": "Declínio dos reinos da África Ocidental com o ouro e escravos a seguir directamente para a Europa",
+      "id": "tl-189",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1484",
+      "sortYear": 1484,
+      "evento": "Chegada ao Congo",
+      "descricao": "",
+      "id": "tl-190",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1488",
+      "sortYear": 1488,
+      "evento": "Bartolomeu Dias dobra do Cabo da Boa Esperança",
+      "descricao": "2,000 anos depois do trajecto inverso por marinheiro do Levante \nPressão para descobrir um caminho para o Indico em alternativa aos portos leste do Mediterrâneo",
+      "id": "tl-191",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1491",
+      "sortYear": 1491,
+      "evento": "Conquista cristã de Granada \nNascimento de Henrique VIII de Inglaterra",
+      "descricao": "",
+      "id": "tl-192",
+      "categorias": [
+        "Politics",
+        "Bio",
+        "Church"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1492",
+      "sortYear": 1492,
+      "evento": "Judeus expulsos de Espanha \nChegada do Colombo à ilha da Hispaniola",
+      "descricao": "",
+      "id": "tl-193",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1496",
+      "sortYear": 1496,
+      "evento": "Judeus expulsos de Portugal",
+      "descricao": "",
+      "id": "tl-194",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1497",
+      "sortYear": 1497,
+      "evento": "Muçulmanos expulsos de Portugal",
+      "descricao": "",
+      "id": "tl-195",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1498",
+      "sortYear": 1498,
+      "evento": "Vasco da Gama chega à India",
+      "descricao": "",
+      "id": "tl-196",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1500",
+      "sortYear": 1500,
+      "evento": "Pedro Álvares Cabral chega ao Brasil",
+      "descricao": "",
+      "id": "tl-197",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1502",
+      "sortYear": 1502,
+      "evento": "Muçulmanos expulsos de Espanha \nChegada dos primeiro escravos africanos à América espanhola",
+      "descricao": "",
+      "id": "tl-198",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1502",
+      "sortYear": 1502,
+      "evento": "Mapa Cantino",
+      "descricao": "",
+      "id": "tl-199",
+      "categorias": [
+        "Portugal"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1615",
+      "sortYear": 1615,
+      "evento": "Primeiro Café em Veneza",
+      "descricao": "",
+      "id": "tl-200",
+      "categorias": [
+        "Economia"
+      ]
+    },
+    {
+      "id": "tl-new-1785967016113",
+      "era": "",
+      "categorias": [
+        "Politics",
+        "Church"
+      ],
+      "ano": "1685",
+      "sortYear": 1685,
+      "evento": "Expulsão dos huguenotes de França",
+      "descricao": "Édito de Nantes, Luis XIV",
+      "ts": 1785967016114
+    },
+    {
+      "era": "Idade Contemporânea",
+      "ano": "1789",
+      "sortYear": 1789,
+      "evento": "Revolução Francesa",
+      "descricao": "",
+      "id": "tl-201",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1806",
+      "sortYear": 1806,
+      "evento": "Dissolução do Sacro Império Romano por Napoleão Bonaparte",
+      "descricao": "",
+      "id": "tl-202",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785175008482",
+      "era": "",
+      "ano": "Séc. XIX",
+      "sortYear": 1850,
+      "evento": "Division between 'applied' and 'pure' mathematics",
+      "descricao": "",
+      "ts": 1785175008483,
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1877",
+      "sortYear": 1877,
+      "evento": "Edouard Lucas baptiza 'Sequência de Fibonacci'",
+      "descricao": "",
+      "id": "tl-203",
+      "categorias": [
+        "Science"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1883",
+      "sortYear": 1883,
+      "evento": "Morte de Karl Marx \nNascimento de Franz Kafka",
+      "descricao": "",
+      "id": "tl-204",
+      "categorias": [
+        "Bio",
+        "Cultura"
+      ]
+    },
+    {
+      "id": "tl-new-1786272856937",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1915",
+      "sortYear": 1915,
+      "evento": "Genicidio Arménio",
+      "descricao": "",
+      "ts": 1786272856938
+    },
+    {
+      "era": "",
+      "ano": "1924",
+      "sortYear": 1924,
+      "evento": "Morte de Franz Kafka \nMorte de Lenine",
+      "descricao": "",
+      "id": "tl-205",
+      "categorias": [
+        "Bio",
+        "Politics",
+        "Cultura"
+      ]
+    },
+    {
+      "era": "",
+      "ano": "1930",
+      "sortYear": 1930,
+      "evento": "Istambul torna-se nome oficial de Constantinopla",
+      "descricao": "",
+      "id": "tl-206",
+      "categorias": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "tl-new-1785967927686",
+      "era": "",
+      "categorias": [
+        "Politics",
+        "Cultura"
+      ],
+      "ano": "1940",
+      "sortYear": 1940,
+      "evento": "Fim do Egipto como terra de exílio do Medio Oriente",
+      "descricao": "Decada de 40\nPapel tomado pelo Libano",
+      "ts": 1785967927687
+    },
+    {
+      "id": "tl-new-1786273187456",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1948",
+      "sortYear": 1948,
+      "evento": "Criação do Estado de Israel",
+      "descricao": "",
+      "ts": 1786273187457
+    },
+    {
+      "id": "tl-new-1785967416365",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1949",
+      "sortYear": 1949,
+      "evento": "3 Golpes de Estado em Siria",
+      "descricao": "",
+      "ts": 1785967416366
+    },
+    {
+      "id": "tl-new-1785795047700",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1952",
+      "sortYear": 1952,
+      "evento": "Incêndio do Cairo",
+      "descricao": "",
+      "ts": 1785795047701
+    },
+    {
+      "id": "tl-new-1785795168488",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1953",
+      "sortYear": 1953,
+      "evento": "Golpe de Estado no Irāo",
+      "descricao": "Mossadegh deposto",
+      "ts": 1785795168490
+    },
+    {
+      "id": "tl-new-1785794401947",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1956",
+      "sortYear": 1956,
+      "evento": "Nacionalizaçāo do Canal do Suez",
+      "descricao": "Gamal Nasser",
+      "ts": 1785794401949
+    },
+    {
+      "id": "tl-new-1785968473519",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1958",
+      "sortYear": 1958,
+      "evento": "Criação da Republica Árabe Unida (RAU)\nDerrube da Monarquia Iraquiana",
+      "descricao": "RAU = Egipto e Siria\nNacionalismo árabe",
+      "ts": 1785968473520
+    },
+    {
+      "id": "tl-new-1785968941622",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1961",
+      "sortYear": 1961,
+      "evento": "Golpe de Estado em Damasco",
+      "descricao": "Fim da RAU",
+      "ts": 1785968941624
+    },
+    {
+      "id": "tl-new-1786216734861",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1967",
+      "sortYear": 1967,
+      "evento": "Guerra dos Seis Dias",
+      "descricao": "Israel captura Cisjordânia, antiga Jerusalém, mintes Golã, Faixa de Gaza, Sinai.\n« Naksa » (revés) ou « guerra de Junho », no mundo árabe.",
+      "ts": 1786216734862
+    },
+    {
+      "id": "tl-new-1786283541116",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1969",
+      "sortYear": 1969,
+      "evento": "Tratado entre Líbano e feddayin",
+      "descricao": "Autorização dos movimentos armados de operar no Líbano",
+      "ts": 1786283541118
+    },
+    {
+      "id": "tl-new-1786281286543",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1970",
+      "sortYear": 1970,
+      "evento": "Contra ofensiva Jordana contra os feddayins",
+      "descricao": "Setembro Negro\nJordânia expulsa definitivamente quartel-general palestiniano de Arafat",
+      "ts": 1786281286544
+    },
+    {
+      "id": "tl-new-1786216937287",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1972",
+      "sortYear": 1972,
+      "evento": "Ataque JO Munique",
+      "descricao": "",
+      "ts": 1786216937289
+    },
+    {
+      "id": "tl-new-1786274601502",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1973",
+      "sortYear": 1973,
+      "evento": "Contra-ataque árabe/egipcio falhado com apoio soviético",
+      "descricao": "Derrube da linha Bar-Lev no outro lado do Suez",
+      "ts": 1786274601503
+    },
+    {
+      "id": "tl-new-1786280128419",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1975",
+      "sortYear": 1975,
+      "evento": "Início dos colonatos na Cisjordânia",
+      "descricao": "Yitzhak Rabin vs Shimon Peres",
+      "ts": 1786280128420
+    },
+    {
+      "id": "tl-new-1786280513192",
+      "era": "",
+      "categorias": [
+        "Politics"
+      ],
+      "ano": "1982",
+      "sortYear": 1982,
+      "evento": "Massacre de Sabra-Chatila",
+      "descricao": "",
+      "ts": 1786280513193
+    }
+  ],
+  "eraComments": {
+    "Paleolítico": "3.300.000 a.C. / 10.000 a.C. - Old Stone Age\nFirst known use and manufacture of stone tools by human ancestors were discovered at Lomekwi, Kenya. These tools are associated with very early hominins that lived before the genus Homo appeared.",
+    "Neolítico": "10.000 a.C. / 3.300 a.C. - Nova Idade da Pedra\n-> 5.000 a.C. / 3.300 a.C. - Idade do Cobre",
+    "Antiguidade Inicial": "3300 a.C. / 800 a.C\n-> 3.300 a.C. / 1.200 a.C. - Idade do Bronze\n-> 1.200 a.C. - Início da Idade do Ferro\n",
+    "Antiguidade Clássica": "800 a.C. / 250\n-> 500 a.C. - Fim da Idade do Ferro",
+    "Antiguidade Tardia": "273 / 476",
+    "Idade Média": "476 / 1453",
+    "Idade Moderna": "1453 / 1789",
+    "Idade Contemporânea": "1789 / -",
+    "Cenozoico": "Até à actualidade"
+  }
+}
