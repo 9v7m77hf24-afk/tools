@@ -681,9 +681,9 @@ input[type=file]{ display:none; }
   <div class="modal">
     <h2>Tradução automática</h2>
     <div class="field">
-      <label>Chave da API (Google Cloud Translation)</label>
-      <input type="password" id="translateApiKey" placeholder="AIza..." autocapitalize="off" autocorrect="off" spellcheck="false">
-      <small>Guardada apenas neste dispositivo (localStorage). Cria uma chave em console.cloud.google.com → ativa a "Cloud Translation API" → Credenciais → Criar chave de API. O nível gratuito cobre 500.000 caracteres/mês. O botão "🌐 Traduzir" aparece no formulário para todas as línguas exceto Português.</small>
+      <label>Email (opcional)</label>
+      <input type="email" id="translateEmail" placeholder="tu@exemplo.com" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <small>Guardado apenas neste dispositivo (localStorage). Não é preciso chave nem conta — a tradução usa a MyMemory (gratuita, sem registo). Indicar um email é opcional e aumenta o limite diário de tradução de 5.000 para 50.000 palavras. O botão "🌐 Traduzir" aparece no formulário para todas as línguas exceto Português e Árabe.</small>
     </div>
     <div class="modal-actions">
       <button class="btn btn-secondary" id="translateSettingsCancel">Cancelar</button>
@@ -716,7 +716,7 @@ input[type=file]{ display:none; }
   let ghSha    = null; // sha of the last-known remote file version, needed to push updates
 
   // --- Automatic translation config (stored locally on this device only) ---
-  let translateApiKey = localStorage.getItem('lexicon_translate_key') || '';
+  let translateEmail = localStorage.getItem('lexicon_translate_email') || '';
 
   let data = loadData();
   let currentLang = 'fr';
@@ -1374,7 +1374,7 @@ input[type=file]{ display:none; }
 
   // Automatic translation — settings modal
   function openTranslateSettings(){
-    document.getElementById('translateApiKey').value = translateApiKey;
+    document.getElementById('translateEmail').value = translateEmail;
     document.getElementById('translateModalOverlay').classList.add('open');
   }
   document.getElementById('translateSettingsBtn').addEventListener('click', openTranslateSettings);
@@ -1385,15 +1385,15 @@ input[type=file]{ display:none; }
     if(e.target.id === 'translateModalOverlay') document.getElementById('translateModalOverlay').classList.remove('open');
   });
   document.getElementById('translateSettingsSave').addEventListener('click', ()=>{
-    translateApiKey = document.getElementById('translateApiKey').value.trim();
-    localStorage.setItem('lexicon_translate_key', translateApiKey);
+    translateEmail = document.getElementById('translateEmail').value.trim();
+    localStorage.setItem('lexicon_translate_email', translateEmail);
     document.getElementById('translateModalOverlay').classList.remove('open');
     showToast('Definições guardadas');
   });
 
   // Automatic translation — "Traduzir" button inside the word/edit modal.
-  // Uses the Google Cloud Translation API (v2, REST). Never shown for the
-  // Português tab, since entries there aren't translated into anything.
+  // Uses the MyMemory Translation API (free, no key or account required).
+  // Never shown for the Português or Árabe tabs — see LANG_META.translateCode.
   const translateBtn = document.getElementById('translateBtn');
   async function translateCurrentWord(){
     const meta = LANG_META[currentLang];
@@ -1403,25 +1403,22 @@ input[type=file]{ display:none; }
       showToast('Escreve a palavra primeiro');
       return;
     }
-    if(!translateApiKey){
-      showToast('Configura a chave da API primeiro (botão "Tradução ⚙")');
-      openTranslateSettings();
-      return;
-    }
     const originalLabel = translateBtn.textContent;
     translateBtn.disabled = true;
     translateBtn.textContent = 'A traduzir…';
     try{
-      const res = await fetch('https://translation.googleapis.com/language/translate/v2?key=' + encodeURIComponent(translateApiKey), {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ q: word, source: meta.translateCode, target: 'pt', format: 'text' })
-      });
+      const langpair = meta.translateCode + '|pt';
+      let url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(word) + '&langpair=' + encodeURIComponent(langpair);
+      if(translateEmail) url += '&de=' + encodeURIComponent(translateEmail);
+      const res = await fetch(url);
       const json = await res.json();
-      if(!res.ok){
-        throw new Error((json.error && json.error.message) || ('HTTP ' + res.status));
+      if(!res.ok || !json.responseData){
+        throw new Error('HTTP ' + res.status);
       }
-      const translated = json.data && json.data.translations && json.data.translations[0] && json.data.translations[0].translatedText;
+      if(json.responseStatus && Number(json.responseStatus) >= 400){
+        throw new Error(json.responseDetails || ('HTTP ' + json.responseStatus));
+      }
+      const translated = json.responseData.translatedText;
       if(!translated) throw new Error('sem resultado');
       fieldTrans.value = translated;
       showToast('Tradução preenchida — revê antes de guardar');
