@@ -1,0 +1,10 @@
+{
+  "name": "Dicionário",
+  "short_name": "Dicionário",
+  "start_url": "./Lexicon.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#12141c",
+  "theme_color": "#12141c",
+  "lang": "pt"
+}

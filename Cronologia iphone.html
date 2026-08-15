@@ -220,7 +220,7 @@ body{
 
 .table-header{
   display:grid;
-  grid-template-columns: 40px 96px 1fr;
+  grid-template-columns: 40px var(--date-col-w, 96px) 1fr;
   background:var(--surface-2);
   border-bottom:1px solid var(--border);
   border-top:1px solid var(--border);
@@ -239,7 +239,7 @@ body{
 .timeline{ width:100%; }
 .entry{
   display:grid;
-  grid-template-columns: 40px 96px 1fr;
+  grid-template-columns: 40px var(--date-col-w, 96px) 1fr;
   align-items:stretch;
   border-bottom:1px solid var(--border);
 }
@@ -1340,6 +1340,30 @@ input[type=file]{ display:none; }
     return header;
   }
 
+  // Sizes the "Ano" column to fit the longest date string among the entries
+  // that are currently on screen (i.e. inside open/expanded eras only —
+  // entries hidden behind a collapsed era are skipped in the render loop
+  // and never measured). Measured with a canvas rather than reading DOM
+  // layout back, since scrollWidth on a flex/grid cell is timing- and
+  // browser-dependent (and unreliable before the webfont has finished
+  // loading). Recomputed on every render, so opening or closing an era
+  // recomputes the shared width for the whole visible table.
+  const DATE_COL_MIN = 56;   // px, enough for the header + a short year
+  const DATE_COL_PAD = 19;   // px, .cell-ano's 8px+8px padding + a small buffer
+  let _anoCtx = null;
+  function measureAnoWidth(text){
+    if(!_anoCtx) _anoCtx = document.createElement('canvas').getContext('2d');
+    _anoCtx.font = "500 11.5px 'IBM Plex Mono', monospace";
+    // Measure the raw string rather than the (possibly superscripted)
+    // display markup — the plain text is always at least as wide as its
+    // formatted version, so this never under-sizes the column.
+    return _anoCtx.measureText(text || '—').width;
+  }
+  function setDateColumnWidth(maxTextWidth){
+    const finalW = Math.max(Math.ceil(maxTextWidth) + DATE_COL_PAD, DATE_COL_MIN);
+    document.documentElement.style.setProperty('--date-col-w', finalW + 'px');
+  }
+
   function renderList(){
     const wrap = document.getElementById('listWrap');
     wrap.innerHTML = '';
@@ -1364,6 +1388,7 @@ input[type=file]{ display:none; }
 
     let lastEra = null;
     let skipUntilNextDivider = false;
+    let maxAnoWidth = 0;
     let i = 0;
     while(i < filtered.length){
       const e = filtered[i];
@@ -1422,6 +1447,8 @@ input[type=file]{ display:none; }
           group.push(filtered[j]);
           j++;
         }
+        const w = measureAnoWidth(group[0].ano);
+        if(w > maxAnoWidth) maxAnoWidth = w;
         timeline.appendChild(renderEntryGroupNode(group));
         i = j;
       } else {
@@ -1429,6 +1456,7 @@ input[type=file]{ display:none; }
       }
     }
     wrap.appendChild(timeline);
+    setDateColumnWidth(maxAnoWidth);
   }
 
   function renderAll(){
@@ -1714,6 +1742,14 @@ input[type=file]{ display:none; }
   recentN = loadRecentN();
   recentNInput.value = recentN;
   renderAll();
+
+  // IBM Plex Mono loads async via the Google Fonts @import; if it's not
+  // ready yet, the first date-column measurement uses fallback font
+  // metrics. Re-render once webfonts are actually available so the
+  // column snaps to the correct width.
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(()=> renderList());
+  }
 
   if(ghConfigured()){
     if(navigator.onLine){
