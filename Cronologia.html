@@ -716,7 +716,7 @@ input[type=file]{ display:none; }
     <h2>Sincronização GitHub</h2>
     <div class="field">
       <label>Caminho do ficheiro</label>
-      <input type="text" id="ghPath" placeholder="timeline_backup.json" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="ghPath" placeholder="timeline-backup.json" autocapitalize="off" autocorrect="off" spellcheck="false">
     </div>
     <div class="field">
       <label>Branch</label>
@@ -752,7 +752,7 @@ input[type=file]{ display:none; }
   // --- GitHub sync config (stored locally on this device only) ---
   let ghRepo   = localStorage.getItem('cronologia_gh_repo')   || '';
   let ghBranch = localStorage.getItem('cronologia_gh_branch') || 'main';
-  let ghPath   = localStorage.getItem('cronologia_gh_path')   || 'timeline_backup.json';
+  let ghPath   = localStorage.getItem('cronologia_gh_path')   || 'timeline-backup.json';
   let ghToken  = localStorage.getItem('cronologia_gh_token')  || '';
   let ghSha    = null; // sha of the last-known remote file version, needed to push updates
 
@@ -1685,7 +1685,7 @@ input[type=file]{ display:none; }
   document.getElementById('syncSettingsSave').addEventListener('click', async ()=>{
     ghRepo   = document.getElementById('ghRepo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'');
     ghBranch = document.getElementById('ghBranch').value.trim() || 'main';
-    ghPath   = document.getElementById('ghPath').value.trim() || 'timeline_backup.json';
+    ghPath   = document.getElementById('ghPath').value.trim() || 'timeline-backup.json';
     ghToken  = document.getElementById('ghToken').value.trim();
     localStorage.setItem('cronologia_gh_repo', ghRepo);
     localStorage.setItem('cronologia_gh_branch', ghBranch);
