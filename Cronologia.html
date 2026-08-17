@@ -447,36 +447,43 @@ body{
 .tools{
   max-width:720px;
   margin:0 auto;
-  padding:16px 20px calc(24px + var(--safe-bottom)) 20px;
+  padding:6px 8px calc(6px + var(--safe-bottom)) 8px;
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+  gap:2px;
   border-top:1px solid var(--border);
   width:100%;
+  box-sizing:border-box;
 }
 .tool-btn{
   flex:1;
-  min-width:100px;
-  background:var(--surface-2);
-  border:1px solid var(--border);
+  min-width:0;
+  background:none;
+  border:none;
   color:var(--text-muted);
   font-family:'Inter', sans-serif;
-  font-size:12.5px;
+  font-size:10px;
   font-weight:500;
-  padding:10px 8px;
+  padding:6px 2px;
   border-radius:10px;
   cursor:pointer;
-  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
 }
-.tool-btn:active{ background:var(--surface-3); }
+.tool-btn:active{ background:var(--surface-2); }
+.tool-btn svg{ flex-shrink:0; }
+.tool-btn .tool-btn-label{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+.tool-btn-icon-wrap{ position:relative; display:flex; }
 input[type=file]{ display:none; }
 .sync-dot{
-  display:inline-block;
+  position:absolute;
+  top:-1px;
+  right:-3px;
   width:7px; height:7px;
   border-radius:50%;
   background:var(--text-faint);
-  margin-left:4px;
-  vertical-align:middle;
+  border:1.5px solid var(--bg);
 }
 .sync-dot.ok{ background:#3fb950; }
 .sync-dot.busy{ background:#d4a72c; }
@@ -670,10 +677,25 @@ input[type=file]{ display:none; }
   </div>
 
   <div class="tools">
-    <button class="tool-btn" id="exportBtn">Exportar</button>
-    <button class="tool-btn" id="importBtn">Importar</button>
-    <button class="tool-btn" id="syncBtn">Sincronizar <span id="syncDot" class="sync-dot"></span></button>
-    <button class="tool-btn" id="syncSettingsBtn">GitHub ⚙</button>
+    <button class="tool-btn" id="exportBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="tool-btn-label">Exportar</span>
+    </button>
+    <button class="tool-btn" id="importBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span class="tool-btn-label">Importar</span>
+    </button>
+    <button class="tool-btn" id="syncBtn">
+      <span class="tool-btn-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span id="syncDot" class="sync-dot"></span>
+      </span>
+      <span class="tool-btn-label">Sincronizar</span>
+    </button>
+    <button class="tool-btn" id="syncSettingsBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.79-.25.79-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.08.78 2.18 0 1.57-.02 2.84-.02 3.23 0 .31.21.66.79.55A10.53 10.53 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+      <span class="tool-btn-label">GitHub</span>
+    </button>
   </div>
   <input type="file" id="importFile" accept="application/json">
 </div>
