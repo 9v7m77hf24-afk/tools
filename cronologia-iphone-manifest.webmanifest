@@ -1,0 +1,10 @@
+{
+  "name": "Cronologia",
+  "short_name": "Cronologia",
+  "start_url": "./Cronologia_iphone.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#12141c",
+  "theme_color": "#12141c",
+  "lang": "pt"
+}
