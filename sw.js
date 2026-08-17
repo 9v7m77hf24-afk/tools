@@ -2,17 +2,13 @@
 //
 // Strategy:
 //  - The page itself: network-first, falling back to cache when offline.
-//    Uses {cache: 'no-store'} on the network fetch specifically so the
-//    browser's own HTTP disk cache can never silently hand back a stale
-//    response without checking the server — this was found to be the
-//    cause of installed Home Screen shortcuts on iOS getting stuck on an
-//    old copy of the page even though a plain Safari tab always saw the
-//    latest version.
+//    This means you always get your latest pushed edits when online, and
+//    the last-cached version when you don't have a connection.
 //  - Google Fonts (CSS + font files): cache-first. Fonts don't change, so
 //    once they've been fetched once online, always serve them from cache —
 //    this is what lets the page keep its real typography offline instead
 //    of silently falling back to a system font.
-//  - api.github.com and api.mymemory.translated.net: never intercepted.
+//  - api.github.com and translation.googleapis.com: never intercepted.
 //    Both GitHub sync and word translation have their own app-level
 //    online/offline handling (pending/ok/err states, retry queues) — piping
 //    them through this cache layer would risk silently serving a stale
@@ -24,7 +20,7 @@
 // cached assets (e.g. after a Google Fonts URL change) — normal HTML edits
 // don't need this, since the network-first strategy already fetches fresh
 // copies whenever you're online.
-const CACHE_VERSION = 'cronologia-shell-v2';
+const CACHE_VERSION = 'cronologia-shell-v1';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
@@ -43,15 +39,16 @@ self.addEventListener('fetch', (event) => {
   let url;
   try { url = new URL(req.url); } catch(e) { return; }
 
-  // Only handle simple GETs — don't intercept API calls with their own
-  // online/offline handling (GitHub sync, MyMemory translation).
-  if(req.method !== 'GET') return;
+  // Don't intercept API calls with their own online/offline handling
+  // (GitHub sync, Google Translate). Google Translate uses POST, so this
+  // also needs to skip on method alone, not just hostname.
   if(url.hostname === 'api.github.com') return;
-  if(url.hostname === 'api.mymemory.translated.net') return;
+  if(url.hostname === 'translation.googleapis.com') return;
+  if(req.method !== 'GET') return;
 
   if(req.mode === 'navigate'){
     event.respondWith(
-      fetch(req, { cache: 'no-store' })
+      fetch(req)
         .then(res => {
           const copy = res.clone();
           caches.open(CACHE_VERSION).then(c => c.put(req, copy));
@@ -74,7 +71,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    fetch(req, { cache: 'no-store' })
+    fetch(req)
       .then(res => {
         const copy = res.clone();
         caches.open(CACHE_VERSION).then(c => c.put(req, copy));
