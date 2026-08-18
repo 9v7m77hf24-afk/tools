@@ -1091,7 +1091,11 @@ input[type=file]{ display:none; }
     }
     setSyncStatus('busy');
     try{
-      await pullMerge();
+      // Push local state directly (same safe path as the auto reconnect
+      // sync) instead of pulling first — pulling here would fully overwrite
+      // any offline edits with whatever was last on GitHub before we ever
+      // got a chance to push them. doPush() already pulls-and-retries on
+      // its own if GitHub reports a real conflict (409).
       await doPush();
       pushPending = false;
       setSyncStatus('ok');
