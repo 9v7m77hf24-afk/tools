@@ -726,16 +726,16 @@ input[type=file]{ display:none; }
   <div class="modal">
     <h2>Sincronização GitHub</h2>
     <div class="field">
-      <label>Repositório (owner/repo)</label>
-      <input type="text" id="ghRepo" placeholder="ex: dianaXX/lexicon-data" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label>Caminho do ficheiro</label>
+      <input type="text" id="ghPath" placeholder="lexicon-backup.json" autocapitalize="off" autocorrect="off" spellcheck="false">
     </div>
     <div class="field">
       <label>Branch</label>
       <input type="text" id="ghBranch" placeholder="main" autocapitalize="off" autocorrect="off" spellcheck="false">
     </div>
     <div class="field">
-      <label>Caminho do ficheiro</label>
-      <input type="text" id="ghPath" placeholder="lexicon-data.json" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label>Repositório (owner/repo)</label>
+      <input type="text" id="ghRepo" placeholder="ex: dianaXX/lexicon-data" autocapitalize="off" autocorrect="off" spellcheck="false">
     </div>
     <div class="field">
       <label>Personal Access Token</label>
@@ -783,7 +783,7 @@ input[type=file]{ display:none; }
   // --- GitHub sync config (stored locally on this device only) ---
   let ghRepo   = localStorage.getItem('lexicon_gh_repo')   || '';
   let ghBranch = localStorage.getItem('lexicon_gh_branch') || 'main';
-  let ghPath   = localStorage.getItem('lexicon_gh_path')   || 'lexicon-data.json';
+  let ghPath   = localStorage.getItem('lexicon_gh_path')   || 'lexicon-backup.json';
   let ghToken  = localStorage.getItem('lexicon_gh_token')  || '';
   let ghSha    = null; // sha of the last-known remote file version, needed to push updates
 
@@ -1455,7 +1455,7 @@ input[type=file]{ display:none; }
   document.getElementById('syncSettingsSave').addEventListener('click', async ()=>{
     ghRepo   = document.getElementById('ghRepo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'');
     ghBranch = document.getElementById('ghBranch').value.trim() || 'main';
-    ghPath   = document.getElementById('ghPath').value.trim() || 'lexicon-data.json';
+    ghPath   = document.getElementById('ghPath').value.trim() || 'lexicon-backup.json';
     ghToken  = document.getElementById('ghToken').value.trim();
     localStorage.setItem('lexicon_gh_repo', ghRepo);
     localStorage.setItem('lexicon_gh_branch', ghBranch);
