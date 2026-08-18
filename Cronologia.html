@@ -475,6 +475,24 @@ body{
 .tool-btn svg{ flex-shrink:0; }
 .tool-btn .tool-btn-label{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
 .tool-btn-icon-wrap{ position:relative; display:flex; }
+@media (min-width: 700px){
+  .tools{
+    gap:16px;
+    justify-content:center;
+  }
+  .tool-btn{
+    flex:0 0 auto;
+    flex-direction:row;
+    gap:9px;
+    padding:11px 18px;
+    font-size:13px;
+    border:1px solid var(--border);
+    background:var(--surface-2);
+  }
+  .tool-btn:active{ background:var(--surface-3); }
+  .tool-btn svg{ width:19px; height:19px; }
+  .tool-btn .tool-btn-label{ overflow:visible; text-overflow:clip; white-space:nowrap; max-width:none; }
+}
 input[type=file]{ display:none; }
 .sync-dot{
   position:absolute;

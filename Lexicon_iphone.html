@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Lexicon">
 <meta name="theme-color" content="#12141c">
-<link rel="manifest" href="lexicon-manifest.webmanifest">
+<link rel="manifest" href="lexicon-iphone-manifest.webmanifest">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -63,7 +63,6 @@ body.lang-ar{ --accent:var(--accent-ar); }
   .search-wrap{ padding-left:20px; padding-right:20px; }
   .alpha-rail{ padding-left:20px; padding-right:20px; }
   .list-wrap{ padding-left:20px; padding-right:20px; }
-  .tools{ padding-left:20px; padding-right:20px; }
 }
 
 /* HEADER */
@@ -162,8 +161,13 @@ header.top{
   position:sticky;
   top:calc(139px + var(--safe-top));
   z-index:20;
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
 .search-box{
+  flex:1;
+  min-width:0;
   display:flex;
   align-items:center;
   gap:8px;
@@ -275,7 +279,7 @@ header.top{
 /* LIST */
 .list-wrap{
   flex:1;
-  padding: 4px 20px calc(100px + var(--safe-bottom)) 20px;
+  padding: 4px 20px calc(var(--toolbar-h, 130px) + 190px) 20px;
 }
 .letter-header{
   font-family:'Fraunces', serif;
@@ -346,51 +350,40 @@ header.top{
 }
 .empty-state p{ font-family:'Fraunces', serif; font-size:16px; margin-top:10px;}
 
-/* FAB */
-.fab-stack{
-  position:fixed;
-  bottom:calc(24px + var(--safe-bottom));
-  right:24px;
+/* JUMP BUTTONS — next to the search bar, out of the toolbar's way entirely */
+.jump-row{
   display:flex;
-  flex-direction:column-reverse;
-  align-items:center;
-  gap:12px;
-  z-index:25;
+  gap:6px;
+  flex-shrink:0;
 }
-.fab{
-  width:56px; height:56px;
-  border-radius:50%;
-  background:var(--accent);
-  color:var(--bg);
-  border:none;
-  font-size:26px;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 6px 20px rgba(0,0,0,.4);
-  cursor:pointer;
-  transition:transform .15s ease;
-}
-.fab:active{ transform:scale(0.92); }
 .fab-mini{
-  width:42px; height:42px;
-  border-radius:50%;
+  width:38px; height:38px;
+  border-radius:10px;
   background:var(--surface-2);
   border:1px solid var(--border);
   color:var(--text);
   display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 14px rgba(0,0,0,.35);
   cursor:pointer;
   transition:transform .15s ease, background .15s ease;
+  flex-shrink:0;
 }
 .fab-mini:active{ background:var(--surface-3); transform:scale(0.9); }
 
 /* FOOTER TOOLS */
 .tools{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:20;
   max-width:720px;
   margin:0 auto;
   padding:6px 8px calc(6px + var(--safe-bottom)) 8px;
   display:flex;
   gap:2px;
   border-top:1px solid var(--border);
+  background:var(--bg);
+  width:100%;
   box-sizing:border-box;
 }
 .tool-btn{
@@ -414,9 +407,18 @@ header.top{
 .tool-btn svg{ flex-shrink:0; }
 .tool-btn .tool-btn-label{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
 .tool-btn-icon-wrap{ position:relative; display:flex; }
+.tool-btn-add-icon{
+  width:26px; height:26px;
+  border-radius:50%;
+  background:var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
 @media (min-width: 700px){
   .tools{
     max-width:none;
+    padding-left:20px;
+    padding-right:20px;
     gap:16px;
     justify-content:center;
     flex-wrap:wrap;
@@ -433,6 +435,7 @@ header.top{
   .tool-btn:active{ background:var(--surface-3); }
   .tool-btn svg{ width:19px; height:19px; }
   .tool-btn .tool-btn-label{ overflow:visible; text-overflow:clip; white-space:nowrap; max-width:none; }
+  .tool-btn-add-icon{ width:22px; height:22px; }
 }
 input[type=file]{ display:none; }
 .sync-dot{
@@ -608,6 +611,14 @@ input[type=file]{ display:none; }
       <input type="text" id="searchInput" placeholder="Procurar palavra ou tradução…" autocapitalize="off" autocorrect="off" spellcheck="false">
       <button class="clear-btn" id="clearSearch">✕</button>
     </div>
+    <div class="jump-row">
+      <button class="fab-mini" id="fabTop" aria-label="Ir para o início">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      </button>
+      <button class="fab-mini" id="fabBottom" aria-label="Ir para o fim">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
   </div>
 
   <div class="alpha-rail" id="alphaRail"></div>
@@ -624,16 +635,6 @@ input[type=file]{ display:none; }
   </div>
 
   <main class="list-wrap" id="listWrap"></main>
-
-  <div class="fab-stack">
-    <button class="fab" id="fabAdd" aria-label="Adicionar palavra">+</button>
-    <button class="fab-mini" id="fabBottom" aria-label="Ir para o fim">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <button class="fab-mini" id="fabTop" aria-label="Ir para o início">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
-  </div>
 
   <div class="tools">
     <button class="tool-btn" id="exportBtn">
@@ -662,6 +663,12 @@ input[type=file]{ display:none; }
     <button class="tool-btn" id="translatePendingBtn">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       <span class="tool-btn-label">Pendentes</span>
+    </button>
+    <button class="tool-btn" id="fabAdd" aria-label="Adicionar palavra">
+      <span class="tool-btn-add-icon">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#12141c" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </span>
+      <span class="tool-btn-label">Novo</span>
     </button>
   </div>
   <input type="file" id="importFile" accept="application/json">
@@ -1629,6 +1636,23 @@ input[type=file]{ display:none; }
   // that happens to already have a connection.
   if(navigator.onLine && countPending() > 0){
     translatePendingEntries(true);
+  }
+
+  // Keeps the "+"/scroll buttons' layout correct: reserves enough scroll
+  // space so list content never ends up hidden underneath the fixed
+  // bottom toolbar. The toolbar can wrap to a second row on narrow
+  // screens, so its real height is measured rather than assumed —
+  // re-measured on resize/orientation change too.
+  const toolsEl = document.querySelector('.tools');
+  function syncToolbarHeight(){
+    if(toolsEl){
+      document.documentElement.style.setProperty('--toolbar-h', toolsEl.offsetHeight + 'px');
+    }
+  }
+  syncToolbarHeight();
+  window.addEventListener('resize', syncToolbarHeight);
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(syncToolbarHeight);
   }
 
 })();

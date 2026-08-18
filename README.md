@@ -1,83 +1,116 @@
-# Cronologia & Lexicon — PWAs offline
+# Cronologia & Lexicon — Offline PWAs
 
-Este repositório contém três aplicações instaláveis (PWA): **Cronologia** (iPad),
-**Cronologia** (iPhone) e **Lexicon** (dicionário multilingue). As três funcionam
-offline depois de uma primeira visita online, e sincronizam com o GitHub quando
-há ligação.
+This repository contains four installable apps (PWA): **Cronologia** (iPad),
+**Cronologia_iphone** (iPhone), **Lexicon** (multilingual dictionary,
+iPad/laptop), and **Lexicon_iphone** (multilingual dictionary, iPhone). All
+four work offline after a first online visit, and sync with GitHub whenever
+there's a connection.
 
-## Ficheiros
+## Files
 
-| Ficheiro | Partilhado por | Função |
+| File | Shared by | Purpose |
 |---|---|---|
-| `Cronologia.html` | — | App de cronologia, versão iPad |
-| `Cronologia_iphone.html` | — | App de cronologia, versão iPhone |
-| `Lexicon.html` | — | App de dicionário multilingue |
-| `sw.js` | Cronologia + Cronologia iPhone + Lexicon | Service worker — cache da app shell e das Google Fonts |
-| `cronologia-manifest.webmanifest` | Cronologia + Cronologia iPhone | Manifest PWA (nome, ícone, modo standalone) |
-| `lexicon-manifest.webmanifest` | só Lexicon | Manifest PWA do Lexicon |
+| `Cronologia.html` | — | Timeline app, iPad version |
+| `Cronologia_iphone.html` | — | Timeline app, iPhone version |
+| `Lexicon.html` | — | Dictionary app, iPad/laptop version |
+| `Lexicon_iphone.html` | — | Dictionary app, iPhone version |
+| `sw.js` | All four | Service worker — caches the app shell and Google Fonts |
+| `cronologia-manifest.webmanifest` | Cronologia (iPad) only | PWA manifest (name, icon, standalone mode) |
+| `cronologia-iphone-manifest.webmanifest` | Cronologia_iphone only | Cronologia_iphone's own PWA manifest |
+| `lexicon-manifest.webmanifest` | Lexicon (iPad/laptop) only | Lexicon's PWA manifest |
+| `lexicon-iphone-manifest.webmanifest` | Lexicon_iphone only | Lexicon_iphone's own PWA manifest |
 
-Todos os ficheiros têm de estar **na mesma pasta** no repositório GitHub (o
-mesmo sítio publicado via GitHub Pages).
+Each app has its **own** manifest — never share a manifest between two
+different apps, since each one's `start_url` points specifically to its own
+`.html` file; sharing one has previously caused one version's shortcut to
+accidentally open the wrong app (see the section below).
 
-## Instalação (primeira vez, ou depois de atualizar sw.js/manifest)
+All files need to live **in the same folder** in the GitHub repo (the same
+site published via GitHub Pages).
 
-1. Publica todos os ficheiros da tabela acima nessa pasta.
-2. Abre cada app **uma vez enquanto estiveres online** — isto instala o
-   service worker e faz cache da app pela primeira vez. (Nota: são precisas
-   duas visitas para a cache ficar completa — a primeira instala o service
-   worker, a segunda já é servida por ele. Abrir a página duas vezes seguidas
-   online, antes de desligar a internet, garante que a cache fica pronta.)
-3. **Remove o atalho atual do ecrã principal** de cada app (o ícone antigo).
-4. **Volta a adicionar o atalho** (Partilhar → Adicionar ao Ecrã Principal).
-   Isto é uma particularidade do iOS — um atalho já existente não passa a
-   funcionar offline sozinho só por os ficheiros terem mudado no servidor; é
-   preciso recriá-lo.
+## Installation (first time, or after updating sw.js/manifest)
 
-Depois disto, cada app abre e funciona **completamente offline** — navegar,
-adicionar, editar — mesmo sem qualquer ligação.
+1. Publish all the files from the table above to that folder.
+2. Open each app **once while online** — this installs the service worker
+   and caches the app for the first time. (Note: it takes two visits for the
+   cache to be complete — the first installs the service worker, the second
+   is already served by it. Opening the page twice in a row while online,
+   before going offline, guarantees the cache is ready.)
+3. **Remove the current Home Screen shortcut** for each app (the old icon).
+4. **Add the shortcut again** (Share → Add to Home Screen). This is an iOS
+   quirk — an existing shortcut doesn't automatically start working offline
+   just because the files changed on the server; it needs to be recreated.
 
-## O que continua a precisar de internet
+After that, each app opens and works **fully offline** — browsing, adding,
+editing — even with no connection at all.
 
-Independentemente da app estar instalada e a cache funcionar, há duas coisas
-que exigem sempre ligação real, porque são pedidos a serviços externos:
+`sw.js` always forces a real check with the server when loading the page
+(`cache: 'no-store'` on the navigation request), rather than trusting the
+phone's normal HTTP cache — this prevents an installed shortcut from getting
+stuck on an old version of the app even after you've published new changes
+to GitHub.
 
-- **Sincronização com o GitHub** (botão "Sincronizar" e o ponto de estado,
-  em todas as três apps).
-  - 🟢 verde = sincronizado
-  - 🟡/cinza (pending) = sem ligação, vai sincronizar automaticamente assim
-    que a internet voltar
-  - 🔴 vermelho = erro real (ex: token inválido) — precisa de ação tua
+## What still needs internet
 
-- **Tradução automática** (só no Lexicon, botão "🌐 Traduzir" e "Traduzir
-  pendentes"). Podes guardar uma palavra francesa/inglesa/latina/grega sem
-  tradução enquanto estiveres offline — fica marcada "⏳ por traduzir" — e a
-  app traduz-a automaticamente assim que a ligação voltar.
+Regardless of whether the app is installed and caching is working, two
+things always require a real connection, because they're requests to
+external services:
 
-O `sw.js` está propositadamente configurado para **nunca** intercetar estes
-dois pedidos (`api.github.com` e `api.mymemory.translated.net`) — vão sempre
-direto à rede real, para que a lógica própria de cada app (estados
-pending/ok/err, fila de traduções pendentes) veja sempre o resultado real e
-nunca uma resposta antiga guardada em cache.
+- **GitHub sync** (the "Sync" button and its status dot, in all four apps).
+  - 🟢 green = synced
+  - 🟡/grey (pending) = offline, will sync automatically once the internet
+    is back
+  - 🔴 red = a real error (e.g. invalid token) — needs your attention
 
-## Quando repetir os passos de instalação (remover/readicionar atalho)
+- **Automatic translation** (Lexicon/Lexicon_iphone only, "🌐 Translate" and
+  "Pending translations" buttons). You can save a French/English/Latin/Greek
+  word without a translation while offline — it gets marked "⏳ pending
+  translation" — and the app translates it automatically once the
+  connection returns.
 
-Só é preciso remover e readicionar o atalho se `sw.js` ou os ficheiros
-`.webmanifest` forem substituídos por versões com alterações estruturais
-grandes (por exemplo, mudar de estratégia de cache). Alterações normais aos
-ficheiros `.html` (novas funcionalidades, correções) **não** exigem repetir
-isto — o service worker vai sempre buscar a versão mais recente da página
-quando há internet, e só usa a cache quando estás offline.
+`sw.js` is deliberately set up to **never** intercept these two requests
+(`api.github.com` and `api.mymemory.translated.net`) — they always go
+straight to the real network, so each app's own logic (pending/ok/err
+states, the pending-translation queue) always sees the real result and
+never a stale cached response.
 
-## Funcionalidades por app
+## When to repeat the install steps (remove/re-add shortcut)
+
+You only need to remove and re-add the shortcut if `sw.js` or the
+`.webmanifest` files are replaced with versions that have major structural
+changes (for example, changing the caching strategy, or switching manifests
+like what happened with Cronologia_iphone). Normal changes to the `.html`
+files (new features, fixes) **don't** require repeating this — the service
+worker will always fetch the latest version of the page when there's
+internet, and only uses the cache when you're offline.
+
+## Responsive toolbar (all apps)
+
+In all four apps, the bottom toolbar has two layouts depending on screen
+width:
+
+- **Below 700px** (phone): icons with a label underneath, in a single
+  compact row.
+- **700px and up** (iPad/laptop): roomier horizontal buttons (icon beside
+  the label), with no text truncation.
+
+On the iPhone versions (Cronologia_iphone and Lexicon_iphone), the toolbar
+stays fixed to the bottom of the screen, the "+" button is built into it (as
+"New"), and the jump-to-top/bottom shortcuts sit next to the search bar at
+the top — nothing floats on top of the content.
+
+## Features by app
 
 ### Cronologia (iPad / iPhone)
-- Linha do tempo com agrupamento por era e por data.
-- Reordenar entradas com a mesma data por arrastar (ícone ⋮⋮).
-- Largura da coluna de datas ajusta-se automaticamente ao conteúdo visível.
-- Sincronização com GitHub com fila offline e retoma automática.
+- Timeline grouped by era and by date.
+- Reorder same-date entries by dragging (⋮⋮ icon).
+- The date column's width automatically adjusts to the visible content
+  (iPhone version only).
+- GitHub sync with an offline queue and automatic resume.
 
-### Lexicon
-- Seis línguas: Francês, Inglês, Latim, Português, Grego, Árabe.
-- Código do livro convertido automaticamente para maiúsculas.
-- Tradução automática (MyMemory) com fila offline e retoma automática.
-- Sincronização com GitHub com fila offline e retoma automática.
+### Lexicon (iPad/laptop / iPhone)
+- Six languages: French, English, Latin, Portuguese, Greek, Arabic.
+- Book code automatically converted to uppercase.
+- Automatic translation (MyMemory) with an offline queue and automatic
+  resume.
+- GitHub sync with an offline queue and automatic resume.
