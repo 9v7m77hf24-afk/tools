@@ -1037,13 +1037,25 @@ input[type=file]{ display:none; }
 
   // True once a push has failed because we're offline (rather than a real
   // GitHub error) and is waiting to be retried automatically on reconnect.
-  let pushPending = false;
+  // Persisted to localStorage so it survives the app being backgrounded/
+  // killed by iOS between the offline edit and the next time we're online —
+  // otherwise a fresh launch would forget there's unsynced local data and
+  // could pull-overwrite it (see startup block below).
+  const PUSH_PENDING_KEY = 'cronologia_push_pending';
+  function loadPushPending(){
+    try{ return localStorage.getItem(PUSH_PENDING_KEY) === '1'; }catch(e){ return false; }
+  }
+  function savePushPending(v){
+    try{ localStorage.setItem(PUSH_PENDING_KEY, v ? '1' : '0'); }catch(e){}
+  }
+  let pushPending = loadPushPending();
 
   async function syncPush(isReconnectRetry){
     if(!ghConfigured()) return;
     if(!navigator.onLine){
       // Don't even attempt the request — just mark it queued.
       pushPending = true;
+      savePushPending(true);
       setSyncStatus('pending');
       return;
     }
@@ -1051,6 +1063,7 @@ input[type=file]{ display:none; }
     try{
       await doPush();
       pushPending = false;
+      savePushPending(false);
       setSyncStatus('ok');
       if(isReconnectRetry) showToast('Sincronizado com o GitHub');
     }catch(err){
@@ -1060,6 +1073,7 @@ input[type=file]{ display:none; }
       // error the user needs to act on.
       if(!navigator.onLine || err instanceof TypeError){
         pushPending = true;
+        savePushPending(true);
         setSyncStatus('pending');
       } else {
         setSyncStatus('err');
@@ -1070,21 +1084,34 @@ input[type=file]{ display:none; }
   let pushTimer = null;
   function schedulePush(){
     if(!ghConfigured()) return;
+    // Mark dirty immediately (not just once syncPush confirms we're
+    // offline) so even an app kill during the debounce window below
+    // doesn't lose track of the fact there's unsynced local data.
+    pushPending = true;
+    savePushPending(true);
     clearTimeout(pushTimer);
     pushTimer = setTimeout(()=> syncPush(false), 1500);
   }
 
-  // Fires the moment connectivity returns, retrying any push that got
-  // queued while offline. Only shows a toast on this reconnect-triggered
-  // retry, not on every normal background sync.
-  window.addEventListener('online', ()=>{
-    if(pushPending && ghConfigured()) syncPush(true);
+  // Reconnect detection. 'online' alone is unreliable in installed iOS
+  // PWAs — it often doesn't fire if connectivity returns while the app is
+  // backgrounded/suspended. visibilitychange/pageshow act as a fallback:
+  // any time the app becomes visible again, check for a queued push.
+  function retryPendingPush(){
+    if(pushPending && ghConfigured() && navigator.onLine) syncPush(true);
+  }
+  window.addEventListener('online', retryPendingPush);
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'visible') retryPendingPush();
   });
+  window.addEventListener('pageshow', retryPendingPush);
+  window.addEventListener('focus', retryPendingPush);
 
   async function fullSync(){
     if(!ghConfigured()){ showToast('Configura o GitHub primeiro (botão ⚙)'); return; }
     if(!navigator.onLine){
       pushPending = true;
+      savePushPending(true);
       setSyncStatus('pending');
       showToast('Sem ligação — vai sincronizar automaticamente');
       return;
@@ -1098,11 +1125,13 @@ input[type=file]{ display:none; }
       // its own if GitHub reports a real conflict (409).
       await doPush();
       pushPending = false;
+      savePushPending(false);
       setSyncStatus('ok');
       showToast('Sincronizado com o GitHub');
     }catch(err){
       if(!navigator.onLine || err instanceof TypeError){
         pushPending = true;
+        savePushPending(true);
         setSyncStatus('pending');
         showToast('Sem ligação — vai sincronizar automaticamente');
       } else {
@@ -1823,8 +1852,16 @@ input[type=file]{ display:none; }
 
   if(ghConfigured()){
     if(navigator.onLine){
-      setSyncStatus('busy');
-      pullMerge().then(()=> setSyncStatus('ok')).catch(()=> setSyncStatus('err'));
+      if(pushPending){
+        // There's unsynced local data from a previous session (an offline
+        // add that never made it to GitHub). Push it first — pulling here
+        // would silently overwrite it with the last version on GitHub.
+        setSyncStatus('busy');
+        syncPush(true);
+      } else {
+        setSyncStatus('busy');
+        pullMerge().then(()=> setSyncStatus('ok')).catch(()=> setSyncStatus('err'));
+      }
     } else {
       // Opened offline: nothing to pull yet, just show the neutral
       // "waiting for connection" state instead of a false error.
