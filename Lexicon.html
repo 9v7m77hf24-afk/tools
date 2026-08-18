@@ -42,6 +42,7 @@ body{
   color:var(--text);
   font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height:100vh;
+  min-height:100dvh; /* iOS Safari: 100vh includes chrome that scrolls away, forcing a phantom scroll before the bottom toolbar appears */
   overscroll-behavior-y:none;
 }
 body.lang-eng{ --accent:var(--accent-en); }
@@ -55,6 +56,7 @@ body.lang-ar{ --accent:var(--accent-ar); }
   max-width:720px;
   margin:0 auto;
   min-height:100vh;
+  min-height:100dvh; /* iOS Safari: 100vh includes chrome that scrolls away, forcing a phantom scroll before the bottom toolbar appears */
   display:flex;
   flex-direction:column;
 }
