@@ -1016,6 +1016,15 @@ input[type=file]{ display:none; }
   }
 
   async function doPush(isRetry){
+    if(ghSha === null && !isRetry){
+      // We don't yet know the remote file's current sha (first push this
+      // session, or just reconfigured sync). GitHub requires the sha to
+      // update an existing file, otherwise it rejects the PUT (422). Fetch
+      // it via a plain GET — this only sets ghSha as a side effect, it does
+      // NOT touch local entries/eraComments, so it's safe to do even with
+      // unsynced local changes waiting to go out.
+      try{ await ghGetFile(); }catch(e){ /* network error here surfaces via the PUT below instead */ }
+    }
     const payload = { entries, eraComments };
     const jsonStr = JSON.stringify(payload, null, 2);
     const body = {
@@ -1025,8 +1034,13 @@ input[type=file]{ display:none; }
     };
     if(ghSha) body.sha = ghSha;
     const res = await fetch(ghUrl(), { method:'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
-    if(res.status === 409 && !isRetry){
-      // Remote changed since our last known sha — pull the latest, merge, and retry once
+    if((res.status === 409 || res.status === 422) && !isRetry){
+      // Remote changed since our last known sha, or we still didn't have
+      // one — pull the latest sha (and content) and retry once. Note this
+      // is the one case where a genuine remote conflict means local
+      // changes not yet reflected in `entries` could be superseded; it
+      // only triggers on an actual server-reported conflict, not on every
+      // sync.
       await pullMerge();
       return doPush(true);
     }
@@ -1118,14 +1132,20 @@ input[type=file]{ display:none; }
     }
     setSyncStatus('busy');
     try{
-      // Push local state directly (same safe path as the auto reconnect
-      // sync) instead of pulling first — pulling here would fully overwrite
-      // any offline edits with whatever was last on GitHub before we ever
-      // got a chance to push them. doPush() already pulls-and-retries on
-      // its own if GitHub reports a real conflict (409).
-      await doPush();
-      pushPending = false;
-      savePushPending(false);
+      if(pushPending){
+        // There's unsynced local data (an offline add, or a previous push
+        // that failed) — push it. Pulling first here would silently
+        // overwrite it with whatever's currently on GitHub.
+        await doPush();
+        pushPending = false;
+        savePushPending(false);
+      } else {
+        // Nothing unsynced locally — safe to pull. This covers the very
+        // first sync right after entering GitHub credentials: with no
+        // local edits yet, we want to bring down whatever's already on
+        // GitHub (e.g. from another device) rather than push over it.
+        await pullMerge();
+      }
       setSyncStatus('ok');
       showToast('Sincronizado com o GitHub');
     }catch(err){
