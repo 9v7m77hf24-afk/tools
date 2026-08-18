@@ -119,7 +119,7 @@ header.top{
 .tabs{
   display:flex;
   gap:4px;
-  margin-top:14px;
+  margin-top:0;
   overflow-x:auto;
   scrollbar-width:none;
 }
@@ -161,7 +161,7 @@ header.top{
   padding:14px 20px 12px 20px;
   background:var(--bg);
   position:sticky;
-  top:calc(139px + var(--safe-top));
+  top:calc(58px + var(--safe-top));
   z-index:20;
   display:flex;
   gap:8px;
@@ -290,8 +290,8 @@ header.top{
   color:var(--accent);
   padding:18px 2px 6px 2px;
   position:sticky;
-  top:calc(207px + var(--safe-top));
-  scroll-margin-top:calc(207px + var(--safe-top));
+  top:calc(126px + var(--safe-top));
+  scroll-margin-top:calc(126px + var(--safe-top));
   background:var(--bg);
   z-index:10;
 }
@@ -590,13 +590,6 @@ input[type=file]{ display:none; }
 <div class="app">
 
   <header class="top">
-    <div class="brand">
-      <div class="stamp"><span id="stampLabel">FR</span></div>
-      <div class="brand-text">
-        <h1>Lexicon</h1>
-        <p>FR · EN · LA · PT · GR · AR</p>
-      </div>
-    </div>
     <div class="tabs" id="tabs">
       <button class="tab" data-lang="fr">Français<span class="count" id="count-fr"></span></button>
       <button class="tab" data-lang="eng">English<span class="count" id="count-eng"></span></button>
@@ -1123,7 +1116,7 @@ input[type=file]{ display:none; }
     if(!btn) return;
     currentLang = btn.dataset.lang;
     document.body.className = 'lang-' + currentLang;
-    document.getElementById('stampLabel').textContent = LANG_META[currentLang].stamp;
+    { const sl = document.getElementById('stampLabel'); if(sl) sl.textContent = LANG_META[currentLang].stamp; }
     searchTerm = '';
     document.getElementById('searchInput').value = '';
     document.getElementById('clearSearch').style.display = 'none';
@@ -1623,7 +1616,7 @@ input[type=file]{ display:none; }
 
   // Init
   document.body.className = 'lang-' + currentLang;
-  document.getElementById('stampLabel').textContent = LANG_META[currentLang].stamp;
+  { const sl = document.getElementById('stampLabel'); if(sl) sl.textContent = LANG_META[currentLang].stamp; }
   ['fr','eng','lat','pt','gr','ar'].forEach(sortLang);
   renderAll();
 
