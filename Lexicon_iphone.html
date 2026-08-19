@@ -1611,7 +1611,7 @@ input[type=file]{ display:none; }
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ q: word, source: translateCode, target: 'pt', format: 'text' })
+      body: JSON.stringify({ q: word, source: translateCode, target: 'pt-PT', format: 'text' })
     });
     const json = await res.json();
     if(!res.ok || json.error){
