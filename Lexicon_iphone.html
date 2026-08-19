@@ -452,6 +452,7 @@ input[type=file]{ display:none; }
 .sync-dot.ok{ background:#3fb950; }
 .sync-dot.busy{ background:#d4a72c; }
 .sync-dot.err{ background:var(--danger); }
+.sync-dot.pending{ background:#8d92a6; }
 .field small{
   display:block;
   margin-top:6px;
@@ -898,6 +899,15 @@ input[type=file]{ display:none; }
   }
 
   async function doPush(isRetry){
+    if(ghSha === null && !isRetry){
+      // We don't yet know the remote file's current sha (first push this
+      // session, or just reconfigured sync). GitHub requires the sha to
+      // update an existing file, otherwise it rejects the PUT (422). Fetch
+      // it via a plain GET — this only sets ghSha as a side effect, it does
+      // NOT touch local `data`, so it's safe even with unsynced local edits
+      // waiting to go out.
+      try{ await ghGetFile(); }catch(e){ /* network error here surfaces via the PUT below instead */ }
+    }
     const jsonStr = JSON.stringify(data, null, 2);
     const body = {
       message: 'Lexicon sync ' + new Date().toISOString(),
@@ -906,8 +916,9 @@ input[type=file]{ display:none; }
     };
     if(ghSha) body.sha = ghSha;
     const res = await fetch(ghUrl(), { method:'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
-    if(res.status === 409 && !isRetry){
-      // Remote changed since our last known sha — pull the latest, merge, and retry once
+    if((res.status === 409 || res.status === 422) && !isRetry){
+      // Remote changed since our last known sha, or we still didn't have
+      // one — pull the latest sha (and content) and retry once.
       await pullMerge();
       return doPush(true);
     }
@@ -916,33 +927,134 @@ input[type=file]{ display:none; }
     ghSha = json.content.sha;
   }
 
-  async function syncPush(){
+  // True once a push has failed because we're offline (rather than a real
+  // GitHub error) and is waiting to be retried automatically on reconnect.
+  // Persisted to localStorage so it survives the app being backgrounded/
+  // killed by iOS between the offline edit and the next time we're online —
+  // otherwise a fresh launch would forget there's unsynced local data and
+  // could pull-overwrite it (see startup block below).
+  const PUSH_PENDING_KEY = 'lexicon_push_pending';
+  function loadPushPending(){
+    try{ return localStorage.getItem(PUSH_PENDING_KEY) === '1'; }catch(e){ return false; }
+  }
+  function savePushPending(v){
+    try{ localStorage.setItem(PUSH_PENDING_KEY, v ? '1' : '0'); }catch(e){}
+  }
+  let pushPending = loadPushPending();
+  let syncInFlight = false;
+
+  async function syncPush(isReconnectRetry){
     if(!ghConfigured()) return;
+    if(!navigator.onLine){
+      // Don't even attempt the request — just mark it queued.
+      pushPending = true;
+      savePushPending(true);
+      setSyncStatus('pending');
+      return;
+    }
+    if(syncInFlight) return; // a call from another trigger is already running
+    syncInFlight = true;
     setSyncStatus('busy');
-    try{ await doPush(); setSyncStatus('ok'); lastSyncError = ''; }
-    catch(err){ setSyncStatus('err'); lastSyncError = err.message || String(err); }
+    try{
+      await doPush();
+      pushPending = false;
+      savePushPending(false);
+      setSyncStatus('ok');
+      lastSyncError = '';
+      if(isReconnectRetry) showToast('Sincronizado com o GitHub');
+    }catch(err){
+      // A network-level failure (fetch throwing rather than resolving with a
+      // bad status) most likely means we lost the connection mid-request —
+      // treat it the same as offline: queue for retry, don't flag as a hard
+      // error the user needs to act on.
+      if(!navigator.onLine || err instanceof TypeError){
+        pushPending = true;
+        savePushPending(true);
+        setSyncStatus('pending');
+      } else {
+        setSyncStatus('err');
+        lastSyncError = err.message || String(err);
+      }
+    } finally {
+      syncInFlight = false;
+    }
   }
 
   let pushTimer = null;
   function schedulePush(){
     if(!ghConfigured()) return;
+    // Mark dirty immediately (not just once syncPush confirms we're
+    // offline) so even an app kill during the debounce window below
+    // doesn't lose track of the fact there's unsynced local data.
+    pushPending = true;
+    savePushPending(true);
     clearTimeout(pushTimer);
-    pushTimer = setTimeout(syncPush, 1500);
+    pushTimer = setTimeout(()=> syncPush(false), 1500);
   }
+
+  // Reconnect detection. 'online' alone is unreliable in installed iOS
+  // PWAs — it often doesn't fire if connectivity returns while the app is
+  // backgrounded/suspended. visibilitychange/pageshow/focus act as a
+  // fallback: any time the app becomes visible again, check for a queued
+  // push.
+  function retryPendingPush(){
+    if(pushPending && ghConfigured() && navigator.onLine) syncPush(true);
+  }
+  window.addEventListener('online', retryPendingPush);
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'visible') retryPendingPush();
+  });
+  window.addEventListener('pageshow', retryPendingPush);
+  window.addEventListener('focus', retryPendingPush);
+
+  // Heartbeat retry: right at the moment connectivity actually returns, the
+  // very first request often fails anyway (radio/DNS not fully up yet, even
+  // though navigator.onLine already says true). That single failed attempt
+  // would otherwise sit queued (grey/"pending") until the user happens to
+  // background/foreground the app again. Keep quietly retrying every few
+  // seconds while a push is queued so it recovers on its own without
+  // needing another visible app-switch to trigger it.
+  setInterval(retryPendingPush, 8000);
 
   async function fullSync(){
     if(!ghConfigured()){ showToast('Configura o GitHub primeiro (botão ⚙)'); return; }
+    if(!navigator.onLine){
+      pushPending = true;
+      savePushPending(true);
+      setSyncStatus('pending');
+      showToast('Sem ligação — vai sincronizar automaticamente');
+      return;
+    }
     setSyncStatus('busy');
     try{
-      await pullMerge();
-      await doPush();
+      if(pushPending){
+        // There's unsynced local data (an offline add, or a previous push
+        // that failed) — push it. Pulling first here would silently
+        // overwrite it with whatever's currently on GitHub.
+        await doPush();
+        pushPending = false;
+        savePushPending(false);
+      } else {
+        // Nothing unsynced locally — safe to pull. This covers the very
+        // first sync right after entering GitHub credentials: with no
+        // local edits yet, we want to bring down whatever's already on
+        // GitHub (e.g. from another device) rather than push over it.
+        await pullMerge();
+      }
       setSyncStatus('ok');
       lastSyncError = '';
       showToast('Sincronizado com o GitHub');
     }catch(err){
-      setSyncStatus('err');
-      lastSyncError = err.message || String(err);
-      showToast('Falha ao sincronizar: ' + lastSyncError);
+      if(!navigator.onLine || err instanceof TypeError){
+        pushPending = true;
+        savePushPending(true);
+        setSyncStatus('pending');
+        showToast('Sem ligação — vai sincronizar automaticamente');
+      } else {
+        setSyncStatus('err');
+        lastSyncError = err.message || String(err);
+        showToast('Falha ao sincronizar: ' + lastSyncError);
+      }
     }
   }
 
@@ -1621,8 +1733,22 @@ input[type=file]{ display:none; }
   renderAll();
 
   if(ghConfigured()){
-    setSyncStatus('busy');
-    pullMerge().then(()=>{ setSyncStatus('ok'); lastSyncError=''; }).catch(err=>{ setSyncStatus('err'); lastSyncError = err.message || String(err); });
+    if(navigator.onLine){
+      if(pushPending){
+        // There's unsynced local data from a previous session (an offline
+        // add that never made it to GitHub). Push it first — pulling here
+        // would silently overwrite it with the last version on GitHub.
+        setSyncStatus('busy');
+        syncPush(true);
+      } else {
+        setSyncStatus('busy');
+        pullMerge().then(()=>{ setSyncStatus('ok'); lastSyncError=''; }).catch(err=>{ setSyncStatus('err'); lastSyncError = err.message || String(err); });
+      }
+    } else {
+      // Opened offline: nothing to pull yet, just show the neutral
+      // "waiting for connection" state instead of a false error.
+      setSyncStatus('pending');
+    }
   }
 
   // If there are entries left over from a previous offline session and
