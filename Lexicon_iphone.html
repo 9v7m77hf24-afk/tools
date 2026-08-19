@@ -1601,11 +1601,36 @@ input[type=file]{ display:none; }
   // Never shown for the Português or Árabe tabs — see LANG_META.translateCode.
   const translateBtn = document.getElementById('translateBtn');
 
+  // --- Local daily safety cap on translation usage ---
+  // Google's Basic (v2) Translation API doesn't allow self-service hard
+  // quota edits on the "characters per day" / "per minute" limits for this
+  // project — only usage alerts (email, after the fact). This client-side
+  // cap is a genuine hard stop: once the daily character budget below is
+  // reached, fetchTranslation() refuses further calls until local midnight,
+  // regardless of what Google's own (unenforceable) quota is doing.
+  const TRANSLATE_DAILY_CHAR_LIMIT = 3; // TEMP: testing value — raise back to ~5000 after confirming the block works
+  function translateUsageToday(){
+    const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD, local calendar day
+    let stored;
+    try{ stored = JSON.parse(localStorage.getItem('lexicon_translate_usage') || 'null'); }catch(e){ stored = null; }
+    if(!stored || stored.date !== today) stored = { date: today, chars: 0 };
+    return stored;
+  }
+  function addTranslateUsage(chars){
+    const usage = translateUsageToday();
+    usage.chars += chars;
+    localStorage.setItem('lexicon_translate_usage', JSON.stringify(usage));
+  }
+
   // Shared with the batch "pending translations" job below, so both paths
   // hit Google Translate the same way and honour the same stored key.
   async function fetchTranslation(word, translateCode){
     if(!translateApiKey){
       throw new Error('sem chave de API — configura em "Tradução ⚙"');
+    }
+    const usage = translateUsageToday();
+    if(usage.chars + word.length > TRANSLATE_DAILY_CHAR_LIMIT){
+      throw new Error('limite diário de tradução atingido (' + TRANSLATE_DAILY_CHAR_LIMIT + ' caracteres) — tenta amanhã');
     }
     const url = 'https://translation.googleapis.com/language/translate/v2?key=' + encodeURIComponent(translateApiKey);
     const res = await fetch(url, {
@@ -1619,6 +1644,7 @@ input[type=file]{ display:none; }
     }
     const translated = json.data && json.data.translations && json.data.translations[0] && json.data.translations[0].translatedText;
     if(!translated) throw new Error('sem resultado');
+    addTranslateUsage(word.length);
     return translated;
   }
 
@@ -1677,7 +1703,8 @@ input[type=file]{ display:none; }
       return;
     }
     translatingPending = true;
-    let done = 0, failed = 0;
+    let done = 0, failed = 0, dailyLimitHit = false;
+    outer:
     for(const lang of Object.keys(LANG_META)){
       const meta = LANG_META[lang];
       if(!meta.translateCode) continue;
@@ -1690,6 +1717,10 @@ input[type=file]{ display:none; }
           done++;
         }catch(err){
           failed++; // leave needsTranslation true — retried on the next pass
+          if(/limite diário/.test(err.message || '')){
+            dailyLimitHit = true;
+            break outer; // stop hammering the same wall for every remaining word
+          }
         }
       }
     }
@@ -1699,7 +1730,9 @@ input[type=file]{ display:none; }
       persist();
       renderAll();
     }
-    if(!isAutoRun || done > 0 || failed > 0){
+    if(dailyLimitHit){
+      showToast('Limite diário de tradução atingido' + (done > 0 ? ' — ' + done + ' traduzida' + (done>1?'s':'') + ' antes disso' : '') + '. O resto tenta amanhã.');
+    }else if(!isAutoRun || done > 0 || failed > 0){
       if(done > 0 && failed === 0) showToast(done + ' palavra' + (done>1?'s':'') + ' traduzida' + (done>1?'s':'') + ' automaticamente');
       else if(done > 0 && failed > 0) showToast(done + ' traduzidas, ' + failed + ' falharam — tenta outra vez mais tarde');
       else if(failed > 0) showToast('Falha ao traduzir ' + failed + ' verbete' + (failed>1?'s':'') + ' — tenta mais tarde');
