@@ -1430,13 +1430,13 @@ input[type=file]{ display:none; }
       entry.w = w; entry.t = t; entry.c = c; entry.ref = ref;
       if(t) entry.needsTranslation = false;
       else if(pending) entry.needsTranslation = true;
-      showToast(pending ? 'Verbete guardado — vai traduzir-se automaticamente quando houver ligação' : 'Verbete atualizado');
+      showToast(pending ? 'Verbete guardado — vai traduzir-se automaticamente quando online' : 'Verbete atualizado');
     } else {
       const newId = currentLang + '-new-' + Date.now();
       const entry = { w, t, c, ref, id: newId, ts: Date.now() };
       if(pending) entry.needsTranslation = true;
       data[currentLang].push(entry);
-      showToast(pending ? 'Verbete guardado — vai traduzir-se automaticamente quando houver ligação' : 'Verbete adicionado');
+      showToast(pending ? 'Verbete guardado — vai traduzir-se automaticamente quando online' : 'Verbete adicionado');
     }
     sortLang(currentLang);
     persist();
@@ -1608,7 +1608,7 @@ input[type=file]{ display:none; }
   // cap is a genuine hard stop: once the daily character budget below is
   // reached, fetchTranslation() refuses further calls until local midnight,
   // regardless of what Google's own (unenforceable) quota is doing.
-  const TRANSLATE_DAILY_CHAR_LIMIT = 3; // TEMP: testing value — raise back to ~5000 after confirming the block works
+  const TRANSLATE_DAILY_CHAR_LIMIT = 5000; // ~800-1000 word lookups/day
   function translateUsageToday(){
     const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD, local calendar day
     let stored;
@@ -1662,7 +1662,6 @@ input[type=file]{ display:none; }
     try{
       const translated = await fetchTranslation(word, meta.translateCode);
       fieldTrans.value = translated;
-      showToast('Tradução preenchida — revê antes de guardar');
     }catch(err){
       showToast('Erro na tradução: ' + (err.message || 'falha desconhecida'));
     }finally{
