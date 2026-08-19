@@ -69,10 +69,43 @@ external services:
   connection returns.
 
 `sw.js` is deliberately set up to **never** intercept these two requests
-(`api.github.com` and `api.mymemory.translated.net`) — they always go
+(`api.github.com` and `translation.googleapis.com`) — they always go
 straight to the real network, so each app's own logic (pending/ok/err
 states, the pending-translation queue) always sees the real result and
 never a stale cached response.
+
+## Translation usage safety cap (Lexicon & Lexicon_iphone)
+
+Automatic translation uses the Google Cloud Translation API (Basic, v2),
+which is billed per character beyond a monthly free allowance. Google's own
+daily/per-minute quotas for this API can't be lowered as a hard stop on this
+project — Google only offers usage *alerts* (email, after the fact) for
+these particular quotas, not an enforceable cap.
+
+To close that gap, **both Lexicon.html and Lexicon_iphone.html** enforce
+their own local daily limit, independent of Google's quotas:
+
+- A running character count is kept in `localStorage`
+  (`lexicon_translate_usage`), resetting automatically at local midnight.
+- Before every translation call — both the manual "Traduzir" button and the
+  automatic "pending translations" batch job — the app checks this count.
+  Once the day's budget would be exceeded, it refuses to make the API call
+  at all (no request sent, no cost incurred).
+- On a single manual translation, this shows a toast: *"limite diário de
+  tradução atingido — tenta amanhã."* On the batch "pending translations"
+  job, hitting the limit stops the batch immediately (instead of failing on
+  every remaining word one by one) and shows a summary toast — how many
+  words were translated before the limit hit, and that the rest will retry
+  automatically the next day. Any pending entries left untranslated stay
+  flagged and retry automatically once the daily budget resets.
+- The limit is set via the `TRANSLATE_DAILY_CHAR_LIMIT` constant near the
+  top of the translation code in each file — currently 5000 characters/day
+  (roughly 800–1000 short word lookups) in both versions, well above normal
+  personal use but tight enough to stop a bug or accidental loop from
+  running up real cost.
+- Each version tracks its own usage independently (same `localStorage` key
+  name, but `localStorage` is per-device/per-browser, so iPad and iPhone
+  usage don't share a single budget).
 
 ## When to repeat the install steps (remove/re-add shortcut)
 
@@ -111,6 +144,7 @@ the top — nothing floats on top of the content.
 ### Lexicon (iPad/laptop / iPhone)
 - Six languages: French, English, Latin, Portuguese, Greek, Arabic.
 - Book code automatically converted to uppercase.
-- Automatic translation (MyMemory) with an offline queue and automatic
-  resume.
+- Automatic translation (Google Cloud Translation API, target pt-PT) with an
+  offline queue, automatic resume, and a local daily usage safety cap (both
+  versions — see above).
 - GitHub sync with an offline queue and automatic resume.
