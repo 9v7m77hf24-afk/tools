@@ -828,7 +828,8 @@ input[type=file]{ display:none; }
 
   let entries = null;
   let searchTerm = '';
-  let activeCategories = null; // null = all active
+  let activeCategories = null; // null = all active (first render only)
+  let knownCatsSeen = null;    // categories present at the last render, to spot new ones
   let editingId = null;
   let recentN = 5;
   let collapsedEras = loadCollapsedEras();
@@ -995,7 +996,6 @@ input[type=file]{ display:none; }
     }
     entries = migrateCategorias(importedEntries);
     eraComments = importedComments;
-    activeCategories = null;
     openCommentEra = null;
     reanchorEras();
     persist(true); // suppress auto-push — we just pulled, nothing new to send yet
@@ -1311,7 +1311,13 @@ input[type=file]{ display:none; }
     const all = hasUncat ? [...cats, ''] : cats;
     if(activeCategories === null){
       activeCategories = new Set(all);
+    } else {
+      // keep the user's selection; only brand-new categories start active,
+      // and categories that no longer exist are dropped from the selection
+      all.forEach(c => { if(!knownCatsSeen.has(c)) activeCategories.add(c); });
+      Array.from(activeCategories).forEach(c => { if(!all.includes(c)) activeCategories.delete(c); });
     }
+    knownCatsSeen = new Set(all);
     all.forEach(cat=>{
       const chip = document.createElement('button');
       const color = catColorVar(cat);
@@ -1453,6 +1459,15 @@ input[type=file]{ display:none; }
     wrap.innerHTML = '';
     const filtered = entries.filter(matchesFilter);
 
+    // The era label is stored only on the first entry of each era. If that
+    // entry is hidden by the category filter, its label would vanish, so we
+    // work out each entry's era from the FULL list (carrying the last label
+    // forward) and use that for the dividers.
+    const eraMap = new Map();
+    let carryEra = '';
+    entries.forEach(en => { if(en.era) carryEra = en.era; eraMap.set(en, carryEra); });
+    const eraOf = en => eraMap.get(en) || '';
+
     if(filtered.length === 0){
       wrap.innerHTML = '<div class="empty-state"><p>Nenhum evento encontrado.</p></div>';
       return;
@@ -1466,7 +1481,7 @@ input[type=file]{ display:none; }
     const groupCounts = {};
     let curGroupEra = null;
     filtered.forEach(e=>{
-      if(e.era && e.era !== curGroupEra){ curGroupEra = e.era; groupCounts[curGroupEra] = 0; }
+      if(eraOf(e) && eraOf(e) !== curGroupEra){ curGroupEra = eraOf(e); groupCounts[curGroupEra] = 0; }
       if(curGroupEra !== null) groupCounts[curGroupEra] = (groupCounts[curGroupEra]||0) + 1;
     });
 
@@ -1475,10 +1490,10 @@ input[type=file]{ display:none; }
     let i = 0;
     while(i < filtered.length){
       const e = filtered[i];
-      if(e.era && e.era !== lastEra){
-        lastEra = e.era;
-        skipUntilNextDivider = collapsedEras.has(e.era);
-        const eraName = e.era;
+      if(eraOf(e) && eraOf(e) !== lastEra){
+        lastEra = eraOf(e);
+        skipUntilNextDivider = collapsedEras.has(eraOf(e));
+        const eraName = eraOf(e);
         const hasComment = !!(eraComments[eraName] && eraComments[eraName].trim());
         const div = document.createElement('div');
         div.className = 'era-divider' + (skipUntilNextDivider ? ' collapsed' : '');
@@ -1674,7 +1689,6 @@ input[type=file]{ display:none; }
       insertSorted(entry);
       showToast('Evento adicionado');
     }
-    activeCategories = null; // refresh category set (in case a new one was added)
     reanchorEras();
     persist();
     closeModal();
@@ -1752,7 +1766,6 @@ input[type=file]{ display:none; }
         }
         entries = migrateCategorias(importedEntries);
         eraComments = importedComments;
-        activeCategories = null;
         openCommentEra = null;
         reanchorEras();
         persist();
